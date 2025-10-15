@@ -4,7 +4,7 @@
 #!icon=https://raw.githubusercontent.com/sooyaaabo/Loon/main/Icon/Other-Icon/CNY.png
 #!tag=去广告
 #!homepage=https://github.com/sooyaaabo/Egern
-#!date=2025-09-11 17:00
+#!date=2025-10-15 17:00
 
 [Rule]
 # 建设银行
@@ -67,8 +67,6 @@ DOMAIN,msmp.abchina.com.cn,REJECT
 # 工商银行
 ^https?:\/\/v\.icbc\.com\.cn\/userfiles\/Resources\/WAP\/advertisement\/ data-type=text data=" " status-code=200
 
-^https?:\/\/pv\.elife\.icbc\.com\.cn\/OFSTPV\/utm\.gif data-type=text data=" " status-code=200
-
 # 广州农商银行
 ^https?:\/\/mbank\.grcbank\.com\/ydyh\/resources\/startpage\/.*.(jpg|png) data-type=text data=" " status-code=200
 
@@ -99,4 +97,4 @@ DOMAIN,msmp.abchina.com.cn,REJECT
 ^https?:\/\/mlife\.jf365\.boc\.cn\/AppPrj\/FirstPic\.do\?txnId=2PIC000001 data-type=text data=" " status-code=200
 
 [MITM]
-hostname = %APPEND% static.95508.com, mps.95508.com, unionsr.chinalifeonline.com.cn, imcs.citicbank.com, wap.bank.ecitic.com, lban.spdb.com.cn, wap.spdb.com.cn, s3gw.cmbimg.com, webappcfg.paas.cmbchina.com, mbmodule-openapi.paas.cmbchina.com, image1.ccb.com, download1.bankcomm.com, mres.aibank.com, mobile.cebbank.com, yghsh.cebbank.com, v.icbc.com.cn, pv.elife.icbc.com.cn, mbank.grcbank.com, cdn.jlbank.com.cn, mbank5.jsbchina.cn, midc.cdn-static.abchina.com.cn, enjoy.cdn-static.abchina.com, firefly.abchina.com.cn, cgbank.oss-cn-shenzhen.aliyuncs.com, images.cib.com.cn, file.cibfintech.com, static.psbc.com, mcc.psbc.com, mlife.jf365.boc.cn
+hostname = %APPEND% static.95508.com, mps.95508.com, unionsr.chinalifeonline.com.cn, imcs.citicbank.com, wap.bank.ecitic.com, lban.spdb.com.cn, wap.spdb.com.cn, s3gw.cmbimg.com, webappcfg.paas.cmbchina.com, mbmodule-openapi.paas.cmbchina.com, image1.ccb.com, download1.bankcomm.com, mres.aibank.com, mobile.cebbank.com, yghsh.cebbank.com, v.icbc.com.cn, mbank.grcbank.com, cdn.jlbank.com.cn, mbank5.jsbchina.cn, midc.cdn-static.abchina.com.cn, enjoy.cdn-static.abchina.com, firefly.abchina.com.cn, cgbank.oss-cn-shenzhen.aliyuncs.com, images.cib.com.cn, file.cibfintech.com, static.psbc.com, mcc.psbc.com, mlife.jf365.boc.cn
