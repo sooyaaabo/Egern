@@ -4,13 +4,15 @@
 #!icon=https://raw.githubusercontent.com/sooyaaabo/Loon/main/Icon/Other-Icon/AdReject.png
 #!tag=去广告
 #!homepage=https://github.com/sooyaaabo/Egern
-#!date=2025-10-07 21:00
+#!date=2025-10-18 21:00
 
 [Rule]
 # DiDaChuXing
 DOMAIN-SUFFIX,shenshiads.com,REJECT
 # LeXiaoTong
 DOMAIN-SUFFIX,yfanads.com,REJECT
+# NongYeYinHang
+DOMAIN-SUFFIX,msmp.abchina.com.cn,REJECT
 
 [URL Rewrite]
 ^https?:\/\/.*zhijianmedia\.cn\/streamAd\/ad\/getAd\?position=HomepageNewsPosition - reject
@@ -33,10 +35,11 @@ http-response ^https?:\/\/mp\.weixin\.qq\.com\/mp\/getappmsgad advertisement ddg
 http-response ^https?:\/\/lcen\.xiaote\.net\/api\/graphql screenSplashAd ddgksf2013
 http-response ^https?:\/\/apps\.workair\.cn\/app\/version ads" ddgksf2013"
 http-response ^https:\/\/gw\.xiaocantech\.com\/rpc "vip_pop_up":0 "vip_pop_up":2
+http-response ^https?:\/\/j1\.pupuapi\.com\/client\/marketing\/advertisement\/v launch_time_close":\d+ launch_time_close":1660716799999
 
 [Map Local]
 # Version
-^https?:\/\/2025.10.08/c397/v2.0.621 data-type=text data=" " status-code=200
+^https?:\/\/2025.10.18/c398/v2.0.622 data-type=text data=" " status-code=200
 
 # 58 TongCheng
 ^https?:\/\/app\.58\.com\/api\/home\/(advertising|appadv) data-type=text data=" " status-code=200
@@ -679,9 +682,6 @@ http-response ^https:\/\/gw\.xiaocantech\.com\/rpc "vip_pop_up":0 "vip_pop_up":2
 
 ^https?:\/\/slapi\.oray\.net\/adver data-type=text data=" " status-code=200
 
-# PuPuChaoShi
-^https?:\/\/j1\.pupuapi\.com\/client\/marketing\/advertisement data-type=text data=" " status-code=200
-
 # PikPak
 ^https:\/\/access\.mypikpak\.com\/access_controller\/v1\/area_accessible data-type=text data=" " status-code=200
 
@@ -745,6 +745,7 @@ http-response ^https:\/\/gw\.xiaocantech\.com\/rpc "vip_pop_up":0 "vip_pop_up":2
 
 # QuChenShi
 ^https?:\/\/mystore-gw\.watsonsvip\.com\.cn\/gfu\/popup\/advert\/launch data-type=text data=" " status-code=200
+^http:\/\/[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+){1,4}(:\d+)?\/\w+\/resolv data-type=text data=" " status-code=200
 
 # QiHangJiaoYu
 ^https?:\/\/mobile\.iqihang\.com\/api\/ark\/web\/v\d\/advert data-type=text data=" " status-code=200
