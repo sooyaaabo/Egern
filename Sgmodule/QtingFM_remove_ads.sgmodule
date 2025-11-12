@@ -7,7 +7,7 @@
 #!openUrl=https://apps.apple.com/app/id506685538
 #!tag=去广告
 #!loon_version=3.2.4(787)
-#!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
+#!homepage=https://hub.kelee.one
 #!date=2025-05-13 15:17:08
 
 [URL Rewrite]
@@ -23,11 +23,11 @@ http-response-jq ^https:\/\/app\.qtfm\.cn\/m-bff\/v\d\/subscribed_channels\? 'de
 http-response-jq ^https:\/\/entry\.qtfm\.cn\/api\/v\d\/personal\/\?carrier 'delpaths([["data", "membership"], ["data", "level_info"]]) | .data.discovery.entries |= map(select(.title != "借钱"))'
 
 [Map Local]
-^https:\/\/app\.qtfm\.cn\/m-bff\/v\d\/i_listen\/guess_you_like\? data-type=text data="{}" status-code=200
+^https:\/\/app\.qtfm\.cn\/m-bff\/v\d\/i_listen\/guess_you_like\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/recpage-c\.qtfm\.cn\/v\d\/favorites$ data-type=text data="{}" status-code=200
+^https:\/\/recpage-c\.qtfm\.cn\/v\d\/favorites$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/user\.qtfm\.cn\/u\d\/api\/v\d\/user\/following_podcaster\? data-type=text data="{}" status-code=200
+^https:\/\/user\.qtfm\.cn\/u\d\/api\/v\d\/user\/following_podcaster\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 [MITM]
 hostname = %APPEND% app.qtfm.cn, entry.qtfm.cn, recpage-c.qtfm.cn, user.qtfm.cn, search.qtfm.cn

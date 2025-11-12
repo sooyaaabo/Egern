@@ -7,16 +7,16 @@
 #!openUrl=https://apps.apple.com/app/id710189980
 #!tag=去广告
 #!loon_version=3.2.4(787)
-#!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
+#!homepage=https://hub.kelee.one
 #!date=2025-05-13 15:17:08
 
 [URL Rewrite]
 ^https:\/\/zgrb\.epicc\.com\.cn\/G-HAPP\/h\/headlines\/queryHeadlines - reject
 
 [Map Local]
-^https:\/\/zgrb\.epicc\.com\.cn\/G-HAPP\/a\/update\/startupPage\/v1 data-type=text data="{}" status-code=200
+^https:\/\/zgrb\.epicc\.com\.cn\/G-HAPP\/a\/update\/startupPage\/v1 data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/zgrb\.epicc\.com\.cn\/G-HAPP\/a\/config\/guessYouLike\/v3 data-type=text data="{}" status-code=200
+^https:\/\/zgrb\.epicc\.com\.cn\/G-HAPP\/a\/config\/guessYouLike\/v3 data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 [Script]
 移除主页推广 = type=http-response, pattern=^https:\/\/zgrb\.epicc\.com\.cn\/G-HAPP\/a\/config\/homeInit\/v3, script-path=https://kelee.one/Resource/JavaScript/PICC_Insurance/PICC_Insurance_remove_ads.js, requires-body=true

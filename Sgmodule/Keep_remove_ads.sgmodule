@@ -7,8 +7,8 @@
 #!openUrl=https://apps.apple.com/app/id952694580
 #!tag=去广告
 #!loon_version=3.2.4(787)
-#!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
-#!date=2025-05-23 13:32:55
+#!homepage=https://hub.kelee.one
+#!date=2025-09-18 15:59:53
 
 [Rule]
 DOMAIN,kad.gotokeep.com,REJECT,extended-matching,pre-matching
@@ -58,22 +58,25 @@ http-response-jq ^https:\/\/api\.gotokeep\.com\/op-engine-webapp\/v1\/configs$ '
 http-response-jq ^https:\/\/api\.gotokeep\.com\/op-engine-webapp\/v1\/configs$ 'delpaths([["data","closeConfirmButtonText"]])'
 http-response-jq ^https:\/\/api\.gotokeep\.com\/twins\/union\/feed\/union_feed_all$ '.data.modules |= map(select(.code == "unionFeedEntry"))'
 http-response-jq ^https:\/\/api\.gotokeep\.com\/twins\/v4\/feed\/entryDetail\? 'if (getpath([]) | has("data")) then (setpath(["data"]; {})) else . end'
-http-response-jq ^https:\/\/api\.gotokeep\.com\/config\/v3\/basic\? '.data.bottomBarControl.tabs |= map(select(.tabType | . == "home" or . == "dynamic_sports" or . == "personal")) | .data.homeTabs |= map(select(.type | . == "socialTab" or . == "union_feed_all" or . == "homeRecommend" or . == "suitTab" or . == "union_feed_route"))'
+http-response-jq ^https:\/\/api\.gotokeep\.com\/config\/v3\/basic\? '.data.bottomBarControl.tabs |= map(select(.tabType | . == "home" or . == "schedule" or . == "dynamic_sports" or . == "personal")) | .data.homeTabs |= map(select(.type | . == "socialTab" or . == "union_feed_all" or . == "homeRecommend" or . == "suitTab" or . == "union_feed_route"))'
+http-response-jq ^https:\/\/api\.gotokeep\.com\/pencil-webapp\/play\/v1\/games\? '.data.games[].microGames[] |= if .leftIcon? and .leftIcon.type == "aiMode" then del(.leftIcon) else . end'
 
 [Map Local]
-^https:\/\/api\.gotokeep\.com\/op-engine-webapp\/v1\/ad\/ data-type=text data="{}" status-code=200
+^https:\/\/api\.gotokeep\.com\/op-engine-webapp\/v1\/ad\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/api\.gotokeep\.com\/search\/v6\/default\/keyword\/list\? data-type=text data="{}" status-code=200
+^https:\/\/api\.gotokeep\.com\/search\/v6\/default\/keyword\/list\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/api\.gotokeep\.com\/twins\/v4\/feed\/followPage\? data-type=text data="{}" status-code=200
+^https:\/\/api\.gotokeep\.com\/twins\/v4\/feed\/followPage\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/api\.gotokeep\.com\/guide-webapp\/v1\/popup\/getPopUp\? data-type=text data="{}" status-code=200
+^https:\/\/api\.gotokeep\.com\/twins\/union\/feed\/function\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/api\.gotokeep\.com\/search\/v5\/hotCourse\/list$ data-type=text data="{}" status-code=200
+^https:\/\/api\.gotokeep\.com\/guide-webapp\/v1\/popup\/getPopUp\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/api\.gotokeep\.com\/search\/v4\/hotHashtag\/list$ data-type=text data="{}" status-code=200
+^https:\/\/api\.gotokeep\.com\/search\/v5\/hotCourse\/list$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/api\.gotokeep\.com\/search\/v4\/hotword\/list\? data-type=text data="{}" status-code=200
+^https:\/\/api\.gotokeep\.com\/search\/v4\/hotHashtag\/list$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/api\.gotokeep\.com\/search\/v4\/hotword\/list\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 [MITM]
 hostname = %APPEND% api.gotokeep.com

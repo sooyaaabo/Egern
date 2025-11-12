@@ -7,7 +7,7 @@
 #!openUrl=https://apps.apple.com/app/id1195860596
 #!tag=去广告
 #!loon_version=3.2.4(787)
-#!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
+#!homepage=https://hub.kelee.one
 #!date=2025-05-13 15:17:08
 
 [Body Rewrite]
@@ -15,13 +15,13 @@ http-response-jq ^https:\/\/api\.kmovie\.gifshow\.com\/rest\/n\/kmovie\/app\/ban
 http-response-jq ^https:\/\/api\.kmovie\.gifshow\.com\/rest\/n\/kmovie\/app\/banner\/common\/getAllBannerPage\? 'del(.data[] | select(.bannerChannelName == "活动"))'
 
 [Map Local]
-^https:\/\/api\.kmovie\.gifshow\.com\/rest\/n\/kmovie\/app\/resource\/get\? data-type=text data="{}" status-code=200
+^https:\/\/api\.kmovie\.gifshow\.com\/rest\/n\/kmovie\/app\/resource\/get\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/api\.kmovie\.gifshow\.com\/rest\/n\/kmovie\/app\/banner\/common\/getBannerByType\? data-type=text data="{}" status-code=200
+^https:\/\/api\.kmovie\.gifshow\.com\/rest\/n\/kmovie\/app\/banner\/common\/getBannerByType\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/api\.kmovie\.gifshow\.com\/rest\/n\/kmovie\/app\/merchant\/ad\/ data-type=text data="{}" status-code=200
+^https:\/\/api\.kmovie\.gifshow\.com\/rest\/n\/kmovie\/app\/merchant\/ad\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/api\.kmovie\.gifshow\.com\/rest\/n\/kmovie\/app\/resource\/activity\/pendant\? data-type=text data="{}" status-code=200
+^https:\/\/api\.kmovie\.gifshow\.com\/rest\/n\/kmovie\/app\/resource\/activity\/pendant\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 [MITM]
 hostname = %APPEND% api.kmovie.gifshow.com

@@ -7,7 +7,7 @@
 #!openUrl=https://apps.apple.com/app/id1467852587
 #!tag=去广告
 #!loon_version=3.2.4(787)
-#!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
+#!homepage=https://hub.kelee.one
 #!date=2025-05-13 15:17:08
 
 [Body Rewrite]
@@ -15,9 +15,9 @@ http-response-jq ^https:\/\/mbd\.baidu\.com\/ccs\/v1\/start\/confsync\? 'delpath
 http-response-jq ^https:\/\/mbd\.baidu\.com\/ccs\/v1\/start\/confsync\? 'delpaths([["data","service","config","youa","pm_config_ad"]])'
 
 [Map Local]
-^https:\/\/pan\.baidu\.com\/act\/api\/conf\?.*conf_key=youa_core_config_ios data-type=text data="{}" status-code=200
+^https:\/\/pan\.baidu\.com\/act\/api\/conf\?.*conf_key=youa_core_config_ios data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/pan\.baidu\.com\/youai\/material\/v1\/getbynavid\?.*nav_id=1 data-type=text data="{}" status-code=200
+^https:\/\/pan\.baidu\.com\/youai\/material\/v1\/getbynavid\?.*nav_id=1 data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 [MITM]
 hostname = %APPEND% pan.baidu.com, mbd.baidu.com

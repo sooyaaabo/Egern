@@ -7,7 +7,7 @@
 #!openUrl=https://apps.apple.com/app/id1002355194
 #!tag=去广告
 #!loon_version=3.2.4(787)
-#!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
+#!homepage=https://hub.kelee.one
 #!date=2025-05-13 15:17:08
 
 [Body Rewrite]
@@ -23,25 +23,25 @@ http-response-jq ^https:\/\/app\.zhuanzhuan\.com\/zz\/transfer\/getmyprofilev3$ 
 http-response-jq ^https:\/\/app\.zhuanzhuan\.com\/zz\/transfer\/getmyprofilev3$ 'del(.respData.itemGroupList[].itemList[] | select(.name == "天天赚钱" or .name == "借钱")) | del(.respData.itemGroupList[] | select(.groupType == 15))'
 
 [Map Local]
-^https:\/\/app\.zhuanzhuan\.com\/zz\/v2\/zzlogic\/getOpenScreen$ data-type=text data="{}" status-code=200
+^https:\/\/app\.zhuanzhuan\.com\/zz\/v2\/zzlogic\/getOpenScreen$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/app\.zhuanzhuan\.com\/zz\/v2\/zzinfoshow\/getwindvanecardv2$ data-type=text data="{}" status-code=200
+^https:\/\/app\.zhuanzhuan\.com\/zz\/v2\/zzinfoshow\/getwindvanecardv2$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/app\.zhuanzhuan\.com\/zzopen\/popwindow\/getallpopwin\? data-type=text data="{}" status-code=200
+^https:\/\/app\.zhuanzhuan\.com\/zzopen\/popwindow\/getallpopwin\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/app\.zhuanzhuan\.com\/zzopen\/zzbmlogic\/queryFrontPageWindowInfo\? data-type=text data="{}" status-code=200
+^https:\/\/app\.zhuanzhuan\.com\/zzopen\/zzbmlogic\/queryFrontPageWindowInfo\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/app\.zhuanzhuan\.com\/zzopen\/ptuserlogic\/subscribehotrecommend$ data-type=text data="{}" status-code=200
+^https:\/\/app\.zhuanzhuan\.com\/zzopen\/ptuserlogic\/subscribehotrecommend$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/app\.zhuanzhuan\.com\/zzopen\/ypmall\/listData$ data-type=text data="{}" status-code=200
+^https:\/\/app\.zhuanzhuan\.com\/zzopen\/ypmall\/listData$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/app\.zhuanzhuan\.com\/zz\/v2\/zzusercenter\/myprofilevariouscards$ data-type=text data="{}" status-code=200
+^https:\/\/app\.zhuanzhuan\.com\/zz\/v2\/zzusercenter\/myprofilevariouscards$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/app\.zhuanzhuan\.com\/zzopen\/ptsimpleshow\/recommendbymyloveinfo\? data-type=text data="{"respCode":0,"errorMsg":"null","errMsg":""}" status-code=200 header="Content-Type:text/json"
+^https:\/\/app\.zhuanzhuan\.com\/zzopen\/ptsimpleshow\/recommendbymyloveinfo\? data-type=text data="{"respCode":0,"errorMsg":"null","errMsg":""}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/app\.zhuanzhuan\.com\/zz\/v2\/zzinfoshow\/footprintsamerecommend\? data-type=text data="{"respCode":0,"errorMsg":"","errMsg":""}" status-code=200 header="Content-Type:text/json"
+^https:\/\/app\.zhuanzhuan\.com\/zz\/v2\/zzinfoshow\/footprintsamerecommend\? data-type=text data="{"respCode":0,"errorMsg":"","errMsg":""}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/app\.zhuanzhuan\.com\/zz\/v2\/zzinfoshow\/getchoicegoodsinfos\? data-type=text data="{"respCode":0,"respData":{},"errorMsg":"","errMsg":""}" status-code=200 header="Content-Type:text/json"
+^https:\/\/app\.zhuanzhuan\.com\/zz\/v2\/zzinfoshow\/getchoicegoodsinfos\? data-type=text data="{"respCode":0,"respData":{},"errorMsg":"","errMsg":""}" status-code=200 header="Content-Type:application/json"
 
 [MITM]
 hostname = %APPEND% app.zhuanzhuan.com

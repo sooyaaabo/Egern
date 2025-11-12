@@ -7,7 +7,7 @@
 #!openUrl=https://apps.apple.com/app/id336141475
 #!tag=去广告
 #!loon_version=3.2.4(787)
-#!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
+#!homepage=https://hub.kelee.one
 #!date=2025-05-13 15:17:08
 
 [Rule]
@@ -35,7 +35,7 @@ DOMAIN,ykad-data.youku.com,REJECT,extended-matching,pre-matching
 DOMAIN,youku-acs.m.taobao.com,REJECT,extended-matching,pre-matching
 
 [Map Local]
-^https:\/\/acs\.youku\.com\/gw\/mtop\.youku\.(pisp\.scripts\.get|xspace\.play\.position\.preload\.query|xspace\.poplayer\.position\.query) data-type=text data="{}" status-code=200
+^https:\/\/acs\.youku\.com\/gw\/mtop\.youku\.(pisp\.scripts\.get|xspace\.play\.position\.preload\.query|xspace\.poplayer\.position\.query) data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 [Script]
 移除首页广告 = type=http-response, pattern=^https:\/\/acs\.youku\.com\/gw\/mtop\.youku\.columbus\.(gateway\.new\.execute|home\.feed|home\.query|uc\.query|ycp\.query), script-path=https://kelee.one/Resource/JavaScript/YouKu_Video/YouKu_Video_remove_ads.js, requires-body=true

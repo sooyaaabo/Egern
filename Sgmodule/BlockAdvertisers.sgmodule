@@ -1,27 +1,48 @@
 # 引用链接: https://raw.githubusercontent.com/QingRex/LoonKissSurge/main/Surge/%E5%B9%BF%E5%91%8A%E5%B9%B3%E5%8F%B0%E6%8B%A6%E6%88%AA%E5%99%A8.sgmodule
 #!name=广告平台拦截器
-#!desc=此插件是所有去广告插件的基础，只针对广告平台处理。你依然需要安装其他去广告插件来搭配使用，并确保此插件始终排序在顶部。\n\n支持拦截腾讯、字节跳动、快手、百度、邑盟、倍孜、艾狄墨搏、袤博、极光、个推、友盟、阿里、优比客思、秒针、网易、美团、小米、京东、天目、讯飞、泛连、锐讯灵通、聚次方、美数、嗨量、维快网络、变现猫、章鱼、分秒、泰之菩、翼信、快易、数萤技术、方麟、益起、上量优选、新义互联、腾云天下、布里奇、塔酷、丽声、推啊、旺脉、新度博望、新多广告、快易科技、封狐信息、互裕科技、旺脉信息、佳量动力、享点科技、游昆信息、小川科技、Google、SupersonicAds、APPSAD、Adjust、Sigmob、TradPlus、Fancy、MedPro等广告平台的广告请求，更适合iOS平台的应用。
+#!desc=此插件是所有去广告插件的基础，只针对广告平台处理。你依然需要安装其他去广告插件来搭配使用，并确保此插件始终排序在顶部。\n\n支持拦截腾讯、字节跳动、快手、百度、邑盟、倍孜、艾狄墨搏、袤博、极光、个推、友盟、阿里、超级汇川、优比客思、秒针、网易、美团、小米、京东、天目、讯飞、泛连、锐讯灵通、聚次方、美数、嗨量、维快网络、变现猫、章鱼、分秒、泰之菩、翼信、快易、数萤技术、方麟、益起、上量优选、新义互联、腾云天下、布里奇、塔酷、丽声、推啊、旺脉、新度博望、新多广告、快易科技、封狐信息、互裕科技、旺脉信息、佳量动力、享点科技、游昆信息、小川科技、旺脉科技、Google、SupersonicAds、APPSAD、Adjust、Sigmob、TradPlus、Fancy、MedPro、AppLovin、Unity3D、Tapjoy、Liftoff、Vungle、Moloco、Smadex、Tapad、Appier、InMobi、AppsFlyer、AppLovin、Moloco、RayJump、RixEngine等广告平台的广告请求，更适合iOS平台的应用。
 #!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/Website_icon/120px/TencentAd.png
 #!category=iKeLee
-#!tag=去广告
+#!tag=去广告, 依赖
 #!loon_version=3.2.4(787)
-#!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
-#!date=2025-07-10 20:42:55
+#!homepage=https://hub.kelee.one
+#!date=2025-11-10 18:30:23
 
 [Rule]
-AND,((OR,((DOMAIN-KEYWORD,p1-be-pb,extended-matching),(DOMAIN-KEYWORD,lf3-plat,extended-matching),(DOMAIN-KEYWORD,lf6-plat,extended-matching),(DOMAIN-KEYWORD,lf9-plat,extended-matching),(DOMAIN-KEYWORD,lf26-plat,extended-matching),(DOMAIN-KEYWORD,s1-fe-scm,extended-matching),(DOMAIN-KEYWORD,s9-fe-scm,extended-matching),(DOMAIN-KEYWORD,s3-fe-scm,extended-matching),(DOMAIN-KEYWORD,sf3-be-tos,extended-matching),(DOMAIN-KEYWORD,sf1-fe-tos,extended-matching),(DOMAIN-KEYWORD,v1-be-pack,extended-matching),(DOMAIN-KEYWORD,sf1-be-tos,extended-matching),(DOMAIN-KEYWORD,v9-be-pack,extended-matching),(DOMAIN-KEYWORD,v6-be-pack,extended-matching),(DOMAIN-KEYWORD,v5-be-pack,extended-matching),(DOMAIN-KEYWORD,v3-be-pack,extended-matching),(DOMAIN-KEYWORD,sf6-fe-tos,extended-matching),(DOMAIN-KEYWORD,sf3-fe-tos,extended-matching),(DOMAIN-KEYWORD,p1-platform,extended-matching),(DOMAIN-KEYWORD,sf1-be-pack,extended-matching),(DOMAIN-KEYWORD,sf1-vc-pack,extended-matching),(DOMAIN-KEYWORD,sf3-be-pack,extended-matching),(DOMAIN-KEYWORD,sf3-vc-pack,extended-matching),(DOMAIN-KEYWORD,sf6-be-pack,extended-matching),(DOMAIN-KEYWORD,v1-dpa-pack,extended-matching),(DOMAIN-KEYWORD,p9-be-endcard,extended-matching),(DOMAIN-KEYWORD,p1-be-endcard,extended-matching),(DOMAIN-KEYWORD,sf1-scmcdn-tos,extended-matching),(DOMAIN-KEYWORD,sf3-scmcdn-tos,extended-matching),(DOMAIN-KEYWORD,sf6-scmcdn-tos,extended-matching),(DOMAIN-KEYWORD,lf3-reward-sign,extended-matching),(DOMAIN-KEYWORD,p6-be-pack-sign,extended-matching),(DOMAIN-KEYWORD,p3-be-pack-sign,extended-matching),(DOMAIN-KEYWORD,s3-platform-scm,extended-matching),(DOMAIN-KEYWORD,s9-platform-scm,extended-matching),(DOMAIN-KEYWORD,p9-be-pack-sign,extended-matching),(DOMAIN-KEYWORD,lf9-reward-sign,extended-matching),(DOMAIN-KEYWORD,v6-be-pack-nxyd,extended-matching),(DOMAIN-KEYWORD,lf3-ad-union-sdk,extended-matching),(DOMAIN-KEYWORD,lf6-ad-union-sdk,extended-matching),(DOMAIN-KEYWORD,p26-be-pack-sign,extended-matching),(DOMAIN-KEYWORD,sf1-be-auditpack,extended-matching),(DOMAIN-KEYWORD,lf9-ad-union-sdk,extended-matching),(DOMAIN-KEYWORD,lf3-sf-be-tos-sign,extended-matching),(DOMAIN-KEYWORD,lf9-sf-be-tos-sign,extended-matching),(DOMAIN-KEYWORD,lf6-sf-be-tos-sign,extended-matching),(DOMAIN-KEYWORD,lf26-sf-be-tos-sign,extended-matching),(DOMAIN-KEYWORD,lf6-sf-be-pack-sign,extended-matching),(DOMAIN-KEYWORD,lf9-sf-be-pack-sign,extended-matching),(DOMAIN-KEYWORD,lf3-sf-be-pack-sign,extended-matching),(DOMAIN-KEYWORD,lf26-sf-be-pack-sign,extended-matching))),(DOMAIN-SUFFIX,pglstatp-toutiao.com,extended-matching)),REJECT,pre-matching
-AND,((OR,((DOMAIN-KEYWORD,api-access,extended-matching),(DOMAIN-KEYWORD,api-access,extended-matching),(DOMAIN-KEYWORD,api-access,extended-matching),(DOMAIN-KEYWORD,api-access,extended-matching),(DOMAIN-KEYWORD,content-union,extended-matching),(DOMAIN-KEYWORD,dpa-pack,extended-matching),(DOMAIN-KEYWORD,ecom,extended-matching),(DOMAIN-KEYWORD,empower,extended-matching),(DOMAIN-KEYWORD,endcard-pack,extended-matching),(DOMAIN-KEYWORD,ether-pack,extended-matching),(DOMAIN-KEYWORD,gromore,extended-matching),(DOMAIN-KEYWORD,log-api,extended-matching),(DOMAIN-KEYWORD,mix,extended-matching),(DOMAIN-KEYWORD,novel,extended-matching),(DOMAIN-KEYWORD,track-pack-lq,extended-matching))),(DOMAIN-KEYWORD,pangolin-sdk-toutiao,extended-matching)),REJECT,pre-matching
-AND,((DOMAIN-KEYWORD,tnc,extended-matching),(OR,((DOMAIN-SUFFIX,zijieapi.com,extended-matching),(DOMAIN-SUFFIX,snssdk.com,extended-matching),(DOMAIN-SUFFIX,sgsnssdk.com,extended-matching)))),REJECT,pre-matching
-AND,((DOMAIN-KEYWORD,pangolin,extended-matching),(OR,((DOMAIN-SUFFIX,zijieapi.com,extended-matching),(DOMAIN-SUFFIX,snssdk.com,extended-matching),(DOMAIN-SUFFIX,sgsnssdk.com,extended-matching)))),REJECT,pre-matching
+AND,((DOMAIN-KEYWORD,tnc,extended-matching),(OR,((DOMAIN-SUFFIX,capcutapi.com,extended-matching),(DOMAIN-SUFFIX,zijieapi.com,extended-matching),(DOMAIN-SUFFIX,isnssdk.com,extended-matching),(DOMAIN-SUFFIX,toutiaoapi.com,extended-matching),(DOMAIN-SUFFIX,bytedance.com,extended-matching),(DOMAIN-SUFFIX,snssdk.com,extended-matching),(DOMAIN-SUFFIX,sgsnssdk.com,extended-matching)))),DIRECT
+AND,((OR,((DOMAIN-KEYWORD,api-access,extended-matching),(DOMAIN-KEYWORD,log-api,extended-matching))),(DOMAIN-KEYWORD,pangolin-sdk-toutiao,extended-matching)),REJECT,pre-matching
 AND,((DOMAIN-KEYWORD,-ad-,extended-matching),(DOMAIN-SUFFIX,byteimg.com,extended-matching)),REJECT,pre-matching
 AND,((DOMAIN-KEYWORD,ads,extended-matching),(DOMAIN-KEYWORD,normal,extended-matching),(DOMAIN-SUFFIX,zijieapi.com,extended-matching)),REJECT,pre-matching
+DOMAIN,lf-ad-ies.bytecdn.cn,REJECT,extended-matching,pre-matching
+DOMAIN,dig.bdurl.net,REJECT,extended-matching,pre-matching
+DOMAIN,extlog.snssdk.com,REJECT,extended-matching,pre-matching
+DOMAIN,mcs.snssdk.com,REJECT,extended-matching,pre-matching
+DOMAIN-SUFFIX,bds.snssdk.com,REJECT,extended-matching,pre-matching
+DOMAIN-SUFFIX,byteadverts.com,REJECT,extended-matching,pre-matching
+DOMAIN-SUFFIX,ctobsnssdk.com,REJECT,extended-matching,pre-matching
+DOMAIN-SUFFIX,pangolin-dsp-toutiao-b.com,REJECT,extended-matching,pre-matching
+DOMAIN-SUFFIX,pangolin-dsp-toutiao.com,REJECT,extended-matching,pre-matching
+DOMAIN-SUFFIX,pangolin-sdk-toutiao-b.com,REJECT,extended-matching,pre-matching
+DOMAIN-SUFFIX,pangolin-sdk-toutiao.com,REJECT,extended-matching,pre-matching
+DOMAIN-SUFFIX,pangolin-sdk-toutiao1.com,REJECT,extended-matching,pre-matching
+DOMAIN-SUFFIX,pangolin.snssdk.com,REJECT,extended-matching,pre-matching
+DOMAIN-SUFFIX,panplayable-toutiao-b.com,REJECT,extended-matching,pre-matching
+DOMAIN-SUFFIX,panplayable-toutiao.com,REJECT,extended-matching,pre-matching
+DOMAIN-SUFFIX,pglstatp-sdk-toutiao.com,REJECT,extended-matching,pre-matching
+DOMAIN-SUFFIX,pglstatp-snssdk-toutiao.com,REJECT,extended-matching,pre-matching
+DOMAIN-SUFFIX,pglstatp-toutiao-b.com,REJECT,extended-matching,pre-matching
+DOMAIN-SUFFIX,pglstatp-toutiao.com,REJECT,extended-matching,pre-matching
+DOMAIN-SUFFIX,sf3-ttcdn-tos.pstatp.com,REJECT,extended-matching,pre-matching
+DOMAIN,sf3-fe-tos.pglstatp-toutiao.com,REJECT,extended-matching,pre-matching
 DOMAIN-KEYWORD,-ad-sign.byteimg.com,REJECT,extended-matching,pre-matching
 DOMAIN-KEYWORD,-ad.byteoversea.com,REJECT,extended-matching,pre-matching
 DOMAIN-KEYWORD,asiad.byteactivity,REJECT,extended-matching,pre-matching
+DOMAIN-SUFFIX,pangle.io,REJECT,extended-matching,pre-matching
 DOMAIN-KEYWORD,iflyad.bj.openstorage.cn,REJECT,extended-matching,pre-matching
 DOMAIN-KEYWORD,bjimp.voiceads.cn,REJECT,extended-matching,pre-matching
 DOMAIN-SUFFIX,1rtb.net,REJECT,extended-matching,pre-matching
+DOMAIN-SUFFIX,1rtb.com,REJECT,extended-matching,pre-matching
 DOMAIN-SUFFIX,halomobi.com,REJECT,extended-matching,pre-matching
 DOMAIN-SUFFIX,hubcloud.com.cn,REJECT,extended-matching,pre-matching
 DOMAIN-SUFFIX,inmobi.cn,REJECT,extended-matching,pre-matching
@@ -63,6 +84,7 @@ DOMAIN-SUFFIX,union.baidu.cn,REJECT,extended-matching,pre-matching
 DOMAIN-SUFFIX,union.baidu.com,REJECT,extended-matching,pre-matching
 DOMAIN,adsmind.gdtimg.com,REJECT,extended-matching,pre-matching
 DOMAIN,adsmind.ugdtimg.com,REJECT,extended-matching,pre-matching
+DOMAIN,ads.privacy.qq.com,REJECT,extended-matching,pre-matching
 DOMAIN,c2.gdt.qq.com,REJECT,extended-matching,pre-matching
 DOMAIN,2fwin.gdt.qq.com,REJECT,extended-matching,pre-matching
 DOMAIN,huatuocode.huatuo.qq.com,REJECT,extended-matching,pre-matching
@@ -71,7 +93,6 @@ DOMAIN,info6.video.qq.com,REJECT,extended-matching,pre-matching
 DOMAIN,ios.bugly.qq.com,REJECT,extended-matching,pre-matching
 DOMAIN,pro.bugly.qq.com,REJECT,extended-matching,pre-matching
 DOMAIN,ios.video.mpush.qq.com,REJECT,extended-matching,pre-matching
-DOMAIN,us.l.qq.com,REJECT,extended-matching,pre-matching
 DOMAIN,mi.gdt.qq.com,REJECT,extended-matching,pre-matching
 DOMAIN,otheve.beacon.qq.com,REJECT,extended-matching,pre-matching
 DOMAIN,pgdt.gtimg.cn,REJECT,extended-matching,pre-matching
@@ -92,15 +113,24 @@ DOMAIN,win.gdt.qq.com,REJECT,extended-matching,pre-matching
 DOMAIN,wup.imtt.qq.com,REJECT,extended-matching,pre-matching
 DOMAIN,tpstelemetry.tencent.com,REJECT,extended-matching,pre-matching
 DOMAIN,ii.gdt.qq.com,REJECT,extended-matching,pre-matching
+DOMAIN,otheve.beacon.qq.com,REJECT,extended-matching,pre-matching
+DOMAIN,stat.y.qq.com,REJECT,extended-matching,pre-matching
+DOMAIN,stat6.y.qq.com,REJECT,extended-matching,pre-matching
+DOMAIN,oth.str.mdt.qq.com,REJECT,extended-matching,pre-matching
+DOMAIN,h.trace.qq.com,REJECT,extended-matching,pre-matching
+DOMAIN,sdk.e.qq.com,REJECT,extended-matching,pre-matching
+DOMAIN,tangram.e.qq.com,REJECT,extended-matching,pre-matching
 DOMAIN-KEYWORD,trace.qq.com,REJECT,extended-matching,pre-matching
 DOMAIN-KEYWORD,trace.video.qq.com,REJECT,extended-matching,pre-matching
 DOMAIN-KEYWORD,ad.hunyuan.tencent.com,REJECT,extended-matching,pre-matching
 DOMAIN-SUFFIX,gdt.qq.com,REJECT,extended-matching,pre-matching
 DOMAIN-SUFFIX,l.qq.com,REJECT,extended-matching,pre-matching
+DOMAIN-SUFFIX,imtmp.net,REJECT,extended-matching,pre-matching
 DOMAIN-SUFFIX,ugdtimg.com,REJECT,extended-matching,pre-matching
 IP-CIDR,47.110.187.87/32,REJECT,no-resolve,pre-matching
 DOMAIN-SUFFIX,openinstall.io,REJECT,extended-matching,pre-matching
 DOMAIN-SUFFIX,getui.com,REJECT,extended-matching,pre-matching
+DOMAIN-SUFFIX,getui.net,REJECT,extended-matching,pre-matching
 DOMAIN-SUFFIX,igexin.com,REJECT,extended-matching,pre-matching
 DOMAIN-SUFFIX,umtrack.com,REJECT,extended-matching,pre-matching
 DOMAIN-SUFFIX,umeng.com,REJECT,extended-matching,pre-matching
@@ -114,10 +144,13 @@ DOMAIN,ems.youku.com,REJECT,extended-matching,pre-matching
 DOMAIN,hudong.alicdn.com,REJECT,extended-matching,pre-matching
 DOMAIN,et.tanx.com,REJECT,extended-matching,pre-matching
 DOMAIN,df.tanx.com,REJECT,extended-matching,pre-matching
+DOMAIN,opehs.tanx.com,REJECT,extended-matching,pre-matching
 DOMAIN,beacon-api.aliyuncs.com,REJECT,extended-matching,pre-matching
 DOMAIN,adash.man.aliyuncs.com,REJECT,extended-matching,pre-matching
 DOMAIN,applog.uc.cn,REJECT,extended-matching,pre-matching
 AND,((DOMAIN-KEYWORD,adash,extended-matching),(DOMAIN-SUFFIX,ut.taobao.com,extended-matching)),REJECT,pre-matching
+URL-REGEX,"^http:\/\/.+\/amdc\/mobileDispatch",REJECT,extended-matching
+DOMAIN,huichuan.sm.cn,REJECT,extended-matching,pre-matching
 DOMAIN,nex.163.com,REJECT,extended-matching,pre-matching
 DOMAIN,iad.g.163.com,REJECT,extended-matching,pre-matching
 DOMAIN,gorgon.youdao.com,REJECT,extended-matching,pre-matching
@@ -158,6 +191,7 @@ DOMAIN-SUFFIX,adjust.com,REJECT,extended-matching,pre-matching
 DOMAIN-SUFFIX,adjust.net.in,REJECT,extended-matching,pre-matching
 DOMAIN-SUFFIX,doubleclick-cn.net,REJECT,extended-matching,pre-matching
 DOMAIN-SUFFIX,googlesyndication-cn.com,REJECT,extended-matching,pre-matching
+DOMAIN,fundingchoicesmessages.google.com,REJECT,extended-matching,pre-matching
 DOMAIN-SUFFIX,xinduoad.com,REJECT,extended-matching,pre-matching
 DOMAIN-SUFFIX,kuaiyiad.com,REJECT,extended-matching,pre-matching
 DOMAIN,statis.miwuad.com,REJECT,extended-matching,pre-matching
@@ -171,10 +205,27 @@ DOMAIN-SUFFIX,api.touch-moblie.com,REJECT,extended-matching,pre-matching
 DOMAIN,mercury-gateway.ixiaochuan.cn,REJECT,extended-matching,pre-matching
 DOMAIN,adapi.izuiyou.com,REJECT,extended-matching,pre-matching
 DOMAIN-SUFFIX,domob.cn,REJECT,extended-matching,pre-matching
+DOMAIN-SUFFIX,adwangmai.com,REJECT,extended-matching,pre-matching
 DOMAIN-SUFFIX,bxsnews.com,REJECT,extended-matching,pre-matching
 DOMAIN-SUFFIX,tradplusad.com,REJECT,extended-matching,pre-matching
 DOMAIN-SUFFIX,fancyapi.com,REJECT,extended-matching,pre-matching
 DOMAIN-SUFFIX,medproad.com,REJECT,extended-matching,pre-matching
+DOMAIN-SUFFIX,applovin.com,REJECT,extended-matching,pre-matching
+DOMAIN-SUFFIX,iads.unity3d.com,REJECT,extended-matching,pre-matching
+DOMAIN-SUFFIX,unityads.unitychina.cn,REJECT,extended-matching,pre-matching
+DOMAIN-SUFFIX,tapjoy.com,REJECT,extended-matching,pre-matching
+DOMAIN-SUFFIX,ads.vungle.com,REJECT,extended-matching,pre-matching
+DOMAIN-SUFFIX,adsmoloco.com,REJECT,extended-matching,pre-matching
+DOMAIN-SUFFIX,smadex.com,REJECT,extended-matching,pre-matching
+DOMAIN-SUFFIX,tapad.com,REJECT,extended-matching,pre-matching
+DOMAIN-SUFFIX,adsappier.com,REJECT,extended-matching,pre-matching
+DOMAIN-SUFFIX,inmobi.com,REJECT,extended-matching,pre-matching
+DOMAIN-SUFFIX,inmobicdn.net,REJECT,extended-matching,pre-matching
+DOMAIN-SUFFIX,appsflyersdk.com,REJECT,extended-matching,pre-matching
+DOMAIN-SUFFIX,applvn.com,REJECT,extended-matching,pre-matching
+DOMAIN-SUFFIX,moloco.com,REJECT,extended-matching,pre-matching
+DOMAIN-SUFFIX,rayjump.com,REJECT,extended-matching,pre-matching
+DOMAIN-SUFFIX,rixengine.com,REJECT,extended-matching,pre-matching
 
 [URL Rewrite]
 ^https:\/\/video-dsp\.pddpic\.com\/market-dsp-video\/ - reject

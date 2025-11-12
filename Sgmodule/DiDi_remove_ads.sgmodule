@@ -1,14 +1,14 @@
 # 引用链接: https://raw.githubusercontent.com/QingRex/LoonKissSurge/main/Surge/%E6%BB%B4%E6%BB%B4%E5%87%BA%E8%A1%8C%E5%8E%BB%E5%B9%BF%E5%91%8A.sgmodule
 #!name=滴滴出行去广告
 #!desc=移除开屏广告、精简首页、底栏和我的页面。
-#!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md], ZenmoFeiShi[https://github.com/ZenmoFeiShi]
+#!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
 #!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/DiDi.png
 #!category=iKeLee
 #!openUrl=https://apps.apple.com/app/id554499054
 #!tag=去广告
 #!loon_version=3.2.4(787)
-#!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
-#!date=2025-07-12 00:42:20
+#!homepage=https://hub.kelee.one
+#!date=2025-09-10 09:50:58
 
 [Rule]
 DOMAIN,gwp.xiaojukeji.com,REJECT,extended-matching,pre-matching
@@ -29,18 +29,19 @@ http-response-jq ^https:\/\/common\.diditaxi\.com\.cn\/common\/v5\/usercenter\/l
 http-response-jq ^https:\/\/common\.diditaxi\.com\.cn\/common\/v5\/usercenter\/layout$ 'delpaths([["data","instances","center_widget_list"]])'
 http-response-jq ^https:\/\/common\.diditaxi\.com\.cn\/common\/v5\/usercenter\/layout$ '.data.instances.center_wallet_finance_card.data.view_info |= map(select(.title == "优惠卡券" or .title == "余额" or .title == "福利金"))'
 http-response-jq ^https:\/\/api\.udache\.com\/gulfstream\/porsche\/v1\/dache_homepage_layout\? 'delpaths([["data","instances","car_icon_01","data","icon_info_new_agreement"]])'
+http-response-jq ^https:\/\/as\.xiaojukeji\.com\/ep\/as\/toggles\? '.data |= map(if .name|IN("daijia_journey_new_tcp_switch","daijia_tcp_init","daijia_tcp_msg_encrypt","daijia_tcp_site_info","daijia_tcp_site_report")then.allow=false else. end)'
 
 [Map Local]
-^https:\/\/res\.xiaojukeji\.com\/resapi\/activity\/mget data-type=text data="{}" status-code=200
+^https:\/\/res\.xiaojukeji\.com\/resapi\/activity\/mget data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/lion\.didialift\.com\/broker\/\? data-type=text data="{}" status-code=200
+^https:\/\/lion\.didialift\.com\/broker\/\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/conf\.diditaxi\.com\.cn\/homepage\/v1\/other\/slow\? data-type=text data="{}" status-code=200
+^https:\/\/conf\.diditaxi\.com\.cn\/homepage\/v1\/other\/slow\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/ct\.xiaojukeji\.com\/agent\/v3\/feeds\? data-type=text data="{}" status-code=200
+^https:\/\/ct\.xiaojukeji\.com\/agent\/v3\/feeds\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/conf\.diditaxi\.com\.cn\/dynamic\/conf data-type=text data="{}" status-code=200
+^https:\/\/conf\.diditaxi\.com\.cn\/dynamic\/conf data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 [MITM]
-hostname = %APPEND% res.xiaojukeji.com, lion.didialift.com, conf.diditaxi.com.cn, common.diditaxi.com.cn, ct.xiaojukeji.com, api.udache.com, 117.51.169.4, 117.51.169.11, 120.241.143.6, 120.241.143.11, 123.207.209.41, 123.207.209.42, 123.207.209.177, 157.255.76.17, 157.255.76.19, 2402:4e00:4040::15, 2402:4e00:4040::16, 2408:8756:c5f:a00::27, 2408:8756:c5f:a00::28, 2409:8c54:872:40::10, 2409:8c54:872:40::11, 240e:97c:34:540::10, 240e:97c:34:540::13, 123.207.209.142, 123.207.209.143, 157.255.76.12, 157.255.76.15, 117.51.168.12, 117.51.168.13, 120.241.142.11, 120.241.142.13, 2402:4e00:4040::5, 2402:4e00:4040::b, 2408:8756:c5f:a00::20, 2408:8756:c5f:a00::21, 240e:97c:34:510::6, 240e:97c:34:510::15, 2409:8c54:872::11, 2409:8c54:872::13, 116.85.1.6, 116.85.1.7, 2402:840:d002::f, 2402:840:d002::10, 123.207.209.56, 123.207.209.57, 123.207.209.160, 2402:4e00:4040::c, 2402:4e00:4040::f, 116.85.2.14, 116.85.2.15, 2402:840:d001::3, 2402:840:d001::4
+hostname = %APPEND% as.xiaojukeji.com, common.diditaxi.com.cn, conf.diditaxi.com.cn, lion.didialift.com, api.udache.com, ct.xiaojukeji.com, res.xiaojukeji.com
 

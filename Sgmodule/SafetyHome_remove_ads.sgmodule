@@ -7,14 +7,14 @@
 #!openUrl=https://apps.apple.com/app/id1488904375
 #!tag=去广告
 #!loon_version=3.2.4(787)
-#!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
+#!homepage=https://hub.kelee.one
 #!date=2025-05-13 15:17:08
 
 [Rule]
 DOMAIN,ad.iot.360.cn,REJECT,extended-matching,pre-matching
 
 [Map Local]
-^https:\/\/app\.home\.360\.cn\/v1\/config\/custom_config data-type=text data="{}" status-code=200
+^https:\/\/app\.home\.360\.cn\/v1\/config\/custom_config data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 [MITM]
 hostname = %APPEND% app.home.360.cn

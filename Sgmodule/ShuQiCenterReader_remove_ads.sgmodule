@@ -7,7 +7,7 @@
 #!openUrl=https://apps.apple.com/app/id733689509
 #!tag=去广告
 #!loon_version=3.2.4(787)
-#!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
+#!homepage=https://hub.kelee.one
 #!date=2025-05-13 15:17:08
 
 [Rule]
@@ -17,11 +17,11 @@ DOMAIN,render-web.11222.cn,REJECT,extended-matching,pre-matching
 ^https:\/\/ocean\.shuqireader\.com\/api\/render\/load\/resource - reject
 
 [Map Local]
-^https:\/\/huichuan\.sm\.cn\/nativead data-type=text data="{}" status-code=200
+^https:\/\/huichuan\.sm\.cn\/nativead data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/ocean\.shuqireader\.com\/api\/route\/iosReadPage\/adV2 data-type=text data="{}" status-code=200
+^https:\/\/ocean\.shuqireader\.com\/api\/route\/iosReadPage\/adV2 data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/ocean\.shuqireader\.com\/api\/route\/ios\/readPage$ data-type=text data="{}" status-code=200
+^https:\/\/ocean\.shuqireader\.com\/api\/route\/ios\/readPage$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 [Script]
 移除书城横幅和阅读广告 = type=http-response, pattern=^https:\/\/ocean\.shuqireader\.com\/sqios\/render\/render\/page\/bookstore$, script-path=https://kelee.one/Resource/JavaScript/ShuQiCenterReader/ShuQiCenterReader_remove_ads.js, requires-body=true

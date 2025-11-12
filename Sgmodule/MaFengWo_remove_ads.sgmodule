@@ -7,7 +7,7 @@
 #!openUrl=https://apps.apple.com/app/id406596432
 #!tag=去广告
 #!loon_version=3.2.4(787)
-#!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
+#!homepage=https://hub.kelee.one
 #!date=2025-05-13 15:17:08
 
 [Rule]
@@ -18,7 +18,7 @@ http-response-jq ^https:\/\/mapi\.mafengwo\.cn\/discovery\/get_index\/v7\? '.dat
 http-response-jq ^https:\/\/mapi\.mafengwo\.cn\/sales\/home\/get_header\/v3\? '.data.list[] |= ( .data |= del(.banners) )'
 
 [Map Local]
-^https:\/\/mapi\.mafengwo\.cn\/user\/growth\/get_growth_tip\/v1\? data-type=text data="{}" status-code=200
+^https:\/\/mapi\.mafengwo\.cn\/user\/growth\/get_growth_tip\/v1\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 [MITM]
 hostname = %APPEND% mapi.mafengwo.cn

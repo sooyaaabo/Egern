@@ -7,7 +7,7 @@
 #!openUrl=https://apps.apple.com/app/id906936224
 #!tag=去广告
 #!loon_version=3.2.4(787)
-#!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
+#!homepage=https://hub.kelee.one
 #!date=2025-05-13 15:17:08
 
 [Rule]
@@ -16,41 +16,41 @@ DOMAIN,ipv6.kkmh.com,REJECT,extended-matching,pre-matching
 DOMAIN,ipv4.kkmh.com,REJECT,extended-matching,pre-matching
 
 [Map Local]
-^https:\/\/(cdn-)?api\.kkmh\.com\/v\d\/ad\/ data-type=text data="{}" status-code=200
+^https:\/\/(cdn-)?api\.kkmh\.com\/v\d\/ad\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/(cdn-)?h5\.kuaikanmanhua\.com\/user\/scene\/api\/new_user\/sign_in\/list data-type=text data="{}" status-code=200
+^https:\/\/(cdn-)?h5\.kuaikanmanhua\.com\/user\/scene\/api\/new_user\/sign_in\/list data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/(cdn-)?api\.kkmh\.com\/v\d\/business\/activities\/get data-type=text data="{}" status-code=200
+^https:\/\/(cdn-)?api\.kkmh\.com\/v\d\/business\/activities\/get data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/(cdn-)?api\.kkmh\.com\/v\d\/business\/mine\/business_config data-type=text data="{}" status-code=200
+^https:\/\/(cdn-)?api\.kkmh\.com\/v\d\/business\/mine\/business_config data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/(cdn-)?topic\.kkmh\.com\/gamecard\/v\d\/activityModule\/userSignInInfo\?activitySignInConfigId data-type=text data="{}" status-code=200
+^https:\/\/(cdn-)?topic\.kkmh\.com\/gamecard\/v\d\/activityModule\/userSignInInfo\?activitySignInConfigId data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/(cdn-)?topic\.kkmh\.com\/gamecard\/v\d\/activityModule\/fetchButtonInfo\?buttonConfigId data-type=text data="{}" status-code=200
+^https:\/\/(cdn-)?topic\.kkmh\.com\/gamecard\/v\d\/activityModule\/fetchButtonInfo\?buttonConfigId data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/(cdn-)?topic\.kkmh\.com\/gamecard\/v\d\/activityText\/getUserActivityTextInfo\?activityTextConfigId data-type=text data="{}" status-code=200
+^https:\/\/(cdn-)?topic\.kkmh\.com\/gamecard\/v\d\/activityText\/getUserActivityTextInfo\?activityTextConfigId data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/(cdn-)?pay\.kkmh\.com\/v\d\/kb\/comic_page_banner\/detail data-type=text data="{}" status-code=200
+^https:\/\/(cdn-)?pay\.kkmh\.com\/v\d\/kb\/comic_page_banner\/detail data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/(cdn-)?api\.kkmh\.com\/v\d\/business\/fake_push\/info data-type=text data="{}" status-code=200
+^https:\/\/(cdn-)?api\.kkmh\.com\/v\d\/business\/fake_push\/info data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/(cdn-)?shop\.kkmh\.com\/mbff\/popup_administration\/page_management_popup_administration$ data-type=text data="{}" status-code=200
+^https:\/\/(cdn-)?shop\.kkmh\.com\/mbff\/popup_administration\/page_management_popup_administration$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/(cdn-)?pay\.kkmh\.com\/v\d\/vip\/banner_tip_list data-type=text data="{}" status-code=200
+^https:\/\/(cdn-)?pay\.kkmh\.com\/v\d\/vip\/banner_tip_list data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/(cdn-)?pay\.kkmh\.com\/v\d\/vip\/charge_tip_list data-type=text data="{}" status-code=200
+^https:\/\/(cdn-)?pay\.kkmh\.com\/v\d\/vip\/charge_tip_list data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/h5\.kuaikanmanhua\.com\/v\d\/kb\/recharge_good\/list_h5 data-type=text data="{}" status-code=200
+^https:\/\/h5\.kuaikanmanhua\.com\/v\d\/kb\/recharge_good\/list_h5 data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/(cdn-)?pay\.kkmh\.com\/v\d\/kb\/wallet data-type=text data="{}" status-code=200
+^https:\/\/(cdn-)?pay\.kkmh\.com\/v\d\/kb\/wallet data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/(cdn-)?api\.kkmh\.com\/v\d\/checkin\/api\/new_user\/tab_info$ data-type=text data="{}" status-code=200
+^https:\/\/(cdn-)?api\.kkmh\.com\/v\d\/checkin\/api\/new_user\/tab_info$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 ^https:\/\/h5\.kuaikanmanhua\.com\/game-h5\/new-user-welfare\/index\.html data-type=text data=" " status-code=200
 
-^https:\/\/(cdn-)?pay\.kkmh\.com\/v\d\/vip\/platform_base\/popups_display$ data-type=text data="{}" status-code=200
+^https:\/\/(cdn-)?pay\.kkmh\.com\/v\d\/vip\/platform_base\/popups_display$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/(cdn-)?api\.kkmh\.com\/v\d\/checkin\/task_center\/get_by_task_type data-type=text data="{}" status-code=200
+^https:\/\/(cdn-)?api\.kkmh\.com\/v\d\/checkin\/task_center\/get_by_task_type data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 [Script]
 修改广告参数 = type=http-response, pattern=^https:\/\/(cdn-)?api\.kkmh\.com\/v\d\/ironman\/comic\/recommend, script-path=https://kelee.one/Resource/JavaScript/KuaiKanComic/KuaiKanComic_remove_ads.js, requires-body=true

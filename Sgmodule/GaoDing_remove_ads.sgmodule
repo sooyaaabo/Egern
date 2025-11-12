@@ -7,7 +7,7 @@
 #!openUrl=https://apps.apple.com/app/id1113276760
 #!tag=去广告
 #!loon_version=3.2.4(787)
-#!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
+#!homepage=https://hub.kelee.one
 #!date=2025-05-13 15:17:08
 
 [Body Rewrite]
@@ -16,11 +16,11 @@ http-response-jq ^https:\/\/www\.gaoding\.com\/api\/v\d\/oc\/exhibitions\/app_mi
 http-response-jq ^https:\/\/www\.gaoding\.com\/api\/v\d\/oc\/exhibitions\/(templates|all_editor_tools)\/resources$ 'walk(if type == "object" and .badge_img_url? then .badge_img_url="" else . end)'
 
 [Map Local]
-^https:\/\/www\.gaoding\.com\/api\/v\d\/oc\/v\d\/delivery-pits\/ios-splash\/modules$ data-type=text data="{}" status-code=200
+^https:\/\/www\.gaoding\.com\/api\/v\d\/oc\/v\d\/delivery-pits\/ios-splash\/modules$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/www\.gaoding\.com\/api\/v\d\/oc\/delivery-pits\/(template|mine|home)-page-dialog\/modules$ data-type=text data="{}" status-code=200
+^https:\/\/www\.gaoding\.com\/api\/v\d\/oc\/delivery-pits\/(template|mine|home)-page-dialog\/modules$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/www\.gaoding\.com\/api\/v\d\/cp\/search-words\/v2\/placeholder data-type=text data="{}" status-code=200
+^https:\/\/www\.gaoding\.com\/api\/v\d\/cp\/search-words\/v2\/placeholder data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 [MITM]
 hostname = %APPEND% www.gaoding.com

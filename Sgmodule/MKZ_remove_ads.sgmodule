@@ -7,17 +7,17 @@
 #!openUrl=https://apps.apple.com/app/id1189885433
 #!tag=去广告
 #!loon_version=3.2.4(787)
-#!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
+#!homepage=https://hub.kelee.one
 #!date=2025-05-13 15:17:08
 
 [Map Local]
-^https:\/\/base\.mkzcdn\.com\/advert\/app\/read\/v\d data-type=text data="{}" status-code=200
+^https:\/\/base\.mkzcdn\.com\/advert\/app\/read\/v\d data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/base\.mkzcdn\.com\/advert\/app\/story\/read\/v\d data-type=text data="{}" status-code=200
+^https:\/\/base\.mkzcdn\.com\/advert\/app\/story\/read\/v\d data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/base\.mkzcdn\.com\/advert\/app\/task\/motivate\/v\d data-type=text data="{}" status-code=200
+^https:\/\/base\.mkzcdn\.com\/advert\/app\/task\/motivate\/v\d data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/base\.mkzcdn\.com\/advert\/app\/user\/slide\d\/v\d\/ data-type=text data="{}" status-code=200
+^https:\/\/base\.mkzcdn\.com\/advert\/app\/user\/slide\d\/v\d\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 [Script]
 配置修改 = type=http-response, pattern=^https:\/\/base\.mkzcdn\.com\/app\/config\/, script-path=https://kelee.one/Resource/JavaScript/MKZ/MKZ_remove_ads.js, requires-body=true

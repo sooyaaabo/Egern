@@ -7,7 +7,7 @@
 #!openUrl=https://apps.apple.com/app/id1148465254
 #!tag=去广告
 #!loon_version=3.2.4(787)
-#!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
+#!homepage=https://hub.kelee.one
 #!date=2025-05-17 13:50:41
 
 [Body Rewrite]
@@ -28,15 +28,15 @@ http-response-jq ^https:\/\/app\.missevan\.com\/discovery\/list$ '.info |= map(m
 http-response-jq ^https:\/\/app\.missevan\.com\/site\/get-top$ 'delpaths([["info","search_words"]])'
 
 [Map Local]
-^https:\/\/data\.missevan\.com\/site\/ad-track$ data-type=text data="{}" status-code=200
+^https:\/\/data\.missevan\.com\/site\/ad-track$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/app\.missevan\.com\/x\/recommend\/get-popup$ data-type=text data="{}" status-code=200
+^https:\/\/app\.missevan\.com\/x\/recommend\/get-popup$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/fm\.missevan\.com\/api\/v2\/meta\/banner$ data-type=text data="{}" status-code=200
+^https:\/\/fm\.missevan\.com\/api\/v2\/meta\/banner$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/fm\.missevan\.com\/api\/v2\/recommended\/top\? data-type=text data="{}" status-code=200
+^https:\/\/fm\.missevan\.com\/api\/v2\/recommended\/top\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/fm\.missevan\.com\/api\/v2\/chatroom\/sound\/recommend\? data-type=text data="{}" status-code=200
+^https:\/\/fm\.missevan\.com\/api\/v2\/chatroom\/sound\/recommend\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 [MITM]
 hostname = %APPEND% app.missevan.com, data.missevan.com, fm.missevan.com

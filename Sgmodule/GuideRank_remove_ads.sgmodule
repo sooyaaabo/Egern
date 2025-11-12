@@ -7,7 +7,7 @@
 #!openUrl=https://apps.apple.com/app/id1129695874
 #!tag=去广告
 #!loon_version=3.2.4(787)
-#!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
+#!homepage=https://hub.kelee.one
 #!date=2025-05-13 15:17:08
 
 [Body Rewrite]
@@ -24,21 +24,21 @@ http-response-jq ^https:\/\/zone\.guiderank-app\.com\/guiderank-web\/app\/home\/
 http-response-jq ^https:\/\/zone\.guiderank-app\.com\/guiderank-web\/app\/common\/getInitData\.do 'delpaths([["data","SpecialSalePageMidTabConfig"]])'
 
 [Map Local]
-^https:\/\/zone\.guiderank-app\.com\/guiderank-web\/app\/common\/getWeworkPromotionInfoBySceneType data-type=text data="{}" status-code=200
+^https:\/\/zone\.guiderank-app\.com\/guiderank-web\/app\/common\/getWeworkPromotionInfoBySceneType data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/zone\.guiderank-app\.com\/guiderank-web\/app\/popUpAdCollection\/getActiveCollection\.do data-type=text data="{}" status-code=200
+^https:\/\/zone\.guiderank-app\.com\/guiderank-web\/app\/popUpAdCollection\/getActiveCollection\.do data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/zone\.guiderank-app\.com\/guiderank-web\/app\/common\/getWeworkCategoryPromotionInfo data-type=text data="{}" status-code=200
+^https:\/\/zone\.guiderank-app\.com\/guiderank-web\/app\/common\/getWeworkCategoryPromotionInfo data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/zone\.guiderank-app\.com\/guiderank-web\/app\/stockTaking\/pageStockTakingForHomePage data-type=text data="{}" status-code=200
+^https:\/\/zone\.guiderank-app\.com\/guiderank-web\/app\/stockTaking\/pageStockTakingForHomePage data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/zone\.guiderank-app\.com\/guiderank-web\/app\/specialSale\/pageRecommendedItems data-type=text data="{}" status-code=200
+^https:\/\/zone\.guiderank-app\.com\/guiderank-web\/app\/specialSale\/pageRecommendedItems data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/zone\.guiderank-app\.com\/guiderank-web\/app\/manualOperationGoods\/pageManualOperationGoods data-type=text data="{}" status-code=200
+^https:\/\/zone\.guiderank-app\.com\/guiderank-web\/app\/manualOperationGoods\/pageManualOperationGoods data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/zone\.guiderank-app\.com\/guiderank-web\/app\/specialSale\/listSpecialSalePageBanner data-type=text data="{}" status-code=200
+^https:\/\/zone\.guiderank-app\.com\/guiderank-web\/app\/specialSale\/listSpecialSalePageBanner data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/zone\.guiderank-app\.com\/guiderank-web\/app\/personal\/getPersonPageInfo\.do data-type=text data="{}" status-code=200
+^https:\/\/zone\.guiderank-app\.com\/guiderank-web\/app\/personal\/getPersonPageInfo\.do data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 [MITM]
 hostname = %APPEND% zone.guiderank-app.com

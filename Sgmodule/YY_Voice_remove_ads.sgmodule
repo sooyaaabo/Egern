@@ -7,7 +7,7 @@
 #!openUrl=https://apps.apple.com/app/id427941017
 #!tag=去广告
 #!loon_version=3.2.4(787)
-#!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
+#!homepage=https://hub.kelee.one
 #!date=2025-06-02 01:02:42
 
 [Rule]
@@ -22,11 +22,11 @@ http-response-jq ^https:\/\/tab\.yy\.com\/tabs\? '.data.tabs |= map(select(.alia
 http-response-jq ^https:\/\/personal-center\.yy\.com\/personalCenter\/list\? '.data.modules |= map(select(.moduleName != "Banner轮播")) | .data.modules |= map(if has("entrances") then .entrances |= map(select(.bizCode|IN("jishijiedaikuan","duxiaoman2","chongzhi","freeData")|not)) else . end)'
 
 [Map Local]
-^https:\/\/yyapp-fastnet\.yy\.com\/dispatch\? data-type=text data="{}" status-code=200
+^https:\/\/yyapp-fastnet\.yy\.com\/dispatch\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/data\.3g\.yy\.com\/popup\/topLiveCardPopup\? data-type=text data="{}" status-code=200
+^https:\/\/data\.3g\.yy\.com\/popup\/topLiveCardPopup\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/yyapp-act-entrance\.yy\.com\/entrance\/list\? data-type=text data="{}" status-code=200
+^https:\/\/yyapp-act-entrance\.yy\.com\/entrance\/list\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 [MITM]
 hostname = %APPEND% yyapp-act-entrance.yy.com, yyapp-fastnet.yy.com, personal-center.yy.com, tab.yy.com, data.3g.yy.com, yyapp-idx.yy.com

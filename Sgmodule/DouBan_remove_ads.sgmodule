@@ -11,17 +11,17 @@
 #!date=2025-05-13 15:17:08
 
 [Map Local]
-^https:\/\/api\.douban\.com\/v\d\/app_ads\/splash data-type=text data="{}" status-code=200
+^https:\/\/api\.douban\.com\/v\d\/app_ads\/splash data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/frodo\.douban\.com\/api\/v\d\/erebor\/feed_ad data-type=text data="{}" status-code=200
+^https:\/\/frodo\.douban\.com\/api\/v\d\/erebor\/feed_ad data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/m\.douban\.com\/rexxar\/api\/v\d\/market\/products\/ data-type=text data="{}" status-code=200
+^https:\/\/m\.douban\.com\/rexxar\/api\/v\d\/market\/products\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/frodo\.douban\.com\/api\/v\d\/movie\/ad data-type=text data="{}" status-code=200
+^https:\/\/frodo\.douban\.com\/api\/v\d\/movie\/ad data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/frodo\.douban\.com\/api\/v\d\/home_banner data-type=text data="{}" status-code=200
+^https:\/\/frodo\.douban\.com\/api\/v\d\/home_banner data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/frodo\.douban\.com\/api\/v\d\/search\/found_words data-type=text data="{}" status-code=200
+^https:\/\/frodo\.douban\.com\/api\/v\d\/search\/found_words data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 [MITM]
 hostname = %APPEND% api.douban.com, frodo.douban.com, m.douban.com

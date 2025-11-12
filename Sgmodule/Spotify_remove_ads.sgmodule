@@ -7,23 +7,22 @@
 #!openUrl=https://apps.apple.com/app/id324684580
 #!tag=去广告
 #!loon_version=3.2.4(787)
-#!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
-#!date=2025-07-04 16:36:19
+#!homepage=https://hub.kelee.one
+#!date=2025-08-10 15:30:17
+#!arguments=tab:false,useractivity:true
 
 [Rule]
-AND,((DOMAIN,spclient.wg.spotify.com,extended-matching),(PROTOCOL,QUIC)),REJECT
-AND,((DOMAIN,gae2-spclient.spotify.com,extended-matching),(PROTOCOL,QUIC)),REJECT
-AND,((DOMAIN,guc3-spclient.spotify.com,extended-matching),(PROTOCOL,QUIC)),REJECT
+AND,((DOMAIN-SUFFIX,spotify.com,extended-matching),(PROTOCOL,QUIC)),REJECT
 
 [URL Rewrite]
-^https?:\/\/(gae2-spclient|guc3-spclient|spclient\.wg)\.spotify\.com(?::443)?\/artistview\/v1\/artist\/(.*)&platform=iphone https://$1.spotify.com/artistview/v1/artist/$2&platform=ipad header
+^https:\/\/(?:\w+-spclient|spclient\.wg)\.spotify\.com(?::443)?\/artistview\/v1\/artist\/(.*)&platform=iphone https://spclient.wg.spotify.com/artistview/v1/artist/$1&platform=ipad header
 
 [Map Local]
-^https?:\/\/(?:gae2-spclient|guc3-spclient|spclient\.wg)\.spotify\.com(?::443)?\/pendragon\/ data-type=text data="{}" status-code=200
+^https:\/\/(?:\w+-spclient|spclient\.wg)\.spotify\.com(?::443)?\/pendragon\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 [Script]
-Protobuf处理 = type=http-response, pattern=^https?:\/\/(?:gae2-spclient|guc3-spclient|spclient\.wg)\.spotify\.com(?::443)?\/(?:bootstrap|user-customization-service), script-path=https://kelee.one/Resource/JavaScript/Spotify/Spotify_remove_ads.js, requires-body=true, binary-body-mode=true, timeout=5, argument="[{tab},{useractivity}]"
+Protobuf处理 = type=http-response, pattern=^https:\/\/(?:\w+-spclient|spclient\.wg)\.spotify\.com(?::443)?\/(?:bootstrap|user-customization-service), script-path=https://kelee.one/Resource/JavaScript/Spotify/Spotify_remove_ads.js, requires-body=true, binary-body-mode=true, timeout=5, argument="[{{{tab}}},{{{useractivity}}}]"
 
 [MITM]
-hostname = %APPEND% gae2-spclient.spotify.com, guc3-spclient.spotify.com, spclient.wg.spotify.com
+hostname = %APPEND% *-spclient.spotify.com, spclient.wg.spotify.com
 

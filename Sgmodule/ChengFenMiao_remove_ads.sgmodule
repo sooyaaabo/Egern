@@ -7,11 +7,11 @@
 #!openUrl=https://apps.apple.com/app/id6444000785
 #!tag=去广告
 #!loon_version=3.2.4(787)
-#!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
+#!homepage=https://hub.kelee.one
 #!date=2025-05-13 15:17:08
 
 [Map Local]
-^https:\/\/app\.chengfenmiao\.com\/item\/closet\? data-type=text data="{}" status-code=200
+^https:\/\/app\.chengfenmiao\.com\/item\/closet\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 [MITM]
 hostname = %APPEND% app.chengfenmiao.com

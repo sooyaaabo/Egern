@@ -7,22 +7,22 @@
 #!openUrl=https://apps.apple.com/app/id571195405
 #!tag=去广告
 #!loon_version=3.2.4(787)
-#!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
+#!homepage=https://hub.kelee.one
 #!date=2025-05-13 15:17:08
 
 [URL Rewrite]
 ^https:\/\/api\.ys7\.com\/api\/ads - reject
 
 [Map Local]
-^https:\/\/i\.ys7\.com\/api\/user\/tabList data-type=text data="{}" status-code=200
+^https:\/\/i\.ys7\.com\/api\/user\/tabList data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/api\.ys7\.com\/v3\/config\/service\/entrance\/bannerInfo data-type=text data="{}" status-code=200
+^https:\/\/api\.ys7\.com\/v3\/config\/service\/entrance\/bannerInfo data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/api\.ys7\.com\/v3\/intelligent-app\/apps\/linkage data-type=text data="{}" status-code=200
+^https:\/\/api\.ys7\.com\/v3\/intelligent-app\/apps\/linkage data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/api\.ys7\.com\/v3\/configurations\/gray\/info\?grayTypes=185 data-type=text data="{}" status-code=200
+^https:\/\/api\.ys7\.com\/v3\/configurations\/gray\/info\?grayTypes=185 data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/api\.ys7\.com\/v3\/videoclips\/square\/video\/query data-type=text data="{}" status-code=200
+^https:\/\/api\.ys7\.com\/v3\/videoclips\/square\/video\/query data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 [MITM]
 hostname = %APPEND% api.ys7.com, i.ys7.com

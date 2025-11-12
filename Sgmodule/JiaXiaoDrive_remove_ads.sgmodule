@@ -7,7 +7,7 @@
 #!openUrl=https://apps.apple.com/app/id620262310
 #!tag=去广告
 #!loon_version=3.2.4(787)
-#!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
+#!homepage=https://hub.kelee.one
 #!date=2025-05-13 15:17:08
 
 [Body Rewrite]
@@ -25,15 +25,15 @@ http-response-jq http-response ^https:\/\/api\.ksedt\.com\/api\/config\/ 'delpat
 http-response-jq http-response ^https:\/\/api\.ksedt\.com\/api\/config\/ 'delpaths([["result","examPageLoadADSwitch"]])'
 
 [Map Local]
-^https:\/\/richmanrules\.ksedt\.com\/serverConfig\/3\/adConfig\.json data-type=text data="{}" status-code=200
+^https:\/\/richmanrules\.ksedt\.com\/serverConfig\/3\/adConfig\.json data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/gouche\.ksedt\.com\/config\/popup\/info$ data-type=text data="{}" status-code=200
+^https:\/\/gouche\.ksedt\.com\/config\/popup\/info$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/richmanrules\.ksedt\.com\/intellectWaterfallBidding\/find$ data-type=text data="{}" status-code=200
+^https:\/\/richmanrules\.ksedt\.com\/intellectWaterfallBidding\/find$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/op\.ksedt\.com\/jxedtLive\/liveIntroduceResource data-type=text data="{}" status-code=200
+^https:\/\/op\.ksedt\.com\/jxedtLive\/liveIntroduceResource data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/richmanrules\.ksedt\.com\/intellectWaterfall\/find$ data-type=text data="{}" status-code=200
+^https:\/\/richmanrules\.ksedt\.com\/intellectWaterfall\/find$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 [MITM]
 hostname = %APPEND% richmanrules.ksedt.com, gouche.ksedt.com, muses.ksedt.com, op.ksedt.com, api.ksedt.com

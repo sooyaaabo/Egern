@@ -7,29 +7,29 @@
 #!openUrl=https://apps.apple.com/app/id1426252715
 #!tag=去广告
 #!loon_version=3.2.4(787)
-#!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
+#!homepage=https://hub.kelee.one
 #!date=2025-05-13 15:17:08
 
 [Map Local]
-^https:\/\/manga\.bilibili\.com\/twirp\/comic\.v\d\.Comic\/GetActivityTab data-type=text data="{}" status-code=200
+^https:\/\/manga\.bilibili\.com\/twirp\/comic\.v\d\.Comic\/GetActivityTab data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/manga\.bilibili\.com\/twirp\/comic\.v\d\.Comic\/GetBubbles data-type=text data="{}" status-code=200
+^https:\/\/manga\.bilibili\.com\/twirp\/comic\.v\d\.Comic\/GetBubbles data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/manga\.bilibili\.com\/twirp\/comic\.v\d\.Comic\/GetCommonBanner data-type=text data="{}" status-code=200
+^https:\/\/manga\.bilibili\.com\/twirp\/comic\.v\d\.Comic\/GetCommonBanner data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/manga\.bilibili\.com\/twirp\/comic\.v\d\.Comic\/SearchBanner data-type=text data="{}" status-code=200
+^https:\/\/manga\.bilibili\.com\/twirp\/comic\.v\d\.Comic\/SearchBanner data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/manga\.bilibili\.com\/twirp\/user\.v\d\.SeasonV\d\/GetSeasonInfo data-type=text data="{}" status-code=200
+^https:\/\/manga\.bilibili\.com\/twirp\/user\.v\d\.SeasonV\d\/GetSeasonInfo data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/manga\.bilibili\.com\/twirp\/bookshelf\.v\d\.Bookshelf\/ListEmptyRecommend data-type=text data="{}" status-code=200
+^https:\/\/manga\.bilibili\.com\/twirp\/bookshelf\.v\d\.Bookshelf\/ListEmptyRecommend data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/manga\.bilibili\.com\/twirp\/bookshelf\.v\d\.Bookshelf\/NovelRecommend data-type=text data="{}" status-code=200
+^https:\/\/manga\.bilibili\.com\/twirp\/bookshelf\.v\d\.Bookshelf\/NovelRecommend data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/manga\.bilibili\.com\/twirp\/novel\.v\d\.Novel\/MoreRecommend data-type=text data="{}" status-code=200
+^https:\/\/manga\.bilibili\.com\/twirp\/novel\.v\d\.Novel\/MoreRecommend data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/manga\.bilibili\.com\/twirp\/comic\.v\d\.Comic\/AppInit data-type=text data="{}" status-code=200
+^https:\/\/manga\.bilibili\.com\/twirp\/comic\.v\d\.Comic\/AppInit data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/manga\.bilibili\.com\/twirp\/comic\.v\d\.Comic\/ListFlash data-type=text data="{}" status-code=200
+^https:\/\/manga\.bilibili\.com\/twirp\/comic\.v\d\.Comic\/ListFlash data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 [Script]
 移除顶部标签 = type=http-response, pattern=^https:\/\/manga\.bilibili\.com\/twirp\/comic\.v\d\.Comic\/GetClassPageAllTabs, script-path=https://kelee.one/Resource/JavaScript/BiliComic/BiliComic_remove_ads.js, requires-body=true

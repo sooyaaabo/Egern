@@ -7,17 +7,17 @@
 #!openUrl=https://apps.apple.com/app/id584660358
 #!tag=去广告
 #!loon_version=3.2.4(787)
-#!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
+#!homepage=https://hub.kelee.one
 #!date=2025-05-13 15:17:08
 
 [Map Local]
-^https:\/\/tiku\.fenbi\.com\/activity\/app\/launcher data-type=text data="{}" status-code=200
+^https:\/\/tiku\.fenbi\.com\/activity\/app\/launcher data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/keapi\.fenbi\.com\/app\/iphone\/\w+\/popup data-type=text data="{}" status-code=200
+^https:\/\/keapi\.fenbi\.com\/app\/iphone\/\w+\/popup data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/market-api\.fenbi\.com\/iphone\/v1\/assistant\/info data-type=text data="{}" status-code=200
+^https:\/\/market-api\.fenbi\.com\/iphone\/v1\/assistant\/info data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/market-api\.fenbi\.com\/iphone\/v1\/assistant\/entrance\/show data-type=text data="{}" status-code=200
+^https:\/\/market-api\.fenbi\.com\/iphone\/v1\/assistant\/entrance\/show data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 [MITM]
 hostname = %APPEND% keapi.fenbi.com, market-api.fenbi.com, tiku.fenbi.com

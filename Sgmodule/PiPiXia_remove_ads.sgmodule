@@ -7,7 +7,7 @@
 #!openUrl=https://apps.apple.com/app/id1393912676
 #!tag=去广告
 #!loon_version=3.2.4(787)
-#!homepage=https://github.com/luestr/ProxyResource/blob/main/README.md
+#!homepage=https://hub.kelee.one
 #!date=2025-05-13 15:17:08
 
 [Body Rewrite]
@@ -15,11 +15,11 @@ http-response-jq ^https:\/\/api(5-lq)?\.pipix\.com\/bds\/feed\/stream\/v2\/ '.da
 http-response-jq ^https:\/\/api(5-lq)?\.pipix\.com\/bds\/user\/check_in\/ '.data.profile_entrances |= map(select(.title != "放心借" and .title != "洋钱罐借款")) | del(.data.pet_interface_message)'
 
 [Map Local]
-^https:\/\/api(5-lq)?\.pipix\.com\/api\/ad\/ data-type=text data="{}" status-code=200
+^https:\/\/api(5-lq)?\.pipix\.com\/api\/ad\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/api(5-lq)?\.pipix\.com\/bds\/banner\/ data-type=text data="{}" status-code=200
+^https:\/\/api(5-lq)?\.pipix\.com\/bds\/banner\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/api(5-lq)?\.pipix\.com\/bds\/feed\/follow_feed\/ data-type=text data="{}" status-code=200
+^https:\/\/api(5-lq)?\.pipix\.com\/bds\/feed\/follow_feed\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 [MITM]
 hostname = %APPEND% api.pipix.com, api5-lq.pipix.com
