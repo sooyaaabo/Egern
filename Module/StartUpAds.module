@@ -18,6 +18,8 @@ DOMAIN-SUFFIX,msmp.abchina.com.cn,REJECT
 ^https?:\/\/.*zhijianmedia\.cn\/streamAd\/ad\/getAd\?position=HomepageNewsPosition - reject
 # NB ZhuShou
 ^https?:\/\/.*ziben\.com\/api\/.*\/adverts - reject
+# WoDeNanJing
+^https?:\/\/m\.mynj\.cn:\d+\/znmh_FEP\/loadpic\.jsp.*ad_pic.*open - reject
 
 [Body Rewrite]
 http-response ^https?:\/\/beta-api\.crunchyroll\.com\/cms offset_ms":\d+ offset_ms":99999999999999
@@ -956,9 +958,6 @@ http-response ^https?:\/\/j1\.pupuapi\.com\/client\/marketing\/advertisement\/v 
 ^https?:\/\/180\.96\.8\.44\/smartad\/ad data-type=text data=" " status-code=200
 
 ^https?:\/\/125\.215\.147\.40\/smartad\/ad data-type=text data=" " status-code=200
-
-# WoDeNanJing
-^https?:\/\/m\.mynj\.cn:\d+\/znmh_FEP\/loadpic\.jsp.*ad_pic.*open data-type=tiny-gif status-code=200
 
 # XinYueJuLeBu
 ^https?:\/\/bgw\.xinyue\.qq\.com\/xyapi\.PageService\/GetIndexPopFlash data-type=text data=" " status-code=200
