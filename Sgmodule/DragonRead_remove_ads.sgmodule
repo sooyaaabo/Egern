@@ -8,7 +8,7 @@
 #!tag=去广告
 #!loon_version=3.2.4(787)
 #!homepage=https://hub.kelee.one
-#!date=2025-11-11 16:16:37
+#!date=2025-11-12 19:57:44
 
 [Rule]
 DOMAIN,zlink.ugsdk.cn,REJECT,extended-matching,pre-matching
