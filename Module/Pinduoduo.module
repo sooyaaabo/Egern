@@ -5,7 +5,7 @@
 #!openUrl=https://apps.apple.com/app/id1044283059
 #!tag=去广告
 #!homepage=https://github.com/sooyaaabo/Egern
-#!date=2025-11-13 20:00
+#!date=2025-11-14 18:00
 
 [Rule]
 AND,((URL-REGEX,"^http:\/\/((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\/d(\d)?"),(USER-AGENT,"*com.xunmeng.pinduoduo*")),REJECT
@@ -20,7 +20,6 @@ DOMAIN,cdl-p2.pddpic.com,REJECT
 DOMAIN,cd-1.pddpic.com,REJECT
 DOMAIN,apm.pinduoduo.com,REJECT
 DOMAIN,th-b.pinduoduo.com,REJECT
-DOMAIN,file.pinduoduo.com,REJECT
 DOMAIN,ta.pinduoduo.com,REJECT
 DOMAIN,th.pinduoduo.com,REJECT
 DOMAIN,th-a.pinduoduo.com,REJECT
