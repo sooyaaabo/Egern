@@ -5,66 +5,42 @@
 #!openUrl=https://apps.apple.com/app/id336141475
 #!tag=去广告
 #!homepage=https://github.com/sooyaaabo/Egern
-#!date=2025-06-15 00:00
+#!date=2025-11-14 23:00
 
 [Rule]
 # 放行地址
 DOMAIN,push.m.youku.com,DIRECT
 DOMAIN,un-acs.youku.com,DIRECT
 DOMAIN,dorangesource.alicdn.com,DIRECT
-# DOMAIN, acs.youku.com, REJECT
-DOMAIN,acs4baichuan.m.taobao.com,REJECT
-DOMAIN,adsmind.ugdtimg.com,REJECT
-DOMAIN,amdc.m.youku.com,REJECT
-DOMAIN,api.sm.cn,REJECT
-DOMAIN,apiv4-iyes.youku.com,REJECT
-DOMAIN,baichuan-sdk.alicdn.com,REJECT
+# 拦截地址
+DOMAIN,h-adashx.ut.taobao.com,REJECT
+DOMAIN,adx-core.youku.com,REJECT
+DOMAIN,adx-open-service.youku.com,REJECT
+DOMAIN,yk-ssp.ad.youku.com,REJECT
 DOMAIN,cad.youku.com,REJECT
-DOMAIN,huichuan-mc.sm.cn,REJECT
-DOMAIN,huichuan.sm.cn,REJECT
-DOMAIN,iyes.youku.com,REJECT
-DOMAIN,m-vali.cp31.ott.cibntv.net,REJECT
-DOMAIN,mc.atm.youku.com,REJECT
+DOMAIN,ykad-data.youku.com,REJECT
+DOMAIN,yk-ssp.ad.youku.com,REJECT
+DOMAIN,amdc.m.youku.com,REJECT
+DOMAIN,cad.youku.com,REJECT
 DOMAIN,nbsdk-baichuan.alicdn.com,REJECT
-DOMAIN,pre-acs.youku.com,REJECT
+DOMAIN,youku-crm-product.youku.com,REJECT
+DOMAIN,dr-danmu.youku.com,REJECT
+DOMAIN,group-ssl-danmu-ori.youku.com,REJECT
+DOMAIN,m.atm.youku.com,REJECT
+DOMAIN,mc.atm.youku.com,REJECT
 DOMAIN,vali-g1.cp31.ott.cibntv.net,REJECT
 DOMAIN,vali-ugc.cp31.ott.cibntv.net,REJECT
-DOMAIN,yk-ssp.ad.youku.com,REJECT
-DOMAIN,ykad-data.youku.com,REJECT
+DOMAIN-SUFFIX,iyes.youku.com,REJECT
+DOMAIN,adsmind.ugdtimg.com,REJECT
+DOMAIN,pre-acs.youku.com,REJECT
 DOMAIN,youku-acs.m.taobao.com,REJECT
-DOMAIN,zconfig.alibabausercontent.com,REJECT
-DOMAIN-SUFFIX,acz.youku.com,REJECT
-DOMAIN-SUFFIX,adx-core.youku.com,REJECT
-DOMAIN-SUFFIX,adx-open-service.youku.com,REJECT
-DOMAIN-SUFFIX,mazu.m.qq.com,REJECT
-DOMAIN-SUFFIX,partner.uc.cn,REJECT
-DOMAIN-SUFFIX,ranfenghd.com,REJECT
-DOMAIN-SUFFIX,rhdc-acs.youku.com,REJECT
-# DOMAIN-SUFFIX, sm.cn, REJECT  
-DOMAIN-SUFFIX,ubixioe.com,REJECT
 
-[Map Local]
-# 播放页弹窗动图
-^https:\/\/acs\.youku\.com\/gw\/mtop\.youku\.(pisp\.scripts\.get|xspace\.play\.position\.preload\.query|xspace\.poplayer\.position\.query) data-type=text data="{}" status-code=200 header="Content-Type:application/json"
-
-[Script]
-# 播放详情页、首页信息流、顶部标签页、我的页面、评论区
-[优酷视频]首页 = type=http-response, pattern=^https:\/\/acs\.youku\.com\/gw\/mtop\.youku\.columbus\.(gateway\.new\.execute|home\.feed|home\.query|uc\.query|ycp\.query), script-path=https://raw.githubusercontent.com/sooyaaabo/Loon/main/Script/ChinaFTP/ChinaFTP.js, requires-body=true
-
-# 底栏
-[优酷视频]底栏 = type=http-response, pattern=^https:\/\/acs\.youku\.com\/gw\/mtop\.youku\.haidai\.lantern\.appconfig\.get, script-path=https://raw.githubusercontent.com/sooyaaabo/Loon/main/Script/ChinaFTP/ChinaFTP.js, requires-body=true
-
-# 青少年模式弹窗
-[优酷视频]青少年模式弹窗 = type=http-response, pattern=^https:\/\/acs\.youku\.com\/gw\/mtop\.youku\.huluwa\.dispatcher\.youthmode\.config2, script-path=https://raw.githubusercontent.com/sooyaaabo/Loon/main/Script/ChinaFTP/ChinaFTP.js, requires-body=true
-
-# 搜索列表
-[优酷视频]搜索列表 = type=http-response, pattern=^https:\/\/acs\.youku\.com\/gw\/mtop\.youku\.soku\.yksearch, script-path=https://raw.githubusercontent.com/sooyaaabo/Loon/main/Script/ChinaFTP/ChinaFTP.js, requires-body=true
-
-# 热剧弹窗
-[优酷视频]热剧弹窗 = type=http-response, pattern=^https:\/\/push\.m\.youku\.com\/collect-api\/get_push_interval_config_wx\?, script-path=https://raw.githubusercontent.com/sooyaaabo/Loon/main/Script/ChinaFTP/ChinaFTP.js, requires-body=true
-
-# 开屏广告
-[优酷视频]开屏广告 = type=http-response, pattern=^https:\/\/un-acs\.youku\.com\/gw\/mtop\.youku\.play\.ups\.appinfo\.get, script-path=https://raw.githubusercontent.com/sooyaaabo/Loon/main/Script/ChinaFTP/ChinaFTP.js, requires-body=true
+[Body Rewrite]
+http-response-jq ^https:\/\/un-acs\.youku\.com\/gw\/mtop\.youku\.play\.ups\.appinfo\.get 'delpaths([["data","data","ad"]])'
+http-response-jq ^https:\/\/un-acs\.youku\.com\/gw\/mtop\.youku\.play\.ups\.appinfo\.get 'delpaths([["data","data","watermark"]])'
+http-response-jq ^https:\/\/un-acs\.youku\.com\/gw\/mtop\.youku\.play\.ups\.appinfo\.get 'delpaths([["data","data","ykad"]])'
+http-response-jq ^https:\/\/push\.m\.youku\.com\/collect-api\/get_push_interval_config_wx\? 'delpaths([["data","tipContent"]])'
+http-response-jq ^https:\/\/push\.m\.youku\.com\/collect-api\/get_push_interval_config_wx\? 'delpaths([["data","tipContentNew"]])'
 
 [MITM]
-hostname = %APPEND% acs.youku.com, push.m.youku.com, un-acs.youku.com
+hostname = %APPEND% push.m.youku.com, un-acs.youku.com
