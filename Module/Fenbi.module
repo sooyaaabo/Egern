@@ -5,20 +5,34 @@
 #!openUrl=https://apps.apple.com/app/id584660358
 #!tag=去广告
 #!homepage=https://github.com/sooyaaabo/Egern
-#!date=2025-06-15 00:00
+#!date=2025-11-24 09:00
+
+[Body Rewrite]
+http-response-jq ^https:\/\/hera-webapp\.fenbi\.com\/iphone\/recommend\/info\? 'delpaths([["data","rollingBanner"]])'
+http-response-jq ^https:\/\/ke\.fenbi\.com\/iphone\/v3\/apps\/config\? 'delpaths([["data","bottomIconInfos","position","iconDefaultUrl"]])'
+http-response-jq ^https:\/\/ke\.fenbi\.com\/iphone\/v3\/apps\/config\? 'delpaths([["data","bottomIconInfos","position","iconSelectedUrl"]])'
+http-response-jq ^https:\/\/ke\.fenbi\.com\/iphone\/v3\/apps\/config\? 'delpaths([["data","bottomIconInfos","position","nightModeIconDefaultUrl"]])'
+http-response-jq ^https:\/\/ke\.fenbi\.com\/iphone\/v3\/apps\/config\? 'delpaths([["data","bottomIconInfos","position","nightModeIconSelectedUrl"]])'
 
 [Map Local]
-# 开屏广告
-^https:\/\/tiku\.fenbi\.com\/activity\/app\/launcher data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+^https:\/\/keapi\.fenbi\.com\/app\/iphone\/position_resource\/get_banners\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-# 首页 - 弹窗
-^https:\/\/keapi\.fenbi\.com\/app\/iphone\/\w+\/popup data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+^https:\/\/market-api\.fenbi\.com\/iphone\/v1\/assistant\/info\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-# 首页 - 新用户注册送好礼全屏弹窗
-^https:\/\/market-api\.fenbi\.com\/iphone\/v1\/assistant\/info data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+# ^https:\/\/keapi\.fenbi\.com\/app\/iphone\/position_resource\/get_home_banners\?.*position_resource_type=1 mock-response-body data-type=json data="{"code":1,"msg":"","data":{"positionResourceType":1,"payload":{"items":[{"id":17868,"courseSetId":2,"content":"妹子图","imageUrl":"https://i.im.ge/2025/11/24/4DrVp0.mm.png","url":"null","redirectType":1,"ordinal":8,"createdTime":1746799144383,"startTime":1759850171000,"endTime":4070880000000,"type":0,"bizType":4}],"count":1}" status-code=200
+^https:\/\/keapi\.fenbi\.com\/app\/iphone\/position_resource\/get_home_banners\?.*position_resource_type=2 data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-# 首页 - 悬浮窗 - 笔面常备资料
-^https:\/\/market-api\.fenbi\.com\/iphone\/v1\/assistant\/entrance\/show data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+^https:\/\/ke\.fenbi\.com\/iphone\/v3\/timetable\/today_with_public_episodes\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/hera-webapp\.fenbi\.com\/iphone\/topic\/hotquery\/list\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/hera-webapp\.fenbi\.com\/iphone\/explore\/consts\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/hera-webapp\.fenbi\.com\/iphone\/announcement\/hotquery\/list\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/ke\.fenbi\.com\/iphone\/v3\/remind\/instant\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/keapi\.fenbi\.com\/app\/iphone\/xingce\/reddot\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 [MITM]
-hostname = %APPEND% keapi.fenbi.com, market-api.fenbi.com, tiku.fenbi.com
+hostname = %APPEND% keapi.fenbi.com, market-api.fenbi.com, ke.fenbi.com, hera-webapp.fenbi.com
