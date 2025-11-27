@@ -5,7 +5,7 @@
 #!openUrl=https://apps.apple.com/app/id554499054
 #!tag=去广告
 #!homepage=https://github.com/sooyaaabo/Egern
-#!date=2025-11-13 23:00
+#!date=2025-11-27 12:00
 
 [Rule]
 # 拦截广告下发
@@ -67,6 +67,9 @@ http-response-jq ^https:\/\/as\.xiaojukeji\.com\/ep\/as\/toggles\? '.data |= map
 
 # 代驾页面 - 弹窗和横幅广告
 ^https:\/\/daijia\.kuaidadi\.com\/gateway\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+# 订单详情页 - 底部推广调研反馈
+^https:\/\/res\.xiaojukeji\.com\/resapi\/activity\/getInsActivityV2 data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 [MITM]
 hostname = %APPEND% common.diditaxi.com.cn, freight.xiaojukeji.com, daijia.kuaidadi.com, 162.14.157.*, ct.xiaojukeji.com, res.xiaojukeji.com, conf.diditaxi.com.cn, api.udache.com, 123.207.209.*, 112.53.55.225, 120.241.142.*, 120.241.143.*, 116.85.*, 139.199.240.84

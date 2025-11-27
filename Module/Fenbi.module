@@ -5,7 +5,7 @@
 #!openUrl=https://apps.apple.com/app/id584660358
 #!tag=去广告
 #!homepage=https://github.com/sooyaaabo/Egern
-#!date=2025-11-24 09:00
+#!date=2025-11-27 12:00
 
 [Body Rewrite]
 http-response-jq ^https:\/\/hera-webapp\.fenbi\.com\/iphone\/recommend\/info\? 'delpaths([["data","rollingBanner"]])'
@@ -32,7 +32,7 @@ http-response-jq ^https:\/\/ke\.fenbi\.com\/iphone\/v3\/apps\/config\? 'delpaths
 
 ^https:\/\/ke\.fenbi\.com\/iphone\/v3\/remind\/instant\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/keapi\.fenbi\.com\/app\/iphone\/xingce\/reddot\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+^https:\/\/keapi\.fenbi\.com\/app\/iphone\/[^\/]+\/reddot\?.* data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 [MITM]
 hostname = %APPEND% keapi.fenbi.com, market-api.fenbi.com, ke.fenbi.com, hera-webapp.fenbi.com
