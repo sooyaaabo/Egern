@@ -4,7 +4,7 @@
 #!icon=https://raw.githubusercontent.com/sooyaaabo/Loon/main/Icon/Other-Icon/AdReject.png
 #!tag=去广告
 #!homepage=https://github.com/sooyaaabo/Egern
-#!date=2025-11-24 10:00
+#!date=2025-12-01 21:00
 
 [Rule]
 # DiDaChuXing
@@ -16,6 +16,8 @@ DOMAIN-SUFFIX,msmp.abchina.com.cn,REJECT
 
 [URL Rewrite]
 ^https?:\/\/.*zhijianmedia\.cn\/streamAd\/ad\/getAd\?position=HomepageNewsPosition - reject
+# ChoiceShuJu
+^https?:\/\/choicegw2.eastmoney.com\/ads\/userauth\/api\/Ad\/GetLaunchAd - reject
 # MaoYan
 ^https?:\/\/p0\.pipi\.cn\/mediaplus\/maoyantong_ads_fe\/(0fa3345c|2erwqe2f)\w+.jpg\?imageMogr2\/quality\/85 - reject
 ^https?:\/\/vod\.pipi\.cn\/\w+\/\w+\/f0\.mp4\?__reqTraceID=.*?optimus_code=10 - reject
@@ -46,7 +48,7 @@ http-response ^https?:\/\/j1\.pupuapi\.com\/client\/marketing\/advertisement\/v 
 
 [Map Local]
 # Version
-^https?:\/\/2025.11.24/c401/v2.0.627 data-type=text data=" " status-code=200
+^https?:\/\/2025.12.01/c402/v2.0.629 data-type=text data=" " status-code=200
 
 # 58 TongCheng
 ^https?:\/\/app\.58\.com\/api\/home\/(advertising|appadv) data-type=text data=" " status-code=200
