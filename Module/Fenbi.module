@@ -5,7 +5,7 @@
 #!openUrl=https://apps.apple.com/app/id584660358
 #!tag=去广告
 #!homepage=https://github.com/sooyaaabo/Egern
-#!date=2025-12-01 17:00
+#!date=2025-12-03 14:00
 
 [Body Rewrite]
 http-response-jq ^https:\/\/hera-webapp\.fenbi\.com\/(?:iphone|ipad)\/recommend\/info\? 'delpaths([["data","rollingBanner"]])'
@@ -40,7 +40,7 @@ http-response-jq ^https:\/\/ke\.fenbi\.com\/(?:iphone|ipad)\/v3\/apps\/config\? 
 
 ^https:\/\/keapi\.fenbi\.com\/ai\/(?:iphone|ipad)\/exercise_remark\/get_questions_remark\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/keapi\.fenbi\.com\/(?:iphone|ipad)\/position_resource\/get_tiku_banners\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+^https:\/\/keapi\.fenbi\.com\/app\/(?:iphone|ipad)\/position_resource\/get_tiku_banners\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 ^https:\/\/keapi\.fenbi\.com\/ai\/(?:iphone|ipad)\/entry\? data-type=text data="{"msg":"","data":null,"code":404}" header="Content-Type:application/json"
 
