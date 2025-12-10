@@ -8,7 +8,7 @@
 #!tag=去广告
 #!loon_version=3.2.4(787)
 #!homepage=https://hub.kelee.one
-#!date=2025-08-24 19:27:15
+#!date=2025-12-05 04:15:52
 
 [Rule]
 DOMAIN-SUFFIX,uve.weibo.com,DIRECT,extended-matching
@@ -40,7 +40,7 @@ DOMAIN-SUFFIX,biz.weibo.com,REJECT,extended-matching,pre-matching
 
 ^https:\/\/api\.weibo\.cn\/2\/video\/redpacket\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/api\.weibo\.cn\/!\/(?:sug\/list\/finderchange|was\/finder\/searchbarchange)\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+^https:\/\/api\.weibo\.cn\/2\/!\/(?:search\/finder_nav_polling|sug\/list\/finderchange|was\/finder\/searchbarchange)\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 ^https:\/\/api\.weibo\.cn\/2\/video\/tiny_video_info_show\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
