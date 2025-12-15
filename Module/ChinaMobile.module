@@ -5,7 +5,7 @@
 #!openUrl=https://apps.apple.com/app/id583700738
 #!tag=去广告, 功能增强
 #!homepage=https://github.com/sooyaaabo/Egern
-#!date=2025-06-15 00:00
+#!date=2025-12-11 21:00
 
 [Map Local]
 # 开屏
@@ -20,18 +20,6 @@
 
 # 查询接口
 [中国移动]查询接口 = type=http-request, pattern=^https?:\/\/api\.example\.com\/10086\/query, script-path=https://github.com/ChinaTelecomOperators/ChinaMobile/releases/latest/download/10086.js, requires-body=true, timeout=60
-
-# 启动页
-[中国移动]启动页 = type=http-response, pattern=^https?:\/\/client\.app\.coc\.10086\.cn\/biz-orange\/DN\/init\/startInit$, script-path=https://raw.githubusercontent.com/Yuheng0101/X/main/Scripts/ChinaMobile/NoAds.js, requires-body=true
-
-# 首页 - 下拉
-[中国移动]首页-下拉 = type=http-response, pattern=^https?:\/\/client\.app\.coc\.10086\.cn\/biz-orange\/DN\/newTopPullSecond\/getNewTopPullList, script-path=https://raw.githubusercontent.com/Yuheng0101/X/main/Scripts/ChinaMobile/NoAds.js, requires-body=true
-
-# 首页 - 悬浮广告
-[中国移动]首页-悬浮广告 = type=http-response, pattern=^https?:\/\/client\.app\.coc\.10086\.cn\/biz-orange\/DN\/emotionMarket\/getEmotionMarketNew, script-path=https://raw.githubusercontent.com/Yuheng0101/X/main/Scripts/ChinaMobile/NoAds.js, requires-body=true
-
-# 我的 - 弹窗 
-[中国移动]我的-弹窗 = type=http-response, pattern=^https?:\/\/client\.app\.coc\.10086\.cn\/biz-orange\/DN\/friendShake\/getShakeList, script-path=https://raw.githubusercontent.com/Yuheng0101/X/main/Scripts/ChinaMobile/NoAds.js, requires-body=true
 
 [MITM]
 hostname = %APPEND% client.app.coc.10086.cn, api.example.com

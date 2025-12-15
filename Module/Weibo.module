@@ -5,7 +5,7 @@
 #!openUrl=https://apps.apple.com/app/id350962117
 #!tag=去广告
 #!homepage=https://github.com/sooyaaabo/Egern
-#!date=2025-08-25 08:00
+#!date=2025-12-05 10:00
 
 [Rule]
 # 请求放行
@@ -42,7 +42,7 @@ DOMAIN-SUFFIX,biz.weibo.com,REJECT
 
 ^https:\/\/api\.weibo\.cn\/2\/video\/redpacket\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-^https:\/\/api\.weibo\.cn\/!\/(?:sug\/list\/finderchange|was\/finder\/searchbarchange)\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+^https:\/\/api\.weibo\.cn\/2\/!\/(?:search\/finder_nav_polling|sug\/list\/finderchange|was\/finder\/searchbarchange)\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 # 视频页
 ^https:\/\/api\.weibo\.cn\/2\/video\/tiny_video_info_show\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
