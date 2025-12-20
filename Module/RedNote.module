@@ -5,7 +5,7 @@
 #!openUrl=https://apps.apple.com/app/id741292507
 #!tag=去广告
 #!homepage=https://github.com/sooyaaabo/Egern
-#!date=2025-09-17 17:00
+#!date=2025-12-20 09:00
 
 [Rule]
 DOMAIN,ads-img-qc.xhscdn.com,REJECT
