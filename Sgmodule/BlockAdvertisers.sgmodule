@@ -7,7 +7,7 @@
 #!tag=去广告, 依赖
 #!loon_version=3.2.4(787)
 #!homepage=https://hub.kelee.one
-#!date=2025-12-05 00:50:43
+#!date=2025-12-19 23:34:15
 
 [Rule]
 AND,((DOMAIN-KEYWORD,tnc,extended-matching),(OR,((DOMAIN-SUFFIX,capcutapi.com,extended-matching),(DOMAIN-SUFFIX,zijieapi.com,extended-matching),(DOMAIN-SUFFIX,isnssdk.com,extended-matching),(DOMAIN-SUFFIX,toutiaoapi.com,extended-matching),(DOMAIN-SUFFIX,bytedance.com,extended-matching),(DOMAIN-SUFFIX,snssdk.com,extended-matching),(DOMAIN-SUFFIX,sgsnssdk.com,extended-matching)))),DIRECT
@@ -202,7 +202,6 @@ DOMAIN,logrcv.aiclk.com,REJECT,extended-matching,pre-matching
 DOMAIN,acjs.aliyun.com,REJECT,extended-matching,pre-matching
 DOMAIN,retcode.alicdn.com,REJECT,extended-matching,pre-matching
 DOMAIN,arms-retcode.aliyuncs.com,REJECT,extended-matching,pre-matching
-DOMAIN,at.alicdn.com,REJECT,extended-matching,pre-matching
 DOMAIN,huichuan.sm.cn,REJECT,extended-matching,pre-matching
 DOMAIN,huichuan-mc.sm.cn,REJECT,extended-matching,pre-matching
 DOMAIN,api.sm.cn,REJECT,extended-matching,pre-matching
