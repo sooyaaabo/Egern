@@ -1,0 +1,18 @@
+# 引用链接: https://raw.githubusercontent.com/QingRex/LoonKissSurge/main/Surge/%E9%85%B7%E7%8B%97%E9%93%83%E5%A3%B0%E5%8E%BB%E5%B9%BF%E5%91%8A.sgmodule
+#!name=酷狗铃声去广告
+#!desc=移除开屏广告，移除歌曲列表、播放器、搜索界面广告，移除悬浮广告和弹窗广告。
+#!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
+#!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/KGRing.png
+#!category=iKeLee
+#!openUrl=https://apps.apple.com/app/id1138236198
+#!tag=去广告
+#!loon_version=3.2.4(787)
+#!homepage=https://hub.kelee.one
+#!date=2025-05-13 15:17:08
+
+[Map Local]
+^http:\/\/api\.ring\.kugou\.com\/user\/notice\/recommend$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+[MITM]
+hostname = %APPEND% api.ring.kugou.com
+

@@ -1,0 +1,317 @@
+# 2025-12-29 17:00
+
+# TUN模式
+vif_only: true
+# IPv6
+ipv6: true
+# HTTP代理端口
+http_port: 6154
+# Socks5代理端口
+socks_port: 6153
+# 允许外部连接
+allow_external_connections: true
+# 劫持 DNS 服务器
+hijack_dns:
+- '*:53'
+# 自定义MaxMind数据库
+geoip_db_url: https://loon.103516.xyz/GeoData/Country-Masaiki.mmdb
+asn_db_url: https://loon.103516.xyz/GeoData/GeoLite2-ASN-P3TERX.mmdb
+# 代理延迟测试
+proxy_latency_test_url: http://latency-test.skk.moe/endpoint
+# 直连延迟测试
+direct_latency_test_url: http://connectivitycheck.platform.hicloud.com/generate_204
+dns:
+  # DNS 引导器：用于解析上游DNS(DoT、DoH、DoQ)，默认 system
+  bootstrap:
+    - system
+  upstreams:
+    # 国内公共 DNS
+    Domestic-DNS:
+    - 223.5.5.5
+    - 119.29.29.29
+    - 114.114.114.114
+  # DNS 转发规则
+  forward:
+  - wildcard: # 通配符规则
+      match: "*"
+      value: Domestic-DNS
+policy_groups:
+- external:
+    name: SubName1 
+    type: select
+    urls: 
+    - http://your-service-provider1
+    filter: '^(?=.*(.))(?!.*((?i)群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|总计|到期|机场|下次|重置|重新|设置|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|超时|收藏|(\b(USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author|Traffic)(\d+)?\b|(\d{4}-\d{2}-\d{2}|\dG)))).*$'
+    icon: https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/App/Egern-02.png
+    hidden: false
+- external:
+    name: SubName2
+    type: select
+    urls: 
+    - http://your-service-provider2
+    filter: '^(?=.*(.))(?!.*((?i)群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|总计|到期|机场|下次|重置|重新|设置|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|超时|收藏|(\b(USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author|Traffic)(\d+)?\b|(\d{4}-\d{2}-\d{2}|\dG)))).*$'
+    icon: https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/App/Egern-02.png
+    hidden: false
+- auto_test:
+    name: Hong Kong
+    policies:
+    - SubName1
+    - SubName2
+    flatten: true
+    filter: ^(?=.*((?i)🇭🇰|香港|(\b(HK|HKG|Hong|Hong Kong)(\d+)?\b)))(?!.*((?i)回国|校园|游戏|🎮|(\b(GAME)(\d+)?\b))).*$
+    icon: https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/Flag/HongKong.png
+- auto_test:
+    name: Macao
+    policies:
+    - SubName1
+    - SubName2
+    flatten: true
+    filter: ^(?=.*((?i)🇲🇴|澳门|(\b(MO|MAC|Oman|Macau|Macao)(\d+)?\b)))(?!.*((?i)回国|校园|游戏|🎮|(\b(GAME)(\d+)?\b))).*$
+    icon: https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/Flag/Macao.png
+- auto_test:
+    name: TaiWan
+    policies:
+    - SubName1
+    - SubName2
+    flatten: true
+    filter: ^(?=.*((?i)🇹🇼|🇨🇳|台湾|台北|(\b(TW|TWN|Tai|Taiwan)(\d+)?\b)))(?!.*((?i)回国|校园|游戏|🎮|(\b(GAME)(\d+)?\b))).*$
+    icon: https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/Flag/Taiwan.png
+- auto_test:
+    name: Japan
+    policies:
+    - SubName1
+    - SubName2
+    flatten: true
+    filter: ^(?=.*((?i)🇯🇵|日本|川日|东京|大阪|泉日|埼玉|(\b(JP|JPN|Japan)(\d+)?\b)))(?!.*((?i)回国|校园|游戏|🎮|(\b(GAME)(\d+)?\b))).*$
+    icon: https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/Flag/Japan.png
+- auto_test:
+    name: South Korea
+    policies:
+    - SubName1
+    - SubName2
+    flatten: true
+    filter: ^(?=.*((?i)🇰🇷|韩国|韓|首尔|(\b(KR|KOR|Korea|Seoul)(\d+)?\b)))(?!.*((?i)回国|校园|游戏|🎮|(\b(GAME)(\d+)?\b))).*$
+    icon: https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/Flag/SouthKorea.png
+- auto_test:
+    name: Singapore
+    policies:
+    - SubName1
+    - SubName2
+    flatten: true
+    filter: ^(?=.*((?i)🇸🇬|新加坡|新国|狮|(\b(SG|SGP|Singapore)(\d+)?\b)))(?!.*((?i)回国|校园|游戏|🎮|(\b(GAME)(\d+)?\b))).*$
+    icon: https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/Flag/Singapore.png
+- auto_test:
+    name: United States
+    policies:
+    - SubName1
+    - SubName2
+    flatten: true
+    filter: ^(?=.*((?i)🇺🇸|美国|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|拉斯维加斯|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥|(\b(US|USA|United States|America)(\d+)?\b)))(?!.*((?i)回国|校园|游戏|🎮|(\b(GAME)(\d+)?\b))).*$
+    icon: https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/Flag/UnitedStates.png
+- select:
+    name: Remaining
+    policies:
+    - SubName1
+    - SubName2
+    flatten: true
+    filter: ^(?=.*(.*))(?!.*((?i)🇭🇰|🇲🇴|🇹🇼|🇯🇵|🇰🇷|🇸🇬|🇺🇸|🇬🇧|香港|澳门|台湾|日本|川日|东京|大阪|泉日|埼玉|韩国|韓|首尔|新加坡|狮|美国|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|拉斯维加斯|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥|英国|伦敦|群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|总计|到期|机场|下次|重置|重新|设置|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|超时|收藏|回国|校园|游戏|🎮|(\b(HK|HKG|Hong|Hong Kong|MO|MAC|Oman|Macau|Macao|TW|TWN|Tai|Taiwan|JP|JPN|Japan|KR|KOR|Korea|SG|SGP|Singapore|US|USA|United States|America|UK|GB|GBR|United Kingdom|Britain|USE|USED|TOTAL|EXPIRE|EMAIL|GAME|Panel|Channel|Author|Traffic)(\d+)?\b|(\d{4}-\d{2}-\d{2}|\dG)))).*$
+    icon: https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/Flag/UnitedNations.png
+- select:
+    name: Final
+    policies:
+    - DIRECT
+    - Hong Kong
+    - Macao
+    - TaiWan
+    - Japan
+    - South Korea
+    - Singapore
+    - United States
+    icon: https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/Other/Final.png
+- select:
+    name: OpenAI
+    policies:
+    - Hong Kong
+    - Macao
+    - TaiWan
+    - Japan
+    - South Korea
+    - Singapore
+    - United States
+    icon: https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/App/ChatGPT.png
+- select:
+    name: AppleProxy
+    policies:
+    - Hong Kong
+    - Macao
+    - TaiWan
+    - Japan
+    - South Korea
+    - Singapore
+    - United States
+    icon: https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/App/Apple.png
+- select:
+    name: Google
+    policies:
+    - Hong Kong
+    - Macao
+    - TaiWan
+    - Japan
+    - South Korea
+    - Singapore
+    - United States
+    icon: https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/App/Google.png
+- select:
+    name: Microsoft
+    policies:
+    - Hong Kong
+    - Macao
+    - TaiWan
+    - Japan
+    - South Korea
+    - Singapore
+    - United States
+    icon: https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/App/Microsoft.png
+- select:
+    name: GitHub
+    policies:
+    - Hong Kong
+    - Macao
+    - TaiWan
+    - Japan
+    - South Korea
+    - Singapore
+    - United States
+    icon: https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/App/GitHub-01.png
+- select:
+    name: X
+    policies:
+    - Hong Kong
+    - Macao
+    - TaiWan
+    - Japan
+    - South Korea
+    - Singapore
+    - United States
+    icon: https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/App/Twitter-02.png
+- select:
+    name: Telegram
+    policies:
+    - Hong Kong
+    - Macao
+    - TaiWan
+    - Japan
+    - South Korea
+    - Singapore
+    - United States
+    icon: https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/App/Telegram-02.png
+- select:
+    name: TouTube
+    policies:
+    - Hong Kong
+    - Macao
+    - TaiWan
+    - Japan
+    - South Korea
+    - Singapore
+    - United States
+    icon: https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/App/YouTube.png
+- select:
+    name: Netflix
+    policies:
+    - Hong Kong
+    - Macao
+    - TaiWan
+    - Japan
+    - South Korea
+    - Singapore
+    - United States
+    icon: https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/App/Netflix-02.png
+- select:
+    name: TikTok
+    policies:
+    - Hong Kong
+    - Macao
+    - TaiWan
+    - Japan
+    - South Korea
+    - Singapore
+    - United States
+    icon: https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/App/TikTok-02.png    
+- select:
+    name: Emby
+    policies:
+    - Hong Kong
+    - Macao
+    - TaiWan
+    - Japan
+    - South Korea
+    - Singapore
+    - United States
+    icon: https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/App/Conflux.png
+rules:
+- rule_set:
+    match: https://raw.githubusercontent.com/Repcz/Tool/X/Egern/Rules/Direct.yaml
+    policy: DIRECT
+- rule_set:
+    match: https://raw.githubusercontent.com/Repcz/Tool/X/Egern/Rules/Reject.yaml
+    policy: REJECT
+- rule_set:
+    match: https://raw.githubusercontent.com/Repcz/Tool/X/Egern/Rules/AI.yaml
+    policy: OpenAI
+- rule_set:
+    match: https://raw.githubusercontent.com/Repcz/Tool/X/Egern/Rules/Github.yaml
+    policy: GitHub
+- rule_set:
+    match: https://raw.githubusercontent.com/Repcz/Tool/X/Egern/Rules/Microsoft.yaml
+    policy: Microsoft
+- rule_set:
+    match: https://raw.githubusercontent.com/Repcz/Tool/X/Egern/Rules/Google.yaml
+    policy: Google
+- rule_set:
+    match: https://raw.githubusercontent.com/Repcz/Tool/X/Egern/Rules/Telegram.yaml
+    policy: Telegram
+- rule_set:
+    match: https://raw.githubusercontent.com/Repcz/Tool/X/Egern/Rules/Twitter.yaml
+    policy: X
+- rule_set:
+    match: https://raw.githubusercontent.com/Repcz/Tool/X/Egern/Rules/Emby.yaml
+    policy: Emby
+- rule_set:
+    match: https://raw.githubusercontent.com/Repcz/Tool/X/Egern/Rules/YouTube.yaml
+    policy: YouTube
+- rule_set:
+    match: https://raw.githubusercontent.com/Repcz/Tool/X/Egern/Rules/Netflix.yaml
+    policy: Netflix
+- rule_set:
+    match: https://raw.githubusercontent.com/Repcz/Tool/X/Egern/Rules/TikTok.yaml
+    policy: TikTok
+- rule_set:
+    match: https://raw.githubusercontent.com/Repcz/Tool/X/Egern/Rules/AppleProxy.yaml
+    policy: AppleProxy
+- rule_set:
+    match: https://raw.githubusercontent.com/Repcz/Tool/X/Egern/Rules/ProxyGFW.yaml
+    policy: Final
+- rule_set:
+    match: https://raw.githubusercontent.com/Repcz/Tool/X/Egern/Rules/Apple.yaml
+    policy: DIRECT
+- rule_set:
+    match: https://raw.githubusercontent.com/Repcz/Tool/X/Egern/Rules/Lan.yaml
+    policy: DIRECT
+- geoip:
+    match: CN
+    policy: DIRECT
+- default:
+    policy: Final
+mitm:
+  enabled: true
+modules:
+- name: BoxJS
+  url: https://raw.githubusercontent.com/chavyleung/scripts/master/box/rewrite/boxjs.rewrite.surge.sgmodule
+  enabled: true
+- name: Script Hub
+  url: https://raw.githubusercontent.com/Script-Hub-Org/Script-Hub/main/modules/script-hub.surge.sgmodule
+  enabled: true
+- name: Sub Store
+  url: https://raw.githubusercontent.com/Peng-YM/Sub-Store/master/config/Surge.sgmodule
+  enabled: true

@@ -1,0 +1,25 @@
+#!name=中国移动
+#!desc=1.过滤中国移动广告，不对内部活动进行相关广告去除；2.查询套餐内通话、套餐使用情况（默认关闭）。
+#!author=Yuheng0101[https://github.com/Yuheng0101], anker1209[https://github.com/anker1209], ChinaTelecomOperators[https://github.com/ChinaTelecomOperators]
+#!icon=https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/App/ChinaMobile.png
+#!openUrl=https://apps.apple.com/app/id583700738
+#!homepage=https://github.com/sooyaaabo/Egern
+#!date=2025-12-29 16:30
+#!arguments=enable_capture:false,enable_cron:false,cron-10086:"0 9 * * *",phonenumber:"",bark_key:"",service:false,silent:false,debug:false
+
+[Map Local]
+# 开屏
+^https?:\/\/(client\.app\.coc|app)\.10086\.cn\/biz-orange\/DN\/(explorePage\/getAdverList|init\/startInit|emotionMarket) data-type=text data=" " status-code=200
+
+[Script]
+# 获取参数
+[中国移动]获取参数 = type=http-request, pattern=^https?:\/\/client\.app\.coc\.10086\.cn\/biz-orange\/[LD]N\/uam(?:onekey|randcode)login\/autoLogin, script-path=https://github.com/ChinaTelecomOperators/ChinaMobile/releases/latest/download/10086.js, requires-body=true
+
+# 定时任务
+[中国移动]余量查询 = type=cron, cronexp={{{cron-10086}}}, script-path=https://github.com/ChinaTelecomOperators/ChinaMobile/releases/latest/download/10086.js, timeout=60, argument="[{{{phonenumber}}},{{{bark_key}}},{{{debug}}},{{{silent}}},{{{service}}}]"
+
+# 查询接口
+[中国移动]查询接口 = type=http-request, pattern=^https?:\/\/api\.example\.com\/10086\/query, script-path=https://github.com/ChinaTelecomOperators/ChinaMobile/releases/latest/download/10086.js, requires-body=true, timeout=60
+
+[MITM]
+hostname = %APPEND% app.10086.cn, client.app.coc.10086.cn, api.example.com

@@ -1,0 +1,30 @@
+#!name=阿里云盘
+#!desc=过滤阿里云盘广告
+#!author=RuCu6[https://github.com/RuCu6], 可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
+#!icon=https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/App/Alipan-01.png
+#!openUrl=https://apps.apple.com/app/id1494661473
+#!homepage=https://github.com/sooyaaabo/Egern
+#!date=2025-12-29 16:30
+
+[Rule]
+IP-CIDR,203.107.1.1/24,REJECT,no-resolve
+
+[Body Rewrite]
+http-response-jq ^https:\/\/(biz)?api\.alipan\.com\/apps\/v\d\/users?\/home\/news 'if .result|length>0 then .result|=map(select(.code|contains("productUpdate")|not)) else . end'
+http-response-jq ^https:\/\/(biz)?api\.alipan\.com\/apps\/v\d\/users?\/home\/widgets 'delpaths([["album"],["banners"],["coreFeatures"],["introduceAlipan"],["minorBackup"]])'
+http-response-jq ^https:\/\/member\.alipan\.com\/v1\/users\/onboard_list 'if .result|length>0 then .result|=map(select(.anchor|IN("backup_list_under_mydevice_banner","backup_top_banner","home_bulletin_board","home_top_banner","resource_top_banner","video_top_banner")|not)) else . end'
+
+[Map Local]
+# 首页活动日历
+^https:\/\/member\.alipan\.com\/v2\/activity\/sign_in_luckyBottle data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+# 首页板块入口
+^https:\/\/api\.alipan\.com\/adrive\/v1\/file\/getTopFolders data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+[Script]
+[阿里云盘]移除广告 = type=http-response, pattern=^https:\/\/(biz)?api\.alipan\.com\/apps\/v\d\/users?\/home\/(?:news|widgets), script-path=https://loon.103516.xyz/Script/Alipan/Alipan.js, requires-body=true
+
+[阿里云盘]移除广告 = type=http-response, pattern=^https:\/\/member\.alipan\.com\/v1\/users\/onboard_list, script-path=https://loon.103516.xyz/Script/Alipan/Alipan.js, requires-body=true
+
+[MITM]
+hostname = %APPEND% *api.alipan.com, *api.aliyundrive.com, member.alipan.com, member.aliyundrive.com

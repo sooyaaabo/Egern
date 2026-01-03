@@ -1,0 +1,68 @@
+name: Auto update date and replace links
+
+on:
+  workflow_dispatch:
+  # schedule:
+  #   - cron: "30 * * * *"
+
+permissions:
+  contents: write
+
+jobs:
+  auto-update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          repository: sooyaaabo/Egern
+          path: Egern
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update date in .module files (keep only one #!date)
+        run: |
+          DATE=$(TZ=Asia/Shanghai date "+%Y-%m-%d %H:%M")
+          echo "Using date: $DATE"
+
+          find Egern -type f -name "*.module" | while read file; do
+            # 1. 删除文件中所有 #!date 行
+            sed -i '/^#!date=/d' "$file"
+            # 2. 在文件第一行插入新的 #!date
+            sed -i "1i#!date=$DATE" "$file"
+          done
+
+
+      - name: Replace raw.githubusercontent.com links
+        run: |
+          find Egern -type f | while read file; do
+            sed -i 's|https://raw.githubusercontent.com/sooyaaabo/Loon/main/|https://loon.103516.xyz/|g' "$file"
+          done
+
+      - name: Replace icon links (loon → IconLibrary)
+        run: |
+          find Egern -type f | while read file; do
+            sed -i 's|#!icon[[:space:]]*=[[:space:]]*https://loon.103516.xyz/Icon/App-Icon/|#!icon=https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/App/|g' "$file"
+          done
+
+      - name: Remove git conflict markers
+        run: |
+          find Egern -type f | while read file; do
+            sed -i \
+              -e '/^<<<<<<< Updated upstream$/d' \
+              -e '/^=======$/d' \
+              -e '/^>>>>>>> Stashed changes$/d' \
+              "$file"
+          done
+
+      - name: Commit and push changes
+        run: |
+          cd Egern
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+
+          # 关键修复：排除 workflows，避免 GitHub 安全拒绝
+          git add . ':!.github/workflows'
+
+          git commit -m "Auto update date and replace links" || echo "No changes to commit"
+          git push

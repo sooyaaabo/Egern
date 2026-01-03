@@ -1,0 +1,17 @@
+#!name=IT之家
+#!desc=过滤IT之家广告，自定义移除置顶和轮播图，自定义移除项需在插件配置。
+#!author=Keywos[https://github.com/Keywos], 可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
+#!icon=https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/App/IThome.png
+#!openUrl=https://apps.apple.com/app/id570610859
+#!homepage=https://github.com/sooyaaabo/Egern
+#!date=2025-12-29 16:30
+#!arguments=removePinnedArticles:true,removeAllBanners:true
+
+[URL Rewrite]
+^https?:\/\/dat\.ruanmei\.com\/ithome\/money\/acd\.json$ - reject
+
+[Script]
+[IT之家]移除广告 = type=http-response, pattern=^https:\/\/napi\.ithome\.com\/api\/(news\/indexv2\/iphone\/\d+|topmenu\/getfeeds\?), script-path=https://kelee.one/Resource/JavaScript/IThome/IThome_remove_ads.js, requires-body=true, argument="[{{{removeAllBanners}}},{{{removePinnedArticles}}}]"
+
+[MITM]
+hostname = %APPEND% napi.ithome.com, api.zuihuimai.com, dat.ruanmei.com

@@ -1,0 +1,20 @@
+#!name=金山文档
+#!desc=过滤金山文档广告
+#!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
+#!icon=https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/App/KDocs.png
+#!openUrl=https://apps.apple.com/app/id1398120225
+#!homepage=https://github.com/sooyaaabo/Egern
+#!date=2025-12-29 16:30
+
+[Map Local]
+# 首页横幅广告
+^https:\/\/www\.kdocs\.cn\/kdg\/api\/v1\/cards\/type\/3\?iosVer=\d+\.\d+\.\d+&isGetList=1 data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+# 我的页面推广
+^https:\/\/www\.kdocs\.cn\/kdg\/api\/v1\/cards\/type\/27\?iosVer=\d+\.\d+\.\d+&isGetList=1 data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+# 表单收集页面推广
+^https:\/\/f-api\.kdocs\.cn\/godfather\/api\/thirdparty\/v1\/viewpager\?showLocal=mobileWebIndex data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+[MITM]
+hostname = %APPEND% www.kdocs.cn, f-api.kdocs.cn

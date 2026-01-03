@@ -1,0 +1,30 @@
+#!name=中国联通
+#!desc=过滤中国联通广告
+#!author=mist-whisper[https://github.com/mist-whisper]
+#!icon=https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/App/ChinaUnicom.png
+#!openUrl=https://apps.apple.com/app/id416457422
+#!homepage=https://github.com/sooyaaabo/Egern
+#!date=2025-12-29 16:30
+
+[Rule]
+# 开屏广告
+DOMAIN,m1.ad.10010.com,REJECT
+
+[URL Rewrite]
+# 广告推送
+^https?:\/\/m\.client\.10010\.com\/mobileserviceimportant\/customer\/querySmartServicekhd.htm - reject
+# 新人专享
+^https?:\/\/m\.client\.10010\.com\/clientIndex\/api\/v1\/index\/queryIndexExclusiveOffers - reject
+# 首页瀑布流
+^https?:\/\/img\.client\.10010\.com\/homejingxuan12\/js\/(pubuliu|1homeView) - reject
+
+[Body Rewrite]
+http-response-jq ^https:\/\/m\.client\.10010\.com\/search_service\/tyfbSearch\/searchDiscoverListExpress '.data = []'
+http-response-jq ^https:\/\/m\.client\.10010\.com\/search_service\/search\/searchScrollWord '.["113000004"] = []'
+http-response-jq ^https:\/\/m\.client\.10010\.com\/clientIndex\/v1\/api\/navHome '.datas.homeTopMenuItems |= map(select(.menuName != "通通" and .menuName != "vowifi" and .menuName != "签到" and .menuName != ""))'
+http-response-jq ^https:\/\/m\.client\.10010\.com\/clientIndex\/homefusion\/fuInter 'del(.["HomeFusion.backGroundQuery"], .["HomeFusion.fuchuangAdv_A8"], .["HomeFusion.bottomLabel"])'
+http-response-jq ^https:\/\/m\.client\.10010\.com\/clientMyPage\/v1\/api\/myWallet '.data.payShowFlag = false'
+http-response-jq ^https?:\/\/m\.client\.10010\.com\/clientMyPage\/v\d\/api\/(myWallet|myPoints|myColorfulRingtone|newUserInfo|getDeviceInfo) '.data={}'
+
+[MITM]
+hostname = %APPEND% m.client.10010.com, img.client.10010.com

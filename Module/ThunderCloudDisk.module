@@ -1,0 +1,20 @@
+#!name=迅雷
+#!desc=过滤迅雷广告，解锁部分会员功能。
+#!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md], Marol62926[https://github.com/Marol62926]
+#!icon=https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/App/ThunderCloudDisk.png
+#!openUrl=https://apps.apple.com/app/id1503466530
+#!homepage=https://github.com/sooyaaabo/Egern
+#!date=2025-12-29 16:30
+
+[Body Rewrite]
+http-response-jq ^https:\/\/conf-m-ssl\.xunlei\.com\/external\/ 'delpaths([["values","me_config","entrance_list_vertical_enable"]])'
+http-response-jq ^https:\/\/conf-m-ssl\.xunlei\.com\/external\/ 'delpaths([["values","me_config","common_service_list"]])'
+http-response-jq ^https:\/\/conf-m-ssl\.xunlei\.com\/external\/ 'delpaths([["values","me_config","banner_service_list"]])'
+http-response-jq ^https:\/\/api-shoulei-ssl\.xunlei\.com\/flowhub\/v1\/slots:batchGet$ '.slots |= map(select(.id == "xl_ios_mytab_vipicon" or (.native.assets.title.text.value? and (.native.assets.title.text.value | . == "清理助手" or . == "云盘容量" or . == "远程设备"))))'
+
+[Script]
+# 解锁迅雷会员
+[迅雷云盘]解锁会员 = type=http-response, pattern=^https:\/\/xluser-ssl\.xunlei\.com\/xluser\.core\.login\/v3\/getuserinfo, script-path=https://raw.githubusercontent.com/Marol62926/MarScrpt/main/xunlei.js, requires-body=true
+
+[MITM]
+hostname = %APPEND% conf-m-ssl.xunlei.com, api-shoulei-ssl.xunlei.com, xluser-ssl.xunlei.com

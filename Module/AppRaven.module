@@ -1,0 +1,13 @@
+#!name=AppRaven
+#!desc=AppRaven解锁会员
+#!author=Yu9191[https://github.com/Yu9191]
+#!icon=https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/App/AppRaven.png
+#!openUrl=https://apps.apple.com/app/id1490607195
+#!homepage=https://github.com/sooyaaabo/Egern
+#!date=2025-12-29 16:30
+
+[Script]
+[AppRaven]解锁会员 = type=http-response, pattern=^https:\/\/appraven\.net\/appraven\/graphql, script-path=https://raw.githubusercontent.com/Yu9191/Rewrite/main/AppRaven.js, requires-body=true
+
+[MITM]
+hostname = %APPEND% appraven.net

@@ -1,0 +1,8 @@
+# 引用链接: https://raw.githubusercontent.com/QingRex/LoonKissSurge/main/Surge/Official/Follow%E6%AF%8F%E6%97%A5%E7%AD%BE%E5%88%B0.sgmodule
+#!name=Follow每日签到
+#!desc=Follow每日签到 by @gideonsenku
+#!arguments=follow_csrfToken,follow_cookie,cron
+
+[Script]
+# 定时签到
+Follow每日签到 = type=cron, cronexp="{{{cron}}}", script-path=https://raw.githubusercontent.com/Sliverkiss/GoodNight/refs/heads/master/Script/follow.js, argument="follow_csrfToken={{{follow_csrfToken}}}&follow_cookie={{{follow_cookie}}}", timeout=1200

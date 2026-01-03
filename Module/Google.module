@@ -1,0 +1,16 @@
+#!name=Google
+#!desc=将Google搜索重定向至.com域名，如遇频繁跳转请禁用本插件。
+#!author=sooyaaabo[https://github.com/sooyaaabo]
+#!icon=https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/App/Google.png
+#!openUrl=https://apps.apple.com/app/id284815942
+#!homepage=https://github.com/sooyaaabo/Egern
+#!date=2025-12-29 16:30
+
+[URL Rewrite]
+# ^https?:\/\/(www.)?(g|google)\.(cn|com\.hk) 307 https://www.google.com
+^https?:\/\/(www.)?(g|google)\.cn https://www.google.com 307
+^https?:\/\/(ditu|maps).google\.cn https://maps.google.com 307
+^https?:\/\/translate\.google\.cn https://translate.google.com 307
+
+[MITM]
+hostname = %APPEND% *.google.cn, *.g.cn

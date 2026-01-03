@@ -1,0 +1,21 @@
+# 引用链接: https://raw.githubusercontent.com/QingRex/LoonKissSurge/main/Surge/360%E6%99%BA%E6%85%A7%E7%94%9F%E6%B4%BB%E5%8E%BB%E5%B9%BF%E5%91%8A.sgmodule
+#!name=360智慧生活去广告
+#!desc=移除开屏广告、首页推广横幅、商城入口及我的页面推广。
+#!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
+#!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/SafetyHome.png
+#!category=iKeLee
+#!openUrl=https://apps.apple.com/app/id1488904375
+#!tag=去广告
+#!loon_version=3.2.4(787)
+#!homepage=https://hub.kelee.one
+#!date=2025-05-13 15:17:08
+
+[Rule]
+DOMAIN,ad.iot.360.cn,REJECT,extended-matching,pre-matching
+
+[Map Local]
+^https:\/\/app\.home\.360\.cn\/v1\/config\/custom_config data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+[MITM]
+hostname = %APPEND% app.home.360.cn
+

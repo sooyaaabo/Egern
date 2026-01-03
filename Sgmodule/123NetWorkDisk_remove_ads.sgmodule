@@ -1,0 +1,18 @@
+# 引用链接: https://raw.githubusercontent.com/QingRex/LoonKissSurge/main/Surge/123%E4%BA%91%E7%9B%98%E5%8E%BB%E5%B9%BF%E5%91%8A.sgmodule
+#!name=123云盘去广告
+#!desc=移除开屏广告、应用内横幅广告。
+#!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
+#!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/123NetWorkDisk.png
+#!category=iKeLee
+#!openUrl=https://apps.apple.com/app/id1597682672
+#!tag=去广告
+#!loon_version=3.2.4(787)
+#!homepage=https://hub.kelee.one
+#!date=2025-05-13 15:17:08
+
+[Map Local]
+^https:\/\/www\.123pan\.com\/api\/config\/get data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+[MITM]
+hostname = %APPEND% www.123pan.com
+

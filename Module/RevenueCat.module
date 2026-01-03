@@ -1,0 +1,34 @@
+#!name=RevenueCat
+#!desc=RevenueCat系列解锁合集，在设置中选择需要使用的原作者脚本以使用此插件。
+#!author=chxm1023[https://github.com/chxm1023], ddgksf2013[https://github.com/ddgksf2013], Guding88[https://github.com/Guding88], Yu9191[https://github.com/Yu9191]
+#!icon=https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/App/RevenueCat.png
+#!homepage=https://github.com/sooyaaabo/Egern
+#!date=2025-12-29 16:23
+#!arguments=RevenueCat-chxm1023:false,RevenueCat-Guding88:false,RevenueCat-ddgksf2013:false,RevenueCat-Yu9191:false
+
+[URL Rewrite]
+^https:\/\/api\.lianjiu\.fun\/app\/api\/v1\/profile - reject
+
+[Script]
+# chxm1023
+[RevenueCat]会员解锁响应@chxm1023 = type=http-response, pattern=^https:\/\/api\.(revenuecat|rc-backup)\.com\/.+\/(receipts$|subscribers\/?(.*?)*$), script-path=https://raw.githubusercontent.com/chxm1023/Rewrite/main/Reheji.js, requires-body=true
+
+[RevenueCat]会员解锁请求@chxm1023 = type=http-request, pattern=^https:\/\/api\.(revenuecat|rc-backup)\.com\/.+\/(receipts$|subscribers\/?(.*?)*$), script-path=https://raw.githubusercontent.com/chxm1023/Rewrite/main/Reheji.js
+
+# Guding88
+[RevenueCat]会员解锁响应@Guding88 = type=http-response, pattern=^https?:\/\/api\.(revenuecat|rc-backup)\.com\/v1\/(subscribers\/[^\/]+$|receipts$), script-path=https://raw.githubusercontent.com/Guding88/Script/main/APPheji_Revenuecat.js, requires-body=true
+
+[RevenueCat]会员解锁请求@Guding88 = type=http-request, pattern=^https?:\/\/api\.(revenuecat|rc-backup)\.com\/v1\/(subscribers\/[^\/]+$|receipts$), script-path=https://raw.githubusercontent.com/Guding88/Script/main/APPheji_Revenuecat.js
+
+# ddgksf2013
+[RevenueCat]会员解锁响应@ddgksf2013 = type=http-response, pattern=^https:\/\/api\.(revenuecat|rc-backup)\.com\/.+\/(receipts$|subscribers\/?(.*?)*$), script-path=https://ddgksf2013.top/scripts/revenuecat.vip.js, requires-body=true
+
+[RevenueCat]会员解锁请求@ddgksf2013 = type=http-request, pattern=^https:\/\/api\.(revenuecat|rc-backup)\.com\/.+\/(receipts$|subscribers\/?(.*?)*$), script-path=https://raw.githubusercontent.com/ddgksf2013/Scripts/master/deleteHeader.js
+
+# Yu9191
+[RevenueCat]会员解锁响应@Yu9191 = type=http-response, pattern=^https:\/\/(api\.revenuecat\.com|api\.rc-backup\.com)\/.+\/(receipts$|subscribers\/[^/]+$), script-path=https://raw.githubusercontent.com/Yu9191/Rewrite/main/Revenuecat.js, requires-body=true
+
+[RevenueCat]会员解锁请求@Yu9191 = type=http-request, pattern=^https:\/\/(api\.revenuecat\.com|api\.rc-backup\.com)\/.+\/(receipts$|subscribers\/[^/]+$), script-path=https://raw.githubusercontent.com/Yu9191/Rewrite/main/Revenuecat.js
+
+[MITM]
+hostname = %APPEND% api.revenuecat.com, api.rc-backup.com, api.lianjiu.fun

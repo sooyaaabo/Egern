@@ -1,0 +1,13 @@
+#!name=Listenify
+#!desc=从网易云音乐获取歌词与艺人封面
+#!author=Yswag[https://github.com/Yswag]
+#!icon=https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/App/Listenify.png
+#!openUrl=https://apps.apple.com/app/id6475892753
+#!homepage=https://github.com/sooyaaabo/Egern
+#!date=2025-12-29 16:30
+
+[Script]
+[Listenify]Lyrics = type=http-request, pattern=^https:\/\/api\.lrc\.cx\/(lyrics|cover), script-path=https://raw.githubusercontent.com/Yswag/for-own-use/main/js/listenify.js
+
+[MITM]
+hostname = %APPEND% api.lrc.cx

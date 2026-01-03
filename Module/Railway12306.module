@@ -1,0 +1,21 @@
+#!name=铁路12306
+#!desc=过滤铁路12306广告
+#!author=RuCu6[https://github.com/RuCu6], kokoryh[https://github.com/kokoryh]
+#!icon=https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/App/Railway12306.png
+#!openUrl=https://apps.apple.com/app/id564818797
+#!homepage=https://github.com/sooyaaabo/Egern
+#!date=2025-12-29 16:30
+
+[Rule]
+# 放行规则
+DOMAIN,ad.12306.cn,DIRECT
+
+[Script]
+# 移除12306开屏广告
+[铁路12306]移除开屏广告 = type=http-request, pattern=^https:\/\/ad\.12306\.cn\/ad\/ser\/getAdList$, script-path=https://raw.githubusercontent.com/kokoryh/Sparkle/master/dist/12306.js, requires-body=true
+
+# 移除12306应用内广告
+[铁路12306]移除应用内广告 = type=http-response, pattern=^https:\/\/mobile\.12306\.cn\/otsmobile\/app\/mgs\/mgw\.htm$, script-path=https://raw.githubusercontent.com/kokoryh/Sparkle/master/dist/12306.js
+
+[MITM]
+hostname = %APPEND% ad.12306.cn, mobile.12306.cn

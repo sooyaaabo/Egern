@@ -1,0 +1,45 @@
+#!name=优酷视频
+#!desc=为好内容 全力以赴 [为好广告 全力以赴]
+#!author=RuCu6[https://github.com/RuCu6], 可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
+#!icon=https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/App/YoukuVideo.png
+#!openUrl=https://apps.apple.com/app/id336141475
+#!homepage=https://github.com/sooyaaabo/Egern
+#!date=2025-12-29 16:30
+
+[Rule]
+# 放行地址
+DOMAIN,push.m.youku.com,DIRECT
+DOMAIN,un-acs.youku.com,DIRECT
+DOMAIN,dorangesource.alicdn.com,DIRECT
+# 拦截地址
+DOMAIN,h-adashx.ut.taobao.com,REJECT
+DOMAIN,adx-core.youku.com,REJECT
+DOMAIN,adx-open-service.youku.com,REJECT
+DOMAIN,yk-ssp.ad.youku.com,REJECT
+DOMAIN,cad.youku.com,REJECT
+DOMAIN,ykad-data.youku.com,REJECT
+DOMAIN,yk-ssp.ad.youku.com,REJECT
+DOMAIN,amdc.m.youku.com,REJECT
+DOMAIN,cad.youku.com,REJECT
+DOMAIN,nbsdk-baichuan.alicdn.com,REJECT
+DOMAIN,youku-crm-product.youku.com,REJECT
+DOMAIN,dr-danmu.youku.com,REJECT
+DOMAIN,group-ssl-danmu-ori.youku.com,REJECT
+DOMAIN,m.atm.youku.com,REJECT
+DOMAIN,mc.atm.youku.com,REJECT
+DOMAIN,vali-g1.cp31.ott.cibntv.net,REJECT
+DOMAIN,vali-ugc.cp31.ott.cibntv.net,REJECT
+DOMAIN-SUFFIX,iyes.youku.com,REJECT
+DOMAIN,adsmind.ugdtimg.com,REJECT
+DOMAIN,pre-acs.youku.com,REJECT
+DOMAIN,youku-acs.m.taobao.com,REJECT
+
+[Body Rewrite]
+http-response-jq ^https:\/\/un-acs\.youku\.com\/gw\/mtop\.youku\.play\.ups\.appinfo\.get 'delpaths([["data","data","ad"]])'
+http-response-jq ^https:\/\/un-acs\.youku\.com\/gw\/mtop\.youku\.play\.ups\.appinfo\.get 'delpaths([["data","data","watermark"]])'
+http-response-jq ^https:\/\/un-acs\.youku\.com\/gw\/mtop\.youku\.play\.ups\.appinfo\.get 'delpaths([["data","data","ykad"]])'
+http-response-jq ^https:\/\/push\.m\.youku\.com\/collect-api\/get_push_interval_config_wx\? 'delpaths([["data","tipContent"]])'
+http-response-jq ^https:\/\/push\.m\.youku\.com\/collect-api\/get_push_interval_config_wx\? 'delpaths([["data","tipContentNew"]])'
+
+[MITM]
+hostname = %APPEND% push.m.youku.com, un-acs.youku.com

@@ -1,0 +1,21 @@
+#!name=夸克
+#!desc=过滤夸克广告
+#!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
+#!icon=https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/App/Quark.png
+#!openUrl=https://apps.apple.com/app/id1160172628
+#!homepage=https://github.com/sooyaaabo/Egern
+#!date=2025-12-29 16:30
+
+[URL Rewrite]
+# 小说底部文案广告
+^https:\/\/huichuan\.sm\.cn\/nativead$ - reject
+
+[Map Local]
+^https:\/\/stars\.shuqireader\.com\/kkios\/render\/load\/resource\/appConfig$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+[Script]
+# 精简我的页面
+[夸克]精简我的页面 = type=http-response, pattern=^https:\/\/open-cms-api\.quark\.cn\/open-cms, script-path=https://kelee.one/Resource/JavaScript/QuarkBrowser/QuarkBrowser_remove_ads.js, requires-body=true
+
+[MITM]
+hostname = %APPEND% huichuan.sm.cn, stars.shuqireader.com, open-cms-api.quark.cn
