@@ -6,11 +6,10 @@
 #!tag=功能增强
 #!homepage=https://github.com/sooyaaabo/Egern
 #!date=2026-01-04 11:00
-#!arguments=目标客户端:Loon
-#!arguments-desc=目标客户端\n- Loon: 保持原插件格式（默认，不转换）\n- Surge: 转换为 Surge 模块\n- Egern: 转换为 Egern 模块\n- Shadowrocket: 转换为 Shadowrocket 模块
+#!arguments=target:"Loon"
 
 [Script]
-[LoonLab]Converter = type=http-response, pattern=^https?:\/\/loonlab\.103516\.xyz\/Plugin\/, script-path=https://loon.103516.xyz/Script/LoonLab/LoonLabConverter.js, requires-body=true, argument="{{{目标客户端}}}"
+[LoonLab]Converter = type=http-response, pattern=^https?:\/\/loonlab\.103516\.xyz\/Plugin\/, script-path=https://loon.103516.xyz/Script/LoonLab/LoonLabConverter.js, requires-body=true, argument=[{{{target}}}]
 
 [MITM]
 hostname = %APPEND% loonlab.103516.xyz
