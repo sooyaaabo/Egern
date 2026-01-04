@@ -9,7 +9,7 @@
 #!arguments=target:"Loon"
 
 [Script]
-[LoonLab]Converter = type=http-response, pattern=^https?:\/\/loonlab\.103516\.xyz\/Plugin\/, script-path=https://loon.103516.xyz/Script/LoonLab/LoonLabConverter.js, requires-body=true, argument=[{{{target}}}]
+[LoonLab]Converter = type=http-response, pattern=^https?:\/\/loonlab\.103516\.xyz\/Plugin\/, script-path=https://loon.103516.xyz/Script/LoonLab/LoonLabConverter.js, requires-body=true, argument={"target":"{{{target}}}"}
 
 [MITM]
 hostname = %APPEND% loonlab.103516.xyz
