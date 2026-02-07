@@ -4,7 +4,7 @@
 #!icon=https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/App/BaiduNetDisk.png
 #!openUrl=https://apps.apple.com/app/id547166701
 #!homepage=https://github.com/sooyaaabo/Egern
-#!date=2026-01-04 19:00
+#!date=2026-01-31 23:00
 
 [Body Rewrite]
 http-response-jq ^https:\/\/pan\.baidu\.com\/feed\/kingkongdistrict\? '.data.data |= map(select(.type != "novel" and .type != "shortplay" and .type != "print" and .type != "job_hunt"))'
@@ -42,6 +42,9 @@ http-response-jq ^https:\/\/pan\.baidu\.com\/feed\/kingkongdistrict\? '.data.dat
 
 # 金币乐园
 ^https:\/\/pan\.baidu\.com\/coins\/center\/notice data-type=text data=" " status-code=200
+
+# 短剧
+^https:\/\/pan\.baidu\.com\/recommend\/shortseries\/list data-type=text data=" " status-code=200
 
 [Script]
 # 广告推广
