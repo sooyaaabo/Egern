@@ -3,7 +3,7 @@
 #!author=ddgksf2013[https://github.com/ddgksf2013]
 #!icon=https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/Other/AdReject.png
 #!homepage=https://github.com/sooyaaabo/Egern
-#!date=2026-02-07 10:00
+#!date=2026-02-09 21:00
 
 [Rule]
 # DiDaChuXing
@@ -564,6 +564,7 @@ http-response-jq ^https?:\/\/api\.qeeniao\.com\/nap\/ad '.data={}'
 
 # LeKeYunDong
 ^https?:\/\/lens\.leoao\.com\/lens\/.+(getUserScheme|queryAppBanners|Advert|popup) data-type=text data=" " status-code=200
+^https?:\/\/lens\.leoao\.com\/lens\/.*Advertising data-type=text data=" " status-code=200
 
 # LingPao
 ^https?:\/\/apptec\.leapmotor\.cn\/appNewInterface\/getAppStartPageInfo data-type=text data=" " status-code=200
