@@ -4,7 +4,7 @@
 #!icon=https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/App/Fenbi.png
 #!openUrl=https://apps.apple.com/app/id584660358
 #!homepage=https://github.com/sooyaaabo/Egern
-#!date=2025-12-29 16:30
+#!date=2026-02-13 23:00
 
 [Body Rewrite]
 http-response-jq ^https:\/\/hera-webapp\.fenbi\.com\/(?:iphone|ipad)\/recommend\/info\? 'delpaths([["data","rollingBanner"]])'
@@ -19,7 +19,8 @@ http-response-jq ^https:\/\/ke\.fenbi\.com\/(?:iphone|ipad)\/v3\/apps\/config\? 
 
 ^https:\/\/market-api\.fenbi\.com\/(?:iphone|ipad)\/v1\/assistant\/info\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
-# ^https:\/\/keapi\.fenbi\.com\/app\/(?:iphone|ipad)\/position_resource\/get_home_banners\?.*position_resource_type=1 mock-response-body data-type=json data="{"code":1,"msg":"","data":{"positionResourceType":1,"payload":{"items":[{"id":17868,"courseSetId":2,"content":"妹子图","imageUrl":"https://i.im.ge/2025/11/24/4DrVp0.mm.png","url":"null","redirectType":1,"ordinal":8,"createdTime":1746799144383,"startTime":1759850171000,"endTime":4070880000000,"type":0,"bizType":4}],"count":1}" status-code=200
+# ^https:\/\/keapi\.fenbi\.com\/app\/(?:iphone|ipad)\/position_resource\/get_home_banners\?.*position_resource_type=1 mock-response-body data-type=json data="{"code":1,"msg":"","data":{"positionResourceType":1,"payload":{"items":[{"id":17868,"courseSetId":2,"content":"妹子图","imageUrl":"https://i.im.ge/2026/02/13/eAYxLJ.FenbiBanner.png","url":"null","redirectType":1,"ordinal":8,"createdTime":1746799144383,"startTime":1759850171000,"endTime":4070880000000,"type":0,"bizType":4}],"count":1}}}" status-code=200
+
 ^https:\/\/keapi\.fenbi\.com\/app\/(?:iphone|ipad)\/position_resource\/get_home_banners\?.*position_resource_type=2 data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 ^https:\/\/keapi\.fenbi\.com\/app\/(?:iphone|ipad)\/\w+\/reddot\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"

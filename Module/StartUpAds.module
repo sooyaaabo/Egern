@@ -48,7 +48,7 @@ http-response-jq ^https?:\/\/api\.qeeniao\.com\/nap\/ad '.data={}'
 
 [Map Local]
 # Version
-^https?:\/\/2026.02.06/c403/v2.0.632 data-type=text data=" " status-code=200
+^https?:\/\/2026.02.09/c404/v2.0.633 data-type=text data=" " status-code=200
 
 # 58 TongCheng
 ^https?:\/\/app\.58\.com\/api\/home\/(advertising|appadv) data-type=text data=" " status-code=200
