@@ -1,0 +1,18 @@
+#!name=PandaTV
+#!desc=绕过PandaTV直播源防盗检测，恢复正常播放。
+#!author=sooyaaabo[https://github.com/sooyaaabo]
+#!icon=https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/App/PandaTV-02.png
+#!openUrl=https://5721004.xyz/player/pandatv.html
+#!homepage=https://github.com/sooyaaabo/Egern
+#!date=2026-02-14 23:00
+
+[Rule]
+DOMAIN,www.pandalive.co.kr,DIRECT
+DOMAIN-SUFFIX,5721004.xyz,DIRECT
+DOMAIN-KEYWORD,live-video.net,DIRECT
+
+[Header Rewrite]
+http-request ^https?:\/\/.*\.live-video\.net header-replace 'Origin' 'https://www.pandalive.co.kr'
+
+[MITM]
+hostname = %APPEND% live-video.net, *.live-video.net
