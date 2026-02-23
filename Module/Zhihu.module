@@ -4,7 +4,7 @@
 #!icon=https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/App/Zhihu.png
 #!openUrl=https://apps.apple.com/app/id432274380
 #!homepage=https://github.com/sooyaaabo/Egern
-#!date=2025-12-29 16:30
+#!date=2026-02-22 09:00
 
 [Rule]
 DOMAIN,appcloud.zhihu.com,REJECT
@@ -50,6 +50,8 @@ http-response-jq ^https:\/\/api\.zhihu\.com\/questions\/\d+(?:\/answers|\/feeds|
 
 # 搜索页 - 关键词、猜你想搜
 ^https:\/\/api\.zhihu\.com\/search\/(hot_search|preset_words) data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/www\.zhihu\.com\/api\/v4\/search\/clicked_recommendation\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 ^https:\/\/www\.zhihu\.com\/api\/v4\/search\/related_queries\/(?:article|answer)\/\d+ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
