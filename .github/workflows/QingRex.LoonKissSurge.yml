@@ -1,42 +1,39 @@
 name: Sync QingRex.LoonKissSurge
 
 on:
-  workflow_dispatch:        # 手动触发
+  workflow_dispatch:
   # schedule:
-    # - cron: '0 0 * * *'     # 每天零点自动运行
+    # - cron: '0 0 * * *'
   push:
     branches:
-      - main                # main 分支推送时触发
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: write       # 赋予 Action 推送权限
+      contents: write
 
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v4
 
-    - name: Sync and Rename Logic
+    - name: Sync and Process Logic
       run: |
-        # 1. 环境准备
-        # 创建 Sgmodule 存放最终文件，temp_lpx 存放下载的对比文件
+        # 1. 初始化环境
         mkdir -p Sgmodule
         mkdir -p temp_lpx
-        
-        # 定义镜像源
         mirrors=("git.botrna.site" "git.boio.me" "git.repcz.link")
 
-        # 2. 拉取 Surge 原始资源 (QingRex)
-        echo "--- 正在拉取原始 Surge 模块 ---"
+        # 2. 克隆原始 QingRex/LoonKissSurge 仓库
+        echo "--- 正在拉取原始资源 ---"
         git clone --depth=1 --filter=blob:none --sparse https://github.com/QingRex/LoonKissSurge.git source
         cd source && git sparse-checkout set Surge && cd ..
         
-        # 将原始文件拷贝到目标目录
+        # 预拷贝：先将所有原始文件放入目标文件夹
         find source/Surge -maxdepth 1 -name "*.sgmodule" -exec cp {} Sgmodule/ \;
 
-        # 3. 定义 LPX 来源列表
+        # 3. 定义参考对象
         URLS=(
           "https://kelee.one/Tool/Loon/Lpx/BlockAdvertisers.lpx"
           "https://kelee.one/Tool/Loon/Lpx/Remove_ads_by_keli.lpx"
@@ -258,50 +255,49 @@ jobs:
           "https://kelee.one/Tool/Loon/Lpx/FollowRSS_checkin.lpx"
         )
 
-        # 4. 遍历处理改名
+        # 4. 执行匹配和改名
+        echo "--- 开始根据 #!name= 字段进行匹配 ---"
         for url in "${URLS[@]}"; do
           lpx_filename=$(basename "$url")
-          lpx_base_name="${lpx_filename%.*}"
+          # 提取 Loon URL 中的期望文件名
+          target_base_name="${lpx_filename%.*}"
           tmp_file="temp_lpx/$lpx_filename"
-          download_successful=false
           
-          # 下载逻辑
+          download_successful=false
+          # 尝试下载 LPX 文件以读取其内部标题
           if [[ "$url" == *"kelee.one"* ]]; then
             for mirror in "${mirrors[@]}"; do
               download_url="${url/https:\/\/kelee.one/https:\/\/$mirror\/kelee.one}"
               http_code=$(curl -A "Surge iOS/3500" --connect-timeout 15 -L -s -w "%{http_code}" -o "$tmp_file" "$download_url")
-              if [ "$http_code" -eq 200 ] && [ -s "$tmp_file" ]; then
-                download_successful=true
-                break
-              fi
+              [ "$http_code" -eq 200 ] && [ -s "$tmp_file" ] && download_successful=true && break
             done
           else
             http_code=$(curl -A "Surge iOS/3500" --connect-timeout 15 -L -s -w "%{http_code}" -o "$tmp_file" "$url")
             [ "$http_code" -eq 200 ] && [ -s "$tmp_file" ] && download_successful=true
           fi
 
-          if [ "$download_successful" = false ]; then
-            echo "✘ 跳过下载失败文件: $url"
-            continue
-          fi
+          if [ "$download_successful" = false ]; then continue; fi
 
-          # 提取下载文件中的 Icon ID
-          lpx_icon_raw=$(sed 's/\r//g' "$tmp_file" | grep -m1 -i "icon" | sed -E 's/.*=[[:space:]]*(.*)/\1/' | tr -d '[:cntrl:]' | tr -d ' ')
-          lpx_icon_id=$(basename "$lpx_icon_raw" | cut -d'?' -f1 | sed 's/\.png//g; s/\.jpg//g; s/\.jpeg//g; s/\.webp//g' | tr '[:upper:]' '[:lower:]')
+          # 提取 LPX 内部的标题名
+          lpx_title=$(grep -m1 "^#!name=" "$tmp_file" | cut -d'=' -f2- | sed 's/^[[:space:]]*//;s/[[:space:]]*$//' | tr -d '\r')
 
-          if [ -n "$lpx_icon_id" ]; then
-            # 在本地 Sgmodule 目录寻找具有相同 Icon ID 的文件
+          if [ -n "$lpx_title" ]; then
+            # 在本地 Sgmodule 文件夹中寻找标题一致的文件
             for sg in Sgmodule/*.sgmodule; do
-              [ -e "$sg" ] || continue
-              sg_icon_raw=$(sed 's/\r//g' "$sg" | grep -m1 -i "icon" | sed -E 's/.*=[[:space:]]*(.*)/\1/' | tr -d '[:cntrl:]' | tr -d ' ')
-              sg_icon_id=$(basename "$sg_icon_raw" | cut -d'?' -f1 | sed 's/\.png//g; s/\.jpg//g; s/\.jpeg//g; s/\.webp//g' | tr '[:upper:]' '[:lower:]')
+              [ -f "$sg" ] || continue
+              
+              # 提取 SG 内部的标题名
+              sg_title=$(grep -m1 "^#!name=" "$sg" | cut -d'=' -f2- | sed 's/^[[:space:]]*//;s/[[:space:]]*$//' | tr -d '\r')
 
-              if [ "$lpx_icon_id" = "$sg_icon_id" ]; then
-                current_sg_name=$(basename "$sg")
-                new_sg_name="${lpx_base_name}.sgmodule"
-                if [ "$current_sg_name" != "$new_sg_name" ]; then
-                  echo "✓ 匹配并改名: $current_sg_name -> $new_sg_name"
-                  mv "$sg" "Sgmodule/$new_sg_name"
+              if [ "$lpx_title" = "$sg_title" ]; then
+                current_name=$(basename "$sg")
+                new_name="${target_base_name}.sgmodule"
+                
+                if [ "$current_name" != "$new_name" ]; then
+                  echo "✔ 匹配成功: [$lpx_title]"
+                  echo "   旧名: $current_name"
+                  echo "   新名: $new_name"
+                  mv "$sg" "Sgmodule/$new_name"
                   break
                 fi
               fi
@@ -309,18 +305,17 @@ jobs:
           fi
         done
 
-        # 5. 清理临时数据
+        # 5. 清理临时文件
         rm -rf temp_lpx source
-        echo "✓ 处理完成。匹配成功的已改名，未匹配的保持原名。"
+        echo "同步与改名任务结束。"
 
-    - name: Commit and Push Changes
+    - name: Commit and Push
       run: |
         git config --local user.email "github-actions[bot]@users.noreply.github.com"
         git config --local user.name "github-actions[bot]"
         git add Sgmodule/
-        # 检查是否有改动，有则提交
         if git diff --staged --quiet; then
-          echo "No changes to commit"
+          echo "没有检测到任何更改，跳过提交。"
         else
           git commit -m "Sync QingRex.LoonKissSurge $(date +'%Y-%m-%d %H:%M:%S')"
           git push
