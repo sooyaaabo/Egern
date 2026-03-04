@@ -1,36 +1,42 @@
-name: QingRex.LoonKissSurge.sgmodule
+name: Sync QingRex.LoonKissSurge
 
 on:
-  workflow_dispatch:
-
-permissions:
-  contents: write
+  workflow_dispatch:        # 手动触发
+  # schedule:
+    # - cron: '0 0 * * *'     # 每天零点自动运行
+  push:
+    branches:
+      - main                # main 分支推送时触发
 
 jobs:
-  sync:
+  build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write       # 赋予 Action 推送权限
 
     steps:
-    - name: Checkout Repo
+    - name: Checkout Repository
       uses: actions/checkout@v4
 
-    - name: Sync and Rename
+    - name: Sync and Rename Logic
       run: |
-        # 1. 准备目录
+        # 1. 环境准备
+        # 创建 Sgmodule 存放最终文件，temp_lpx 存放下载的对比文件
         mkdir -p Sgmodule
         mkdir -p temp_lpx
         
         # 定义镜像源
         mirrors=("git.botrna.site" "git.boio.me" "git.repcz.link")
 
-        # 2. 同步 QingRex Surge 目录
+        # 2. 拉取 Surge 原始资源 (QingRex)
+        echo "--- 正在拉取原始 Surge 模块 ---"
         git clone --depth=1 --filter=blob:none --sparse https://github.com/QingRex/LoonKissSurge.git source
-        cd source
-        git sparse-checkout set Surge
-        cd ..
+        cd source && git sparse-checkout set Surge && cd ..
+        
+        # 将原始文件拷贝到目标目录
         find source/Surge -maxdepth 1 -name "*.sgmodule" -exec cp {} Sgmodule/ \;
 
-        # 3. 定义 URL 列表
+        # 3. 定义 LPX 来源列表
         URLS=(
           "https://kelee.one/Tool/Loon/Lpx/BlockAdvertisers.lpx"
           "https://kelee.one/Tool/Loon/Lpx/Remove_ads_by_keli.lpx"
@@ -220,6 +226,7 @@ jobs:
           "https://kelee.one/Tool/Loon/Lpx/YiKaoBang_remove_ads.lpx"
           "https://kelee.one/Tool/Loon/Lpx/DouBan_remove_ads.lpx"
           "https://kelee.one/Tool/Loon/Lpx/BaiduMap_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/FC_Box_remove_ads.lpx"
           "https://kelee.one/Tool/Loon/Lpx/ZhiLianZhaoPin_remove_ads.lpx"
           "https://kelee.one/Tool/Loon/Lpx/LoonGallery.lpx"
           "https://kelee.one/Tool/Loon/Lpx/Script-Hub.lpx"
@@ -251,20 +258,17 @@ jobs:
           "https://kelee.one/Tool/Loon/Lpx/FollowRSS_checkin.lpx"
         )
 
-        # 4. 开始遍历处理
+        # 4. 遍历处理改名
         for url in "${URLS[@]}"; do
           lpx_filename=$(basename "$url")
           lpx_base_name="${lpx_filename%.*}"
           tmp_file="temp_lpx/$lpx_filename"
-          
           download_successful=false
           
-          # --- 尝试下载策略 ---
+          # 下载逻辑
           if [[ "$url" == *"kelee.one"* ]]; then
-            # 如果是 kelee.one，轮询镜像
             for mirror in "${mirrors[@]}"; do
               download_url="${url/https:\/\/kelee.one/https:\/\/$mirror\/kelee.one}"
-              echo "尝试从镜像下载: $download_url"
               http_code=$(curl -A "Surge iOS/3500" --connect-timeout 15 -L -s -w "%{http_code}" -o "$tmp_file" "$download_url")
               if [ "$http_code" -eq 200 ] && [ -s "$tmp_file" ]; then
                 download_successful=true
@@ -272,37 +276,31 @@ jobs:
               fi
             done
           else
-            # 其它地址直接下载
-            echo "正在直接下载: $url"
             http_code=$(curl -A "Surge iOS/3500" --connect-timeout 15 -L -s -w "%{http_code}" -o "$tmp_file" "$url")
             [ "$http_code" -eq 200 ] && [ -s "$tmp_file" ] && download_successful=true
           fi
 
           if [ "$download_successful" = false ]; then
-            echo "✘ 下载失败: $url"
+            echo "✘ 跳过下载失败文件: $url"
             continue
           fi
 
-          # --- 提取与匹配逻辑 ---
-          # 核心：支持 #!icon= 或 #!icon = 并清洗路径只留标识名
-          lpx_icon_raw=$(sed 's/\r//g' "$tmp_file" | grep -i "icon" | head -n1 | sed -E 's/.*=[[:space:]]*(.*)/\1/' | tr -d '[:cntrl:]' | tr -d ' ')
+          # 提取下载文件中的 Icon ID
+          lpx_icon_raw=$(sed 's/\r//g' "$tmp_file" | grep -m1 -i "icon" | sed -E 's/.*=[[:space:]]*(.*)/\1/' | tr -d '[:cntrl:]' | tr -d ' ')
           lpx_icon_id=$(basename "$lpx_icon_raw" | cut -d'?' -f1 | sed 's/\.png//g; s/\.jpg//g; s/\.jpeg//g; s/\.webp//g' | tr '[:upper:]' '[:lower:]')
 
           if [ -n "$lpx_icon_id" ]; then
-            echo "🔍 LPX [$lpx_base_name] 标识符: $lpx_icon_id"
-
+            # 在本地 Sgmodule 目录寻找具有相同 Icon ID 的文件
             for sg in Sgmodule/*.sgmodule; do
               [ -e "$sg" ] || continue
-              
-              sg_icon_raw=$(sed 's/\r//g' "$sg" | grep -i "icon" | head -n1 | sed -E 's/.*=[[:space:]]*(.*)/\1/' | tr -d '[:cntrl:]' | tr -d ' ')
+              sg_icon_raw=$(sed 's/\r//g' "$sg" | grep -m1 -i "icon" | sed -E 's/.*=[[:space:]]*(.*)/\1/' | tr -d '[:cntrl:]' | tr -d ' ')
               sg_icon_id=$(basename "$sg_icon_raw" | cut -d'?' -f1 | sed 's/\.png//g; s/\.jpg//g; s/\.jpeg//g; s/\.webp//g' | tr '[:upper:]' '[:lower:]')
 
               if [ "$lpx_icon_id" = "$sg_icon_id" ]; then
                 current_sg_name=$(basename "$sg")
                 new_sg_name="${lpx_base_name}.sgmodule"
-                
                 if [ "$current_sg_name" != "$new_sg_name" ]; then
-                  echo "🎯 成功匹配！重命名: $current_sg_name -> $new_sg_name"
+                  echo "✓ 匹配并改名: $current_sg_name -> $new_sg_name"
                   mv "$sg" "Sgmodule/$new_sg_name"
                   break
                 fi
@@ -311,17 +309,19 @@ jobs:
           fi
         done
 
-        # 5. 清理临时目录
+        # 5. 清理临时数据
         rm -rf temp_lpx source
-        
-    - name: Commit & Push
+        echo "✓ 处理完成。匹配成功的已改名，未匹配的保持原名。"
+
+    - name: Commit and Push Changes
       run: |
-        if [[ -n $(git status -s) ]]; then
-          git config user.name "GitHub Action"
-          git config user.email "action@github.com"
-          git add .
-          git commit -m "Auto Sync & Smart Rename $(date +'%Y-%m-%d %H:%M')"
-          git push
+        git config --local user.email "github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+        git add Sgmodule/
+        # 检查是否有改动，有则提交
+        if git diff --staged --quiet; then
+          echo "No changes to commit"
         else
-          echo "没有检测到任何变化。"
+          git commit -m "Sync QingRex.LoonKissSurge $(date +'%Y-%m-%d %H:%M:%S')"
+          git push
         fi
