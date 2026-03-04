@@ -16,23 +16,23 @@ jobs:
 
     - name: Sync and Rename
       run: |
-        # 1. 准备目录
-        # 先清理旧的 Sgmodule 目录（可选，取决于你是否想保留手动添加的文件）
-        # rm -rf Sgmodule
         mkdir -p Sgmodule
         mkdir -p temp_lpx
 
-        # 2. 同步 QingRex Surge 根目录 sgmodule
-        # 使用 sparse-checkout 只下载根目录下的 .sgmodule，忽略子目录
+        # 1. 深度克隆并开启 sparse-checkout
         git clone --depth=1 --filter=blob:none --sparse https://github.com/QingRex/LoonKissSurge.git source
         cd source
-        git sparse-checkout set "Surge/*.sgmodule"
+        git sparse-checkout set Surge
+        
+        # 【关键修复】清理多余文件和子目录，确保只剩下 .sgmodule
+        find Surge -mindepth 1 -type d -exec rm -rf {} +
+        find Surge -maxdepth 1 -type f ! -name "*.sgmodule" -delete
         cd ..
 
-        # 将下载的文件拷贝到工作目录
+        # 将筛选后的文件拷贝到工作目录
         cp source/Surge/*.sgmodule Sgmodule/ 2>/dev/null || true
 
-        # 3. 定义 LPX / Plugin 列表
+        # 2. 定义 LPX / Plugin 列表 (此处省略，保持你原有的 URLS 列表不变)
         URLS=(
           "https://kelee.one/Tool/Loon/Lpx/BlockAdvertisers.lpx"
           "https://kelee.one/Tool/Loon/Lpx/Remove_ads_by_keli.lpx"
@@ -253,51 +253,38 @@ jobs:
           "https://kelee.one/Tool/Loon/Lpx/FollowRSS_checkin.lpx"
         )
 
-        # 4. 开始遍历处理
+        # 3. 开始遍历处理 (保持你的原有逻辑)
         for url in "${URLS[@]}"; do
-          echo "正在处理：$url"
-          
-          # 获取 LPX/Plugin 文件名（不含后缀）
           lpx_filename=$(basename "$url")
           lpx_base_name="${lpx_filename%.*}"
-          
-          # 下载临时文件进行 icon 提取
           tmp_file="temp_lpx/$lpx_filename"
-          curl -A "Surge iOS/3450" -L -s "$url" -o "$tmp_file"
           
-          # 提取并清洗 LPX 的 icon
+          # 下载并检查 icon
+          curl -A "Surge iOS/3450" -L -s "$url" -o "$tmp_file"
           lpx_icon=$(grep -m1 '^#!icon=' "$tmp_file" | cut -d'=' -f2 | tr -d '\r' | tr -d ' ' | tr '[:upper:]' '[:lower:]')
           lpx_icon=${lpx_icon%.png}
           lpx_icon=${lpx_icon%.jpg}
 
           if [ -n "$lpx_icon" ]; then
-            # 遍历 Sgmodule 文件夹下的所有 sgmodule
             for sg in Sgmodule/*.sgmodule; do
               [ -e "$sg" ] || continue
-              
-              # 提取并清洗 SG 的 icon
               sg_icon=$(grep -m1 '^#!icon=' "$sg" | cut -d'=' -f2 | tr -d '\r' | tr -d ' ' | tr '[:upper:]' '[:lower:]')
               sg_icon=${sg_icon%.png}
               sg_icon=${sg_icon%.jpg}
 
-              # 如果 icon 相同且文件名不同，则重命名
               if [ "$lpx_icon" = "$sg_icon" ]; then
                 current_sg_name=$(basename "$sg")
                 new_sg_name="${lpx_base_name}.sgmodule"
-                
                 if [ "$current_sg_name" != "$new_sg_name" ]; then
-                  echo "匹配成功！Icon: $lpx_icon"
-                  echo "更名: $current_sg_name -> $new_sg_name"
+                  echo "匹配并重命名: $current_sg_name -> $new_sg_name"
                   mv "$sg" "Sgmodule/$new_sg_name"
                 fi
               fi
             done
-          else
-            echo "跳过：$lpx_filename (未找到 icon)"
           fi
         done
 
-        # 清理临时文件和克隆的源码
+        # 清理临时文件
         rm -rf temp_lpx source
 
     - name: Commit & Push
