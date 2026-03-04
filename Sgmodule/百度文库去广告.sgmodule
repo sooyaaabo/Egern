@@ -1,0 +1,39 @@
+#!name=百度文库去广告
+#!desc=移除开屏广告、横幅广告、弹窗广告、信息流推广、搜索发现、热门搜索、资料库搜索推荐，精简我的页面。
+#!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
+#!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/BaiduWenku.png
+#!category=iKeLee
+#!openUrl=https://apps.apple.com/app/id426340811
+#!tag=去广告
+#!loon_version=3.2.4(787)
+#!homepage=https://hub.kelee.one
+#!date=2025-12-07 05:57:46
+
+[Body Rewrite]
+http-response-jq ^https:\/\/appwk\.baidu\.com\/appapi\/index\/home\? 'delpaths([["data","bannerInfo"]])'
+http-response-jq ^https:\/\/appwk\.baidu\.com\/appapi\/index\/home\? 'delpaths([["data","bannerList"]])'
+http-response-jq ^https:\/\/appwk\.baidu\.com\/appapi\/index\/home\? 'delpaths([["data","bannerListV2"]])'
+http-response-jq ^https:\/\/(appwk|tanbi)\.baidu\.com\/gsula\/sula\/syncmrecall$ 'delpaths([["data","items"]])'
+http-response-jq ^https:\/\/appwk\.baidu\.com\/appapi\/index\/tab\? 'delpaths([["data"]])'
+http-response-jq ^https:\/\/appwk\.baidu\.com\/appapi\/forum\/feed\?reqMode=wenkuapp_main_feed 'delpaths([["data"]])'
+
+[Map Local]
+^https:\/\/appwk\.baidu\.com\/xpage\/interface\/wknaad\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/appwk\.baidu\.com\/appapi\/search\/hot\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/appwk\.baidu\.com\/naapi\/search\/wkhotwords\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/appwk\.baidu\.com\/appapi\/task\/viptasklist\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/appwk\.baidu\.com\/activity\/interface\/wkapppopup\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/appwk\.baidu\.com\/appapi\/abg\/index\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/appwk\.baidu\.com\/naapi\/recommend\/recommenddoc\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/appwk\.baidu\.com\/naapi\/recommend\/vipdoccard\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+[MITM]
+hostname = %APPEND% appwk.baidu.com, tanbi.baidu.com
+
