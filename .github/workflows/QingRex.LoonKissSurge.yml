@@ -1,9 +1,11 @@
+# 2026-03-04 16:30
+
 name: Sync QingRex.LoonKissSurge
 
 on:
   workflow_dispatch:
   # schedule:
-    # - cron: '0 0 * * *'
+  #   - cron: '0 0 * * *'
   push:
     branches:
       - main
@@ -30,11 +32,44 @@ jobs:
         echo "--- 正在拉取原始资源 ---"
         git clone --depth=1 --filter=blob:none --sparse https://github.com/QingRex/LoonKissSurge.git source
         cd source && git sparse-checkout set Surge && cd ..
-        
-        # 预拷贝：先将所有原始文件放入目标文件夹
-        find source/Surge -maxdepth 1 -name "*.sgmodule" -exec cp {} Sgmodule/ \;
 
-        # 3. 定义参考对象
+        # 3. 预拷贝：严格文件名黑名单过滤
+        echo "--- 开始拷贝并过滤特定文件 ---"
+        EXCLUDE_LIST=(
+          "DNS防泄露.sgmodule"
+          "Google重定向.sgmodule"
+          "Spotify歌词翻译.sgmodule"
+          "TikTok多地区解锁.sgmodule"
+          "拦截HTTPDNS.sgmodule"
+          "爱奇艺视频去广告.sgmodule"
+          "百度搜索网页去广告.sgmodule"
+          "书香门第每日签到.sgmodule"
+          "贴吧去广告.sgmodule"
+          "王者营地去广告.sgmodule"
+          "掌上穿越火线去广告.sgmodule"
+          "微博国际版去广告.sgmodule"
+          "云闪付去广告.sgmodule"
+        )
+
+        for file in source/Surge/*.sgmodule; do
+          [ -f "$file" ] || continue
+          filename=$(basename "$file")
+          
+          skip=false
+          for excluded in "${EXCLUDE_LIST[@]}"; do
+            if [ "$filename" = "$excluded" ]; then
+              echo "✖ 严格排除匹配: $filename"
+              skip=true
+              break
+            fi
+          done
+          
+          if [ "$skip" = false ]; then
+            cp "$file" Sgmodule/
+          fi
+        done
+
+        # 4. 定义参考对象 (Loon 插件列表)
         URLS=(
           "https://kelee.one/Tool/Loon/Lpx/BlockAdvertisers.lpx"
           "https://kelee.one/Tool/Loon/Lpx/Remove_ads_by_keli.lpx"
@@ -143,6 +178,7 @@ jobs:
           "https://kelee.one/Tool/Loon/Lpx/SodaMusic_remove_ads.lpx"
           "https://kelee.one/Tool/Loon/Lpx/KuaiDi100_remove_ads.lpx"
           "https://kelee.one/Tool/Loon/Lpx/ChengFenMiao_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/FC_Box_remove_ads.lpx"
           "https://kelee.one/Tool/Loon/Lpx/KGRing_remove_ads.lpx"
           "https://kelee.one/Tool/Loon/Lpx/ZongHeng_remove_ads.lpx"
           "https://kelee.one/Tool/Loon/Lpx/51Job_remove_ads.lpx"
@@ -223,7 +259,6 @@ jobs:
           "https://kelee.one/Tool/Loon/Lpx/YiKaoBang_remove_ads.lpx"
           "https://kelee.one/Tool/Loon/Lpx/DouBan_remove_ads.lpx"
           "https://kelee.one/Tool/Loon/Lpx/BaiduMap_remove_ads.lpx"
-          "https://kelee.one/Tool/Loon/Lpx/FC_Box_remove_ads.lpx"
           "https://kelee.one/Tool/Loon/Lpx/ZhiLianZhaoPin_remove_ads.lpx"
           "https://kelee.one/Tool/Loon/Lpx/LoonGallery.lpx"
           "https://kelee.one/Tool/Loon/Lpx/Script-Hub.lpx"
@@ -255,8 +290,8 @@ jobs:
           "https://kelee.one/Tool/Loon/Lpx/FollowRSS_checkin.lpx"
         )
 
-        # 4. 执行匹配和改名
-        echo "--- 开始根据 #!name= 字段进行匹配 ---"
+        # 5. 执行匹配和改名
+        echo "--- 开始匹配标题并转换文件名 ---"
         for url in "${URLS[@]}"; do
           lpx_filename=$(basename "$url")
           target_base_name="${lpx_filename%.*}"
@@ -283,7 +318,6 @@ jobs:
             for sg in Sgmodule/*.sgmodule; do
               [ -f "$sg" ] || continue
               
-              # 提取 .sgmodule 文件内部的标题名
               sg_title=$(grep -m1 "^#!name=" "$sg" | cut -d'=' -f2- | sed 's/^[[:space:]]*//;s/[[:space:]]*$//' | tr -d '\r')
 
               if [ "$lpx_title" = "$sg_title" ]; then
@@ -291,9 +325,7 @@ jobs:
                 new_name="${target_base_name}.sgmodule"
                 
                 if [ "$current_name" != "$new_name" ]; then
-                  echo "✔ 匹配成功: [$lpx_title]"
-                  echo "    名称变更: $current_name ➜ $new_name"
-                  # 使用 mv 替换旧文件，不留副本
+                  echo "✔ 匹配成功: [$lpx_title] ($current_name ➜ $new_name)"
                   mv "$sg" "Sgmodule/$new_name"
                   break
                 fi
@@ -302,18 +334,23 @@ jobs:
           fi
         done
 
-        # 5. 清理临时文件
+        # 6. 清理临时文件
         rm -rf temp_lpx source
-        echo "同步与改名任务结束。"
+        echo "任务完成。"
 
     - name: Commit and Push
       run: |
         git config --local user.email "github-actions[bot]@users.noreply.github.com"
         git config --local user.name "github-actions[bot]"
         git add Sgmodule/
+        
+        # 设置时区为东八区
+        export TZ='Asia/Shanghai'
+        CURRENT_TIME=$(date +'%Y-%m-%d %H:%M:%S')
+        
         if git diff --staged --quiet; then
           echo "No changes to commit"
         else
-          git commit -m "Sync QingRex.LoonKissSurge $(date +'%Y-%m-%d %H:%M:%S')"
+          git commit -m "Sync QingRex.LoonKissSurge $CURRENT_TIME"
           git push
         fi
