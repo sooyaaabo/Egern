@@ -1,0 +1,19 @@
+#!name=萌娘百科去广告
+#!desc=移除开屏广告、弹窗、首页横幅。
+#!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
+#!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/MoeGirlWiki.png
+#!category=iKeLee
+#!openUrl=https://apps.apple.com/app/id1612184625
+#!tag=去广告
+#!loon_version=3.2.4(787)
+#!homepage=https://hub.kelee.one
+#!date=2026-01-30 00:26:51
+
+[URL Rewrite]
+^https:\/\/grpc\.moegirl\.org\.cn\/moegirl\.moepad\.MoepadAppMetaService\/GetAppInitialInfo$ - reject
+^https:\/\/grpc\.moegirl\.org\.cn\/moegirl\.moepad\.MoepadService\/GetLaunchAdPage$ - reject
+^https:\/\/grpc\.moegirl\.org\.cn\/moegirl\.moepad\.MoepadService\/GetFeedAdProbability$ - reject
+
+[MITM]
+hostname = %APPEND% grpc.moegirl.org.cn
+

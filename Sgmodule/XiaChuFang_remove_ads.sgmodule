@@ -1,0 +1,35 @@
+#!name=下厨房去广告
+#!desc=移除开屏广告、页面推广及横幅，精简首页标签。
+#!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
+#!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/XiaChuFang.png
+#!category=iKeLee
+#!openUrl=https://apps.apple.com/app/id460979760
+#!tag=去广告
+#!loon_version=3.2.4(787)
+#!homepage=https://hub.kelee.one
+#!date=2026-02-22 04:07:10
+
+[Body Rewrite]
+http-response-jq ^https:\/\/api\.xiachufang\.com\/v2\/homepage\/paged_waterfall_recommendations\.json$ 'del(.multiplex_cells[] | select(.recommendation_cell.impression_sensor_events[]?.properties.target_type? == "ad"))'
+http-response-jq ^https:\/\/api\.xiachufang\.com\/v2\/config\/get\.json$ 'delpaths([["content","recipe_ad"]])'
+http-response-jq ^https:\/\/api\.xiachufang\.com\/v2\/config\/get\.json$ 'delpaths([["content","splash_ad_req_time"]])'
+http-response-jq ^https:\/\/api\.xiachufang\.com\/v2\/config\/get\.json$ 'delpaths([["content","splash_sdk_ad_req_time"]])'
+http-response-jq ^https:\/\/api\.xiachufang\.com\/v2\/config\/get\.json$ 'delpaths([["content","splash_ad_lifecycle_interval"]])'
+http-response-jq ^https:\/\/api\.xiachufang\.com\/v2\/config\/get\.json$ 'delpaths([["content","waterfall_ad_feedback"]])'
+http-response-jq ^https:\/\/api\.xiachufang\.com\/v2\/config\/get\.json$ 'delpaths([["content","homepage_waterfall_test_ad_pos"]])'
+http-response-jq ^https:\/\/api\.xiachufang\.com\/v2\/config\/get\.json$ 'delpaths([["content","ad_app_look_around"]])'
+http-response-jq ^https:\/\/api\.xiachufang\.com\/v2\/config\/get\.json$ 'delpaths([["content","ad_sdk_text_removal_keywords"]])'
+http-response-jq ^https:\/\/api\.xiachufang\.com\/v2\/homepage\/ranking_list\/paged_homepage_ranking_list_section_v2\.json$ '.cells |= map(del(.side_slip_activity_cell, .dish_square_cell))'
+
+[Map Local]
+^https:\/\/api\.xiachufang\.com\/v2\/ad\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/api\.xiachufang\.com\/v2\/account\/feeds_v7\.json data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/api\.xiachufang\.com\/v2\/homepage1810\/init_page\.json data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/api\.xiachufang\.com\/v2\/mark_mission\/get_sticker_info\.json data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+[MITM]
+hostname = %APPEND% api.xiachufang.com
+
