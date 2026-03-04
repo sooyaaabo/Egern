@@ -1,9 +1,7 @@
-name: QingRex.LoonKissSurge sgmodule
+name: QingRex.LoonKissSurge.sgmodule
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "0 18 * * *"
 
 permissions:
   contents: write
@@ -13,54 +11,321 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-    # 1️⃣ 拉取你的仓库
-    - name: Checkout Target Repo
+    - name: Checkout Repo
       uses: actions/checkout@v4
-      with:
-        repository: sooyaaabo/Egern
-        path: Egern
 
-    # 2️⃣ 拉取 QingRex 仓库（只 Surge 目录）
-    - name: Checkout Source Repo
-      uses: actions/checkout@v4
-      with:
-        repository: QingRex/LoonKissSurge
-        path: source
-        sparse-checkout: |
-          Surge
-        sparse-checkout-cone-mode: false
-
-    # 3️⃣ 智能同步（新增 + 内容不同才覆盖）
-    - name: Smart Sync sgmodule Files
+    # ===============================
+    # 1️⃣ 同步 Surge 根目录 sgmodule
+    # ===============================
+    - name: Sync Surge sgmodule
       run: |
-        mkdir -p Egern/Sgmodule
+
+        mkdir -p Sgmodule
+
+        git clone --depth=1 --filter=blob:none --sparse https://github.com/QingRex/LoonKissSurge.git source
+        cd source
+        git sparse-checkout set Surge
+        cd ..
 
         for file in source/Surge/*.sgmodule; do
           [ -e "$file" ] || continue
           filename=$(basename "$file")
 
-          if [ ! -f "Egern/Sgmodule/$filename" ]; then
-            echo "Adding $filename"
-            cp "$file" "Egern/Sgmodule/$filename"
+          if [ ! -f "Sgmodule/$filename" ]; then
+            echo "新增 $filename"
+            cp "$file" "Sgmodule/$filename"
           else
-            if ! cmp -s "$file" "Egern/Sgmodule/$filename"; then
-              echo "Updating $filename"
-              cp "$file" "Egern/Sgmodule/$filename"
-            else
-              echo "No change $filename"
+            if ! cmp -s "$file" "Sgmodule/$filename"; then
+              echo "更新 $filename"
+              cp "$file" "Sgmodule/$filename"
             fi
           fi
         done
 
-    # 4️⃣ 有变化才提交
+    # ===============================
+    # 2️⃣ Icon 智能匹配重命名（带 UA）
+    # ===============================
+    - name: Icon Smart Rename
+      run: |
+
+        SG_DIR="Sgmodule"
+
+        URLS=(
+
+          # 把你的完整 lpx/plugin 列表全部粘贴进来
+
+          "https://kelee.one/Tool/Loon/Lpx/BlockAdvertisers.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/Remove_ads_by_keli.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/Cainiao_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/Himalaya_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/Tieba_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/YouTube_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/Weibo_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/Bilibili_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/Weibo_intl_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/Baidu_input_method_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/Zhihu_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/NeteaseCloudMusic_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/CoolApk_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/smzdm_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/RedPaper_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/Weixin_Official_Accounts_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/QQMusic_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/Daily_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/IThome_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/BaiduSearchWebpage_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/BaiduNetDisk_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/TubeMax_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/Amap_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/WexinMiniPrograms_Remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/QiDian_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/AliYunDrive_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/iQiYi_Video_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/DragonRead_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/YouKu_Video_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/BabyTree_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/Tencent_Video_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/CaixinMedia_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/MangoTV_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/Umetrip_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/JD_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/PiPiXia_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/Taobao_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/NeteaseNews_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/12306_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/Reddit_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/Soul_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/QQKSong_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/mobileClouds_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/PICC_Insurance_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/Spotify_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/SevenCat_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/HUPU_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/GaoDing_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/PuPuMall_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/DiDi_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/Aiinquiry_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/QiXinBao_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/ZhuanZhuan_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/RiskBird_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/iMaiCai_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/ZuiYou_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/MailMaster_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/MiaoRead_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/SafetyHome_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/360SmartCamera_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/VideoGo_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/FlyerTea_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/ShouYinTongMerchant_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/FenBi_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/TV_Assistant_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/XiaoHeiHe_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/Snowball_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/KingdeeMyMoney_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/XunLei_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/ShuQiCenterReader_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/QuarkBrowser_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/JiaXiaoDrive_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/JiaKaoBaoDian_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/DuiTang_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/AutoHome_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/KuGou_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/Kuwo_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/DubbingShow_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/MKZ_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/KuaiKanComic_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/BiliComic_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/XFuse_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/ColorfulClouds_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/Uki_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/Douyu_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/GuideRank_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/FleaMarket_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/PinDuoDuo_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/CatEarFM_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/XiaoCan_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/BooHee_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/MaiMai_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/YoudaoDict_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/MeiTu_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/555DY_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/SeasunJX3_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/Keep_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/123NetWorkDisk_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/YoudaoTrans_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/MeituMYXJ_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/YY_Voice_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/SF-Express_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/91160_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/NetEaseGodlike_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/SodaMusic_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/KuaiDi100_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/ChengFenMiao_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/FC_Box_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/KGRing_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/ZongHeng_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/51Job_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/MeetYou_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/Yueyou_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/MaFengWo_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/OraySunlogin_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/BaiduPhoto_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/KuaiDuiZuoYe_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/EtouchEcalendar_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/BitqiuPan_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/MojiWeather_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/MeiShiJie_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/XiaChuFang_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/KwaiVideoeditor_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/LuckinCoffee_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/QtingFM_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/KOOK_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/CCLive_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/KebidaDushu_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/KuaiShou_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/HKDouYin_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/WPS_Documents_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/TXDocs_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/Jump_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/CosmosPodcast_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/DingdongMaicai_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/Bank_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/BodianMusic_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/ShopKeeperAdmin_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/YueDanBa_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/WaCaiJiZhang_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/ZAKER_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/Yitian_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/SnowCamera_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/WutaCamera_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/XiaomiSpeaker_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/Line_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/SuZhouCitizenCard_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/WPForum_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/Dlabel_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/ReelShort_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/Beike_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/iReaderDejian_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/PangguaiLife_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/YoudaoNote_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/Weimai_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/Foodie_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/iReader_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/Taopiaopiao_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/Damai_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/TeraBox_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/LOL_Bible_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/ValorantBible_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/miHoYoBBS_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/Meizhixiuxing_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/KuroBBS_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/YYVoiceTool_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/DoubanRead_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/TaobaoTravel_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/JDWaimai_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/DREAME_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/Dewu_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/BaiduWenku_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/DidaPincheTaxi_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/RoboTaxi_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/XiaojukejiCharge_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/RQrun_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/DigitalHeartbeat_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/MoeGirlWiki_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/Chuzhan_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/TuGuaiShou_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/QuarkScanking_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/Roborock_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/KuGouYouth_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/EcovacsHome_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/NarwelRobots_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/YiKaoBang_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/DouBan_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/BaiduMap_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/FC_Box_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/ZhiLianZhaoPin_remove_ads.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/LoonGallery.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/Script-Hub.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/Sub-Store.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/Google.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/1.1.1.1.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/BoxJs.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/WARP_Node_Query.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/JD_Price.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/YouTubeSubtitlesTranslation.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/Auto_Join_TF.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/VVebo_repair.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/TestFlightRegionUnlock.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/Switch_github_mirror.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/Node_detection_tool.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/QQ_Redirect.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/Fileball_mount.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/Block_HTTPDNS.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/Weixin_external_links_unlock.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/Spotify_lyrics_translation.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/NodeLinkCheck.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/QuickSearch.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/UnnooQuan_remove_watermark.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/AppleWeatherEnhancer.lpx"
+          "https://kelee.one/Tool/Loon/Lpx/IPATool.lpx"
+          "https://raw.githubusercontent.com/ClydeTime/BiliBili/master/modules/BiliBiliDailyBonus.plugin"
+          "https://kelee.one/Tool/Loon/Lpx/WPS_checkin.lpx"
+          "https://raw.githubusercontent.com/bgvioletsky/ios_rule/main/Loon/Lpx/sxmd_sign.plugin"
+          "https://kelee.one/Tool/Loon/Lpx/FollowRSS_checkin.lpx"
+        )
+
+        for url in "${URLS[@]}"; do
+
+          echo "处理 $url"
+
+          tmpfile=$(mktemp)
+
+          # 👇 关键：指定 Surge UA
+          curl -L -s \
+            -H "User-Agent: Surge iOS/3500" \
+            "$url" -o "$tmpfile"
+
+          lpx_icon=$(grep -m1 '^#!icon=' "$tmpfile" | cut -d'=' -f2)
+
+          [ -z "$lpx_icon" ] && rm "$tmpfile" && continue
+
+          lpx_name=$(basename "$url")
+          new_name="${lpx_name%.*}.sgmodule"
+
+          for sg in "$SG_DIR"/*.sgmodule; do
+            [ -e "$sg" ] || continue
+
+            sg_icon=$(grep -m1 '^#!icon=' "$sg" | cut -d'=' -f2)
+
+            if [ "$lpx_icon" = "$sg_icon" ]; then
+
+              current_name=$(basename "$sg")
+
+              if [ "$current_name" != "$new_name" ]; then
+                if [ ! -f "$SG_DIR/$new_name" ]; then
+                  echo "重命名 $current_name → $new_name"
+                  mv "$sg" "$SG_DIR/$new_name"
+                else
+                  echo "目标文件已存在，跳过"
+                fi
+              fi
+            fi
+          done
+
+          rm "$tmpfile"
+        done
+
+    # ===============================
+    # 3️⃣ 提交
+    # ===============================
     - name: Commit & Push
       run: |
-        cd Egern
+
         if [[ -n $(git status -s) ]]; then
           git config user.name "GitHub Action"
           git config user.email "action@github.com"
           git add .
-          git commit -m "Auto Smart Sync Surge $(date +'%Y-%m-%d %H:%M')"
+          git commit -m "Manual Smart Sync $(date +'%Y-%m-%d %H:%M')"
           git push
         else
           echo "No changes."
