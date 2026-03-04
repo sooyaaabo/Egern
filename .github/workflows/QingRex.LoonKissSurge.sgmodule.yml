@@ -9,14 +9,14 @@ permissions:
 jobs:
   sync:
     runs-on: ubuntu-latest
-    steps:
 
+    steps:
     - name: Checkout Repo
       uses: actions/checkout@v4
 
-    # ===============================
-    # 1️⃣ 同步 Surge 根目录 sgmodule
-    # ===============================
+    # ==========================================
+    # 1️⃣ 同步 QingRex Surge 根目录 sgmodule
+    # ==========================================
     - name: Sync Surge sgmodule
       run: |
 
@@ -38,21 +38,22 @@ jobs:
             if ! cmp -s "$file" "Sgmodule/$filename"; then
               echo "更新 $filename"
               cp "$file" "Sgmodule/$filename"
+            else
+              echo "无变化 $filename"
             fi
           fi
         done
 
-    # ===============================
-    # 2️⃣ Icon 智能匹配重命名（带 UA）
-    # ===============================
+    # ==========================================
+    # 2️⃣ 根据 lpx/plugin 的 icon 智能重命名
+    # ==========================================
     - name: Icon Smart Rename
       run: |
 
         SG_DIR="Sgmodule"
 
+        # 👇 把你的完整列表粘贴进这里
         URLS=(
-
-          # 把你的完整 lpx/plugin 列表全部粘贴进来
 
           "https://kelee.one/Tool/Loon/Lpx/BlockAdvertisers.lpx"
           "https://kelee.one/Tool/Loon/Lpx/Remove_ads_by_keli.lpx"
@@ -272,6 +273,7 @@ jobs:
           "https://kelee.one/Tool/Loon/Lpx/WPS_checkin.lpx"
           "https://raw.githubusercontent.com/bgvioletsky/ios_rule/main/Loon/Lpx/sxmd_sign.plugin"
           "https://kelee.one/Tool/Loon/Lpx/FollowRSS_checkin.lpx"
+
         )
 
         for url in "${URLS[@]}"; do
@@ -280,12 +282,21 @@ jobs:
 
           tmpfile=$(mktemp)
 
-          # 👇 关键：指定 Surge UA
-          curl -L -s \
-            -H "User-Agent: Surge iOS/3500" \
-            "$url" -o "$tmpfile"
+          # ✅ 使用 Surge UA
+          curl -A "Surge iOS/3450" -L -s "$url" -o "$tmpfile"
 
+          # 如果不是规则文件直接跳过
+          if ! grep -q '^#!icon=' "$tmpfile"; then
+            echo "未找到 icon，跳过"
+            rm "$tmpfile"
+            continue
+          fi
+
+          # 读取并清洗 icon
           lpx_icon=$(grep -m1 '^#!icon=' "$tmpfile" | cut -d'=' -f2)
+          lpx_icon=$(echo "$lpx_icon" | tr -d '\r' | tr -d ' ' | tr '[:upper:]' '[:lower:]')
+          lpx_icon=${lpx_icon%.png}
+          lpx_icon=${lpx_icon%.jpg}
 
           [ -z "$lpx_icon" ] && rm "$tmpfile" && continue
 
@@ -296,6 +307,9 @@ jobs:
             [ -e "$sg" ] || continue
 
             sg_icon=$(grep -m1 '^#!icon=' "$sg" | cut -d'=' -f2)
+            sg_icon=$(echo "$sg_icon" | tr -d '\r' | tr -d ' ' | tr '[:upper:]' '[:lower:]')
+            sg_icon=${sg_icon%.png}
+            sg_icon=${sg_icon%.jpg}
 
             if [ "$lpx_icon" = "$sg_icon" ]; then
 
@@ -309,24 +323,28 @@ jobs:
                   echo "目标文件已存在，跳过"
                 fi
               fi
+
             fi
           done
 
           rm "$tmpfile"
         done
 
-    # ===============================
+    # ==========================================
     # 3️⃣ 提交
-    # ===============================
+    # ==========================================
     - name: Commit & Push
       run: |
 
         if [[ -n $(git status -s) ]]; then
+
           git config user.name "GitHub Action"
           git config user.email "action@github.com"
+
           git add .
           git commit -m "Manual Smart Sync $(date +'%Y-%m-%d %H:%M')"
           git push
+
         else
           echo "No changes."
         fi
