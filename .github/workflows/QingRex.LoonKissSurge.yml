@@ -21,9 +21,10 @@ jobs:
     - name: Sync and Process Logic
       run: |
         # 1. 初始化环境
+        rm -rf Sgmodule
         mkdir -p Sgmodule
         mkdir -p temp_lpx
-        mirrors=("git.botrna.site" "git.boio.me" "git.repcz.link")
+        mirrors=("git.botrna.site" "git.103516.xyz" "git.repcz.link")
 
         # 2. 克隆原始 QingRex/LoonKissSurge 仓库
         echo "--- 正在拉取原始资源 ---"
@@ -142,7 +143,6 @@ jobs:
           "https://kelee.one/Tool/Loon/Lpx/SodaMusic_remove_ads.lpx"
           "https://kelee.one/Tool/Loon/Lpx/KuaiDi100_remove_ads.lpx"
           "https://kelee.one/Tool/Loon/Lpx/ChengFenMiao_remove_ads.lpx"
-          "https://kelee.one/Tool/Loon/Lpx/FC_Box_remove_ads.lpx"
           "https://kelee.one/Tool/Loon/Lpx/KGRing_remove_ads.lpx"
           "https://kelee.one/Tool/Loon/Lpx/ZongHeng_remove_ads.lpx"
           "https://kelee.one/Tool/Loon/Lpx/51Job_remove_ads.lpx"
@@ -259,12 +259,10 @@ jobs:
         echo "--- 开始根据 #!name= 字段进行匹配 ---"
         for url in "${URLS[@]}"; do
           lpx_filename=$(basename "$url")
-          # 提取 Loon URL 中的期望文件名
           target_base_name="${lpx_filename%.*}"
           tmp_file="temp_lpx/$lpx_filename"
           
           download_successful=false
-          # 尝试下载 LPX 文件以读取其内部标题
           if [[ "$url" == *"kelee.one"* ]]; then
             for mirror in "${mirrors[@]}"; do
               download_url="${url/https:\/\/kelee.one/https:\/\/$mirror\/kelee.one}"
@@ -278,15 +276,14 @@ jobs:
 
           if [ "$download_successful" = false ]; then continue; fi
 
-          # 提取 LPX 内部的标题名
+          # 提取 .lpx 文件内部的标题名
           lpx_title=$(grep -m1 "^#!name=" "$tmp_file" | cut -d'=' -f2- | sed 's/^[[:space:]]*//;s/[[:space:]]*$//' | tr -d '\r')
 
           if [ -n "$lpx_title" ]; then
-            # 在本地 Sgmodule 文件夹中寻找标题一致的文件
             for sg in Sgmodule/*.sgmodule; do
               [ -f "$sg" ] || continue
               
-              # 提取 SG 内部的标题名
+              # 提取 .sgmodule 文件内部的标题名
               sg_title=$(grep -m1 "^#!name=" "$sg" | cut -d'=' -f2- | sed 's/^[[:space:]]*//;s/[[:space:]]*$//' | tr -d '\r')
 
               if [ "$lpx_title" = "$sg_title" ]; then
@@ -295,8 +292,8 @@ jobs:
                 
                 if [ "$current_name" != "$new_name" ]; then
                   echo "✔ 匹配成功: [$lpx_title]"
-                  echo "   旧名: $current_name"
-                  echo "   新名: $new_name"
+                  echo "    名称变更: $current_name ➜ $new_name"
+                  # 使用 mv 替换旧文件，不留副本
                   mv "$sg" "Sgmodule/$new_name"
                   break
                 fi
@@ -315,7 +312,7 @@ jobs:
         git config --local user.name "github-actions[bot]"
         git add Sgmodule/
         if git diff --staged --quiet; then
-          echo "没有检测到任何更改，跳过提交。"
+          echo "No changes to commit"
         else
           git commit -m "Sync QingRex.LoonKissSurge $(date +'%Y-%m-%d %H:%M:%S')"
           git push
