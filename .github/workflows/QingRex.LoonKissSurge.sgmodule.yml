@@ -16,23 +16,20 @@ jobs:
 
     - name: Sync and Rename
       run: |
+        # 1. 准备目录
         mkdir -p Sgmodule
         mkdir -p temp_lpx
 
-        # 1. 深度克隆并开启 sparse-checkout
+        # 2. 同步 QingRex Surge 目录
         git clone --depth=1 --filter=blob:none --sparse https://github.com/QingRex/LoonKissSurge.git source
         cd source
         git sparse-checkout set Surge
-        
-        # 【关键修复】清理多余文件和子目录，确保只剩下 .sgmodule
-        find Surge -mindepth 1 -type d -exec rm -rf {} +
-        find Surge -maxdepth 1 -type f ! -name "*.sgmodule" -delete
         cd ..
 
-        # 将筛选后的文件拷贝到工作目录
-        cp source/Surge/*.sgmodule Sgmodule/ 2>/dev/null || true
+        # 3. 仅拷贝 Surge 根目录下的 .sgmodule
+        find source/Surge -maxdepth 1 -name "*.sgmodule" -exec cp {} Sgmodule/ \;
 
-        # 2. 定义 LPX / Plugin 列表 (此处省略，保持你原有的 URLS 列表不变)
+        # 4. 遍历处理 (此处建议将 URL 列表维护在独立文件中或保持现状)
         URLS=(
           "https://kelee.one/Tool/Loon/Lpx/BlockAdvertisers.lpx"
           "https://kelee.one/Tool/Loon/Lpx/Remove_ads_by_keli.lpx"
@@ -253,38 +250,44 @@ jobs:
           "https://kelee.one/Tool/Loon/Lpx/FollowRSS_checkin.lpx"
         )
 
-        # 3. 开始遍历处理 (保持你的原有逻辑)
         for url in "${URLS[@]}"; do
           lpx_filename=$(basename "$url")
           lpx_base_name="${lpx_filename%.*}"
-          tmp_file="temp_lpx/$lpx_filename"
           
-          # 下载并检查 icon
-          curl -A "Surge iOS/3450" -L -s "$url" -o "$tmp_file"
-          lpx_icon=$(grep -m1 '^#!icon=' "$tmp_file" | cut -d'=' -f2 | tr -d '\r' | tr -d ' ' | tr '[:upper:]' '[:lower:]')
-          lpx_icon=${lpx_icon%.png}
-          lpx_icon=${lpx_icon%.jpg}
+          tmp_file="temp_lpx/$lpx_filename"
+          curl -A "Surge iOS/3500" -L -s "$url" -o "$tmp_file" || continue
+          
+          # 【新逻辑：兼容 #!icon = 和 #!icon=】
+          # 使用 sed 匹配 #!icon，允许后面有任意空格，再接等号，再接任意空格，最后捕获剩余内容
+          lpx_icon_raw=$(grep -i "#!icon" "$tmp_file" | head -n1 | sed -E 's/.*#!icon\s*=\s*(.*)/\1/' | sed 's/[[:cntrl:]]//g; s/^\xEF\xBB\xBF//' | tr -d ' ')
+          lpx_icon_id=$(echo "$lpx_icon_raw" | sed 's/\.png//g; s/\.jpg//g; s/\.jpeg//g; s/\.webp//g' | tr '[:upper:]' '[:lower:]')
 
-          if [ -n "$lpx_icon" ]; then
+          if [ -n "$lpx_icon_id" ]; then
+            echo "--- 处理 $lpx_base_name ---"
+            echo "LPX 提取到的标识符: $lpx_icon_id"
+
             for sg in Sgmodule/*.sgmodule; do
               [ -e "$sg" ] || continue
-              sg_icon=$(grep -m1 '^#!icon=' "$sg" | cut -d'=' -f2 | tr -d '\r' | tr -d ' ' | tr '[:upper:]' '[:lower:]')
-              sg_icon=${sg_icon%.png}
-              sg_icon=${sg_icon%.jpg}
+              
+              # SG 文件同样使用兼容模式提取
+              sg_icon_raw=$(grep -i "#!icon" "$sg" | head -n1 | sed -E 's/.*#!icon\s*=\s*(.*)/\1/' | sed 's/[[:cntrl:]]//g; s/^\xEF\xBB\xBF//' | tr -d ' ')
+              sg_icon_id=$(echo "$sg_icon_raw" | sed 's/\.png//g; s/\.jpg//g; s/\.jpeg//g; s/\.webp//g' | tr '[:upper:]' '[:lower:]')
 
-              if [ "$lpx_icon" = "$sg_icon" ]; then
+              if [ -n "$sg_icon_id" ] && [ "$lpx_icon_id" = "$sg_icon_id" ]; then
                 current_sg_name=$(basename "$sg")
                 new_sg_name="${lpx_base_name}.sgmodule"
+                
                 if [ "$current_sg_name" != "$new_sg_name" ]; then
-                  echo "匹配并重命名: $current_sg_name -> $new_sg_name"
+                  echo "✅ 匹配！IconID 对齐。更名: $current_sg_name -> $new_sg_name"
                   mv "$sg" "Sgmodule/$new_sg_name"
+                  break
                 fi
               fi
             done
           fi
         done
 
-        # 清理临时文件
+        # 6. 清理
         rm -rf temp_lpx source
 
     - name: Commit & Push
