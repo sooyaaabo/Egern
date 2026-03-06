@@ -1,5 +1,5 @@
 #!name=Spotify
-#!desc=过滤Spotify广告，修改插件自定义配置项需要重新登陆方可生效。
+#!desc=过滤Spotify广告，修改插件自定义配置项需要重新登陆方可生效。适用于9.1.14及以下版本。
 #!author=001ProMax[https://github.com/001ProMax], 可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
 #!icon=https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/App/Spotify.png
 #!openUrl=https://apps.apple.com/app/id324684580
