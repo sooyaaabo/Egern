@@ -4,7 +4,7 @@
 #!icon=https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/App/Goofish.png
 #!openUrl=https://apps.apple.com/app/id510909506
 #!homepage=https://github.com/sooyaaabo/Egern
-#!date=2026-02-23 20:00
+#!date=2026-03-14 09:00
 
 [Rule]
 DOMAIN-SUFFIX,iyes.youku.com,REJECT
@@ -26,6 +26,7 @@ http-response-jq ^https:\/\/acs\.m\.goofish\.com\/gw\/mtop\.taobao\.idle\.group\
 http-response-jq ^https:\/\/acs\.m\.goofish\.com\/gw\/mtop\.taobao\.idle\.playboy\.recommend\/ '.data.recommends = [] | .data.items = [] | .data.next = false'
 http-response-jq ^https:\/\/acs\.m\.goofish\.com\/gw\/mtop\.taobao\.idle\.circle\.myself\.banner\/ '.data.bannerList = []'
 http-response-jq ^https:\/\/acs\.m\.goofish\.com\/gw\/mtop\.taobao\.idle\.circle\.visited\/ '.data.visitedCircleList = []'
+http-response-jq ^https:\/\/acs\.m\.goofish\.com\/gw\/mtop\.taobao\.idle\.trade\.order\.render\/ 'del(.data.bottomBarVO.benefitPointAtmosphere) | .data.components |= map(select(.render != "meanTimeBuyVO"))'
 
 [Map Local]
 # 开屏广告
@@ -38,6 +39,9 @@ http-response-jq ^https:\/\/acs\.m\.goofish\.com\/gw\/mtop\.taobao\.idle\.circle
 
 # 同城 - 顶部横幅、菜单按钮
 ^https:\/\/acs\.m\.goofish\.com\/gw\/mtop\.taobao\.idle\.local\.home\.top\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+# 商品详情页 - 顶部搜索框提示词
+^https:\/\/acs\.m\.goofish\.com\/gw\/mtop\.taobao\.idlemtopsearch\.detailpage\.search\.shade\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 # 订单详情页 - 商品横幅推荐
 ^https:\/\/acs\.m\.goofish\.com\/gw\/mtop\.idle\.trade\.item\.recommend\.render\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"

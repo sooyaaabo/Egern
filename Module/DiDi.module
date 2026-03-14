@@ -3,7 +3,7 @@
 #!author=kelv1n1n[https://github.com/kelv1n1n], ZenmoFeiShi[https://github.com/ZenmoFeiShi], 可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
 #!icon=https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/App/DiDi.png
 #!openUrl=https://apps.apple.com/app/id554499054
-#!date=2026-02-20 22:00
+#!date=2026-03-14 09:00
 
 [Rule]
 # 拦截广告下发
@@ -79,6 +79,9 @@ http-response-jq ^https:\/\/api\.udache\.com\/gulfstream\/passenger-center\/v2\/
 
 # 订单详情页 - 底部推广调研反馈
 ^https:\/\/res\.xiaojukeji\.com\/resapi\/activity\/getInsActivityV2 data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+# 订单页面 - 右上角地址分享图标
+^https:\/\/api\.udache\.com\/gulfstream\/pandora\/v1\/invitation\/shareAddress\/pGetShareAddressPage data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 ^https:\/\/poi\.map\.xiaojukeji\.com\/mapapi\/recommend\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
