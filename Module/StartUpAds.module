@@ -3,7 +3,7 @@
 #!author=ddgksf2013[https://github.com/ddgksf2013]
 #!icon=https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/Other/AdReject.png
 #!homepage=https://github.com/sooyaaabo/Egern
-#!date=2026-03-14 21:00
+#!date=2026-03-18 23:00
 
 [Rule]
 # DiDaChuXing
@@ -53,7 +53,7 @@ http-response-jq ^https?:\/\/api\.qeeniao\.com\/nap\/ad '.data={}'
 
 [Map Local]
 # Version
-^https?:\/\/2026.03.14/c407/v2.0.636 data-type=text data=" " status-code=200
+^https?:\/\/2026.03.18/c407/v2.0.637 data-type=text data=" " status-code=200
 
 # 58 TongCheng
 ^https?:\/\/app\.58\.com\/api\/home\/(advertising|appadv) data-type=text data=" " status-code=200
@@ -412,7 +412,7 @@ http-response-jq ^https?:\/\/api\.qeeniao\.com\/nap\/ad '.data={}'
 ^https?:\/\/data\.hgold\.cn\/ky\/.*\/ad\.php data-type=text data=" " status-code=200
 
 # AiSiZhuShou
-^https?:\/\/list-app-m\.i4\.cn\/getopfstadinfo\.xhtml data-type=text data=" " status-code=200
+^https?:\/\/list-app-m\.i4\.cn.*adinfo\.xhtml data-type=text data=" " status-code=200
 
 # iGPSPORT
 ^https?:\/\/prod\.zh\.igpsport\.com\/.+\/GetStartAd data-type=text data=" " status-code=200
