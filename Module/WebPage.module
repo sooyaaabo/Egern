@@ -3,7 +3,7 @@
 #!author=RuCu6[https://github.com/RuCu6], limbopro[https://github.com/limbopro], ddgksf2013[https://github.com/ddgksf2013], ZenmoFeiShi[https://github.com/ZenmoFeiShi], kokoryh[https://github.com/kokoryh]
 #!icon=https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/App/Alook.png
 #!homepage=https://github.com/sooyaaabo/Egern
-#!date=2025-12-29 16:30
+#!date=2026-04-15 00:00
 
 [Rule]
 # MissAV
@@ -35,11 +35,6 @@ DOMAIN-SUFFIX,mnaspm.com,REJECT
 
 # E-Hentai
 [WebPage]E-Hentai = type=http-response, pattern=^https:\/\/e-hentai\.org\/g\/, script-path=https://raw.githubusercontent.com/kokoryh/Sparkle/master/dist/webpage.ehentai.js, requires-body=true
-
-# 黑料网
-[WebPage]黑料不打烊 = type=http-response, pattern=^https:\/\/18hlw\.com\/?$, script-path=https://raw.githubusercontent.com/ZenmoFeiShi/Qx/main/18hlw.js, requires-body=true
-
-[WebPage]黑料不打烊 = type=http-response, pattern=^https:\/\/18hlw\.com\/archives\/\d+\.html, script-path=https://raw.githubusercontent.com/ZenmoFeiShi/Qx/main/18hlw.js, requires-body=true
 
 ## 百度防跳转
 [WebPage]百度防跳转 = type=http-request, pattern=^https:\/\/boxer\.baidu\.com\/scheme\?scheme, script-path=https://loon.103516.xyz/Script/Baidu/BaiduNoRedirect.js
@@ -108,4 +103,4 @@ DOMAIN-SUFFIX,mnaspm.com,REJECT
 [WebPage]Libvio = type=http-response, pattern=^https?:\/\/.*libvio.*me\/($|[0-9a-zA-Z=_/-]+\.html$), script-path=https://raw.githubusercontent.com/ddgksf2013/Scripts/master/libvio.js, requires-body=true
 
 [MITM]
-hostname = %APPEND% e-hentai.org, exhentai.org, hanime1.me, missav.ai, missav.ws, 18hlw.com, boxer.baidu.com, m.baidu.com, www.baidu.com, zhidao.baidu.com, *.google.cn, asserts.avple.tv, javdb.com, 2023.redircdn.com, *.pornhub.com, www.zxzjhd.com, m.nivod4.tv, *.freeok.*, *netflix*, *bdys*, *cupfox*, *cokemv*, *pornhub.com, *lezhutv*, *bimi*, 18comic.org, *5y*, *gimy*, *tkznp*, *czzy*, *ikandy*, *libvio*
+hostname = %APPEND% e-hentai.org, exhentai.org, hanime1.me, missav.ai, missav.ws, boxer.baidu.com, m.baidu.com, www.baidu.com, zhidao.baidu.com, *.google.cn, asserts.avple.tv, javdb.com, 2023.redircdn.com, *.pornhub.com, www.zxzjhd.com, m.nivod4.tv, *.freeok.*, *netflix*, *bdys*, *cupfox*, *cokemv*, *pornhub.com, *lezhutv*, *bimi*, 18comic.org, *5y*, *gimy*, *tkznp*, *czzy*, *ikandy*, *libvio*
