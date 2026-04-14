@@ -4,7 +4,7 @@
 #!icon=https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/App/Zhidemai.png
 #!openUrl=https://apps.apple.com/app/id518213356
 #!homepage=https://github.com/sooyaaabo/Egern
-#!date=2025-12-29 16:30
+#!date=2026-04-14 23:00
 
 [Rule]
 # 广告下发
@@ -42,9 +42,23 @@ http-response-jq ^https:\/\/haojia-api\.smzdm\.com\/detail\/\d+\? 'delpaths([["d
 http-response-jq ^https:\/\/haojia-cdn\.smzdm\.com\/preload\/\d+\/fiphone\/v\d+_\d+_\d+\/wx\d+\/im\d+\/[0-9a-z]+\/[0-9a-z]+\.json$ 'delpaths([["data","quan_log"]])'
 http-response-jq ^https:\/\/post\.m\.smzdm\.com\/ajax_app\/ajax_get_footer_list\? 'delpaths([["data","tuiguang_ad"]])'
 http-response-jq ^https:\/\/post\.m\.smzdm\.com\/ajax_app\/ajax_get_footer_list\? 'delpaths([["data","activity_banner"]])'
+http-response-jq # ^https:\/\/haojia-api\.smzdm\.com\/home\/list 'del(.data.banner_v2, .data.widget) | if .data.rows then .data.rows |= map(select(has("ad_banner_id") | not) | select(.ad != "ad_campaign_id_" and .ad != "ad_campaign_name" and .ad != "abs_position")) else . end'
+http-response-jq # ^https:\/\/app-api\.smzdm\.com\/util\/update 'del(.data.ad_black_list, .data.operation_float, .data.haojia_widget)'
+http-response-jq # ^https:\/\/homepage-api\.smzdm\.com\/v3\/home 'def clean: if type == "array" then map(clean) | map(select(. != null)) elif type == "object" then if .cell_type == "23008" or .cell_type == "23005" or .cell_type == "23024" then null else with_entries(.value |= clean) end else . end; .data |= clean | .data.functions |= map(select(.type == "message")) | .data.component |= map(select(.zz_type == "circular_banner" or .zz_type == "fixed_banner" or .zz_type == "filter" or .zz_type == "list")) | del(.data.widget, .data.operation_float_screen)'
+http-response-jq # ^https:\/\/s-api\.smzdm\.com\/sou\/list_v10 'if .data.rows then .data.rows |= map(select(.model_type != "ads" and .article_tag != "广告" and .tag != "广告" and .left_tag != "广告" and .expose_sct != "广告" and .promotion_type != 3)) else . end'
+http-response-jq # ^https:\/\/user-api\.smzdm\.com\/vip 'del(.data.big_banner, .data.top_banner, .data.yaoqingshaiwu)'
+http-response-jq # ^https:\/\/user-api\.smzdm\.com\/vip\/bottom_card_list 'del(.data.rows)'
+http-response-jq # ^https:\/\/article-api\.smzdm\.com\/publish\/get_bubble '.data = null'
+http-response-jq ^https:\/\/qianbao\.smzdm\.com\/v\d\/app\/home '.data |= map(select(.id == "40" or .id == "20"))'
+http-response-jq # ^https:\/\/haojia\.m\.smzdm\.com\/detail_modul\/user_related_modul 'del(.data.super_coupon)'
+http-response-jq # ^https:\/\/post\.m\.smzdm\.com\/ajax_app\/ajax_get_footer_list 'if .data.activity_banner.hot_widget then .data.activity_banner.hot_widget |= map(del(.pic_url)) else . end'
 
 [Map Local]
-# 开屏广告
+# 广告拦截
+^https:\/\/haojia\.m\.smzdm\.com\/detail_modul\/wiki_related_modul\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/s3\.zdmimg\.com\/third\/index\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
 ^https:\/\/app-api\.smzdm\.com\/util\/loading\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 # 首页 - 顶部频道
@@ -63,4 +77,5 @@ http-response-jq ^https:\/\/post\.m\.smzdm\.com\/ajax_app\/ajax_get_footer_list\
 ^https:\/\/s-api\.smzdm\.com\/sou\/popup_coupon\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 [MITM]
-hostname = %APPEND% app-api.smzdm.com, homepage-api.smzdm.com, h5.smzdm.com, haojia-api.smzdm.com, haojia.m.smzdm.com, user-api.smzdm.com, article-api.smzdm.com, s-api.smzdm.com, haojia-cdn.smzdm.com, post.m.smzdm.com
+hostname = %APPEND% app-api.smzdm.com, homepage-api.smzdm.com, h5.smzdm.com, haojia-api.smzdm.com, haojia.m.smzdm.com, user-api.smzdm.com, article-api.smzdm.com, s-api.smzdm.com, haojia-cdn.smzdm.com, post.m.smzdm.com, qianbao.smzdm.com, s3.zdmimg.com
+

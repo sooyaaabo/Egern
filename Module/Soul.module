@@ -4,7 +4,7 @@
 #!icon=https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/App/Soul.png
 #!openUrl=https://apps.apple.com/app/id1032287195
 #!homepage=https://github.com/sooyaaabo/Egern
-#!date=2025-12-29 16:30
+#!date=2026-04-14 23:00
 #!arguments=planetPage:true,soulMatch:true,voiceMatch:true,partyMatch:true,masked:true,maskedMatch:true,planet:true,hot:true,all:true,emotion:true,personal:true,play:true,interest:true,argue:true,story:true,chat:true,heart:true,picRead:true,chatPri:true,guess:true,vist:true
 
 [Rule]
@@ -48,6 +48,15 @@ IP-CIDR,121.196.197.147/32,REJECT,no-resolve
 # 私聊快捷菜单
 ^https:\/\/api-chat\.soulapp\.cn\/chat\/quick\/menu - reject
 
+[Body Rewrite]
+http-response-jq ^https:\/\/api-a\.soulapp\.cn\/v2\/post\/gift\/list '.data = null'
+http-response-jq ^https:\/\/post\.soulapp\.cn\/hot\/soul\/rank '.data = null'
+http-response-jq ^https:\/\/gateway-mobile-gray\.soulapp\.cn\/mobile\/app\/version\/queryIos '.data = null'
+http-response-jq # ^https:\/\/api-chat\.soulapp\.cn\/chat\/limitInfo '.data.limit = false'
+http-response-jq # ^https:\/\/chat-live\.soulapp\.cn\/chatroom\/chatClassifyRoomList '.data.roomList = []'
+http-response-jq # ^https:\/\/api-user\.soulapp\.cn\/v6\/planet\/config '.data.gameInfo.gameCards |= map(select(.title != "异世界回响" and .title != "狼人魅影" and .title != "梦想海岛王" and .title != "幻想星球" and .title != "爆弹喵" and .title != "星球实验室" and .title != "兴趣群组" and .title != "群聊派对")) | .data.coreCards |= map(select(.title != "异世界回响" and .title != "狼人魅影" and .title != "梦想海岛王" and .title != "幻想星球" and .title != "爆弹喵" and .title != "星球实验室" and .title != "兴趣群组" and .title != "群聊派对") | if .secondCards then .secondCards |= map(select(.title != "异世界回响" and .title != "狼人魅影" and .title != "梦想海岛王" and .title != "幻想星球" and .title != "爆弹喵" and .title != "星球实验室" and .title != "兴趣群组" and .title != "群聊派对")) else . end | if .style == 2 then .style = 1 else . end)'
+http-response-jq ^https:\/\/post\.soulapp\.cn\/v2\/post\/recSquare\/subTabs '.data |= map(select(.tabType == 7 or .tabType == 6 or .tabType == 2))'
+
 [Map Local]
 # 广告下发
 ^https:\/\/ssp\.soulapp\.cn\/api\/q data-type=text data="{}" status-code=200 header="Content-Type:application/json"
@@ -87,6 +96,11 @@ IP-CIDR,121.196.197.147/32,REJECT,no-resolve
 # 主页ai描述推荐
 ^https:\/\/api-user\.soulapp\.cn\/user\/desc\/getUserPersonalDesc data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
+# 聊天菜单
+^https:\/\/api-chat\.soulapp\.cn\/chat\/attach\/menu data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/chat-live\.soulapp\.cn\/live\/planet\/recListV2 data-type=text data=" " status-code=200
+
 [Script]
 [Soul]派对猜你喜欢 = type=http-response, pattern=^https:\/\/chat-live\.soulapp\.cn\/square\/relation\/guideUserList, script-path=https://klraw.pages.dev/kelv1n1n/script/main/js/soul.js?token=209863, requires-body=true
 
@@ -105,4 +119,4 @@ IP-CIDR,121.196.197.147/32,REJECT,no-resolve
 [Soul]私聊阅后即焚 = type=http-response, pattern=^https:\/\/api-chat\.soulapp\.cn\/snapchat\/url, script-path=https://klraw.pages.dev/kelv1n1n/script/main/js/soul.js?token=209863, requires-body=true
 
 [MITM]
-hostname = %APPEND% ssp.soulapp.cn, increase-openapi.soulapp.cn, data-collector.soulapp.cn, post.soulapp.cn, api-account.soulapp.cn, api-a.soulapp.cn, gateway-mobile-gray.soulapp.cn, api-user.soulapp.cn, chat-live.soulapp.cn, api-chat.soulapp.cn, 47.98.137.249, 47.110.187.87
+hostname = %APPEND% api-account.soulapp.cn, chat-live.soulapp.cn, api-a.soulapp.cn, api-pay.soulapp.cn, gateway-mobile-gray.soulapp.cn, api-chat.soulapp.cn, 120.55.55.115, 120.55.62.124, 121.196.203.183, 47.96.20.45, 47.98.54.106, 118.31.112.221, 8.210.3.170, 47.75.72.47, post.soulapp.cn, api-user.soulapp.cn, ssp.soulapp.cn, 47.110.187.87, increase-openapi.soulapp.cn, data-collector.soulapp.cn, 47.98.137.249
