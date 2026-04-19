@@ -4,7 +4,7 @@
 #!icon=https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/App/Railway12306.png
 #!openUrl=https://apps.apple.com/app/id564818797
 #!homepage=https://github.com/sooyaaabo/Egern
-#!date=2026-03-14 09:00
+#!date=2026-04-17 12:00
 
 [Rule]
 # 放行规则
@@ -16,7 +16,7 @@ http-response-jq ^https:\/\/ad\.12306\.cn\/ad\/ser\/getAdList$ 'delpaths([["adve
 
 [Script]
 # 移除12306应用内广告
-[铁路12306]移除应用内广告 = type=http-response, pattern=^https:\/\/mobile\.12306\.cn\/otsmobile\/app\/mgs\/mgw\.htm$, script-path=https://kelee.one/Resource/JavaScript/12306/12306_remove_ads.js
+[铁路12306]移除应用内广告 = type=http-request, pattern=^https:\/\/mobile\.12306\.cn\/otsmobile\/app\/mgs\/mgw\.htm$, script-path=https://kelee.one/Resource/JavaScript/12306/12306_remove_ads.js
 
 [MITM]
 hostname = %APPEND% ad.12306.cn, mobile.12306.cn
