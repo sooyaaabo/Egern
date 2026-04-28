@@ -1,10 +1,10 @@
 #!name=Keep
 #!desc=过滤Keep广告
-#!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md], ZenmoFeiShi[https://github.com/ZenmoFeiShi]
+#!author=可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md], ZenmoFeiShi[https://github.com/ZenmoFeiShi], kelv1n1n[https://github.com/kelv1n1n]
 #!icon=https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/App/Keep.png
 #!openUrl=https://apps.apple.com/app/id952694580
 #!homepage=https://github.com/sooyaaabo/Egern
-#!date=2026-04-14 23:00
+#!date=2026-04-28 16:00
 
 [Rule]
 # 信息流广告
@@ -57,14 +57,13 @@ http-response-jq ^https:\/\/api\.gotokeep\.com\/op-engine-webapp\/v\d\/configs$ 
 http-response-jq ^https:\/\/api\.gotokeep\.com\/op-engine-webapp\/v\d\/configs$ 'delpaths([["data","closeConfirmButtonText"]])'
 http-response-jq ^https:\/\/api\.gotokeep\.com\/twins\/union\/feed\/union_feed_all$ '.data.modules |= map(select(.code == "unionFeedEntry"))'
 http-response-jq ^https:\/\/api\.gotokeep\.com\/twins\/v\d\/feed\/entryDetail\? 'if (getpath([]) | has("data")) then (setpath(["data"]; {})) else . end'
-http-response-jq ^https:\/\/api\.gotokeep\.com\/config\/v\d\/basic\? '.data.bottomBarControl.tabs |= map(select(.tabType | . == "home" or . == "schedule" or . == "dynamic_sports" or . == "personal")) | .data.homeTabs |= map(select(.type | . == "socialTab" or . == "union_feed_all" or . == "homeRecommend" or . == "suitTab" or . == "union_feed_route"))'
+http-response-jq ^https:\/\/api\.gotokeep\.com\/config\/v\d\/basic\? '.data.bottomBarControl.defaultTab = "dynamic_sports" | .data.discoverPageConfigs.toolsBar = [] | .data.bottomBarControl.tabs |= map(select(.tabType == "schedule" or .tabType == "dynamic_sports" or .tabType == "discover" or .tabType == "personal")) | .data.discoverPageConfigs.discoverTabs |= map(select(.type == "socialTab" or .type == "union_feed_all" or .type == "union_feed_feed_activity" or .type == "union_feed_marathon_icon" or .type == "product") | .default = (.type == "union_feed_all") | if has("showAd") then .showAd = false else . end)'
 http-response-jq ^https:\/\/api\.gotokeep\.com\/pencil-webapp\/play\/v\d\/games\? '.data.games[].microGames[] |= if .leftIcon? and .leftIcon.type == "aiMode" then del(.leftIcon) else . end'
-http-response-jq ^https:\/\/api\.gotokeep\.com\/athena\/v\d\/people\/my 'del(.data.memberInfo) | .data.groupTags |= map(select(.tags | all(.name != "订单与钱包" and .name != "我的团队" and .name != "帮助中心")))'
-http-response-jq ^https:\/\/api\.gotokeep\.com\/config\/v\d\/basic '.data.coursePageConfigs.courseTabs |= map(select(.name != "直播" and .name != "会员")) | .data.bottomBarControl.tabs |= map(select(.name != "商城" and .name != "课程" and .name != "今日"))'
+http-response-jq ^https:\/\/api\.gotokeep\.com\/twins\/v\d\/social\/tab\/friends '.data.modules |= map(select(.positions | type == "object" and (has("recommendReason") | not) and (has("recommendUsers") | not)))'
 
 [Map Local]
 # 开屏广告
-^https:\/\/api\.gotokeep\.com\/op-engine-webapp\/v\d\/ad\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+^https:\/\/(api|kad)\.gotokeep\.com\/op-engine-webapp\/v\d\/ad\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 # 搜索填充词
 ^https:\/\/api\.gotokeep\.com\/search\/v\d\/default\/keyword\/list\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
@@ -76,6 +75,8 @@ http-response-jq ^https:\/\/api\.gotokeep\.com\/config\/v\d\/basic '.data.course
 
 # 弹窗
 ^https:\/\/api\.gotokeep\.com\/guide-webapp\/v\d\/popup\/getPopUp\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+^https:\/\/api\.gotokeep\.com\/anno\/v1\/upgrade\/check$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 # 搜索 - 榜单
 ^https:\/\/api\.gotokeep\.com\/search\/v\d\/hotCourse\/list$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
@@ -90,4 +91,4 @@ http-response-jq ^https:\/\/api\.gotokeep\.com\/config\/v\d\/basic '.data.course
 ^https:\/\/api\.gotokeep\.com\/messenger\/v\d\/conversations\/unread data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 [MITM]
-hostname = %APPEND% 42.187.199.248, api.gotokeep.com
+hostname = %APPEND% 42.187.199.248, api.gotokeep.com, kad.gotokeep.com
