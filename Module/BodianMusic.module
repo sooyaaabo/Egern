@@ -4,7 +4,7 @@
 #!icon=https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/App/BodianMusic.png
 #!openUrl=https://apps.apple.com/app/id1541981555
 #!homepage=https://github.com/sooyaaabo/Egern
-#!date=2026-01-31 23:00
+#!date=2026-04-01 09:00
 
 [URL Rewrite]
 ^https?:\/\/h5s\.kuwo\.cn\/m\/bd_launch_popup\/index - reject
@@ -57,13 +57,13 @@ http-response-jq ^https:\/\/bd-api\.kuwo\.cn\/api\/voice\/room\/v2\/sidebar '(.d
 # 首页 - 横幅推广
 ^https:\/\/bd-api\.kuwo\.cn\/api\/service\/home\/module\?.*&moduleId=6 data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
+# 播放页 - 听歌赚钱悬浮球
+^https:\/\/bd-api\.kuwo\.cn\/api\/advert\/earning\/app\/config\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
 # 首页 - 低价会员推广文本
 ^https:\/\/bd-api\.kuwo\.cn\/api\/pay\/vip\/lowPriceText\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 ^https:\/\/bd-api\.kuwo\.cn\/api\/service\/global\/config\/vipEnter\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
-
-# 播放页 - 听歌赚钱悬浮球
-^https:\/\/bd-api\.kuwo\.cn\/api\/advert\/earning\/app\/config\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 # 弹窗悬浮广告
 ^https:\/\/bd-api\.kuwo\.cn\/api\/popup\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
