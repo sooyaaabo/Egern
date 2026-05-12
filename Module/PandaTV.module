@@ -4,15 +4,16 @@
 #!icon=https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/App/PandaTV-02.png
 #!openUrl=https://5721004.xyz/player/pandatv.html
 #!homepage=https://github.com/sooyaaabo/Egern
-#!date=2026-02-14 23:00
+#!date=2026-05-04 16:00
 
 [Rule]
-DOMAIN,www.pandalive.co.kr,DIRECT
-DOMAIN-SUFFIX,5721004.xyz,DIRECT
-DOMAIN-KEYWORD,live-video.net,DIRECT
+DOMAIN-SUFFIX,pandalive.co.kr,PROXY
+DOMAIN-SUFFIX,5721004.xyz,PROXY
+DOMAIN-SUFFIX,live-video.net,PROXY
+DOMAIN-KEYWORD,live-video.net,PROXY
 
 [Header Rewrite]
-http-request ^https?:\/\/.*\.live-video\.net header-replace 'Origin' 'https://www.pandalive.co.kr'
+http-request ^https?:\/\/[^\/:?#]*\.live-video\.net[^\/:?#]*(?=[:\/?#]|$) header-replace 'Origin' 'https://www.pandalive.co.kr'
 
 [MITM]
 hostname = %APPEND% live-video.net, *.live-video.net
