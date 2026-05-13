@@ -3,7 +3,7 @@
 #!author=fmz200[https://github.com/fmz200], zirawell[https://github.com/zirawell]
 #!icon=https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/Other/ShieldReject.png
 #!homepage=https://github.com/sooyaaabo/Egern
-#!date=2026-04-26 12:00
+#!date=2026-05-13 16:00
 #!arguments=555dy_script:true,51xyk_script:true,51job_script:true,alibaba_script:true,blued_script:true,baidumap_script:true,baiduinput_script:true,boohee_script:true,bilibilimanga_script:true,caixin_script:true,donghuafeng_script:true,dianping_script:true,feikechaguan_script:true,umetrip_script:true,freshippo_script:true,huifutianxia_script:true,ccblife_script:true,jingxi_script:true,kuaishou_script:true,quark_script:true,adnetwork_script:true,lvtusuishenting_script:true,lawson_script:true,maidanba_script:true,maimai_script:true,mafengwo_script:true,meiyou_script:true,miguvideo_script:true,pupu_script:true,quda_script:true,reddit_script:true,qmai_script:true,renrentv_script:true,sodalife_script:true,qqnews_script:true,tuhu_script:true,vgtime_script:true,youdao_script:true,winnipeg_script:true,mishop_script:true,xiaotucc_script:true,xiangjiao_script:true,xiaomang_script:true,usmile_script:true,youxi_script:true,zhaoshangzhengquan_script:true,zhangshanggongjiao_script:true,zhuanzhuan_script:true,picc_script:true,airchina_script:true
 
 [Rule]
@@ -2417,10 +2417,8 @@ https?:\/\/api\.taptapdada\.com\/startup\-logo\/v1\/combo\? data-type=text data=
 # 动画疯 - api.gamer.com.tw, api.gamer.com.tw
 [广告拦截合集]动画疯 = type=http-response, pattern=^https?:\/\/api\.gamer\.com\.tw\/mobile_app\/anime\/v\d/(token|m3u8).php\?, script-path=https://raw.githubusercontent.com/NobyDa/Script/master/Bahamut/BahamutAnimeAds.js, requires-body=true
 
-# 大众点评 - img.meituan.net, ddplus.meituan.net
-[广告拦截合集]大众点评 = type=http-response, pattern=^https?:\/\/img\.meituan\.net\/(?>dpmobile|goodsawardpic)\/, script-path=https://raw.githubusercontent.com/zirawell/R-Store/main/Res/Scripts/AntiAd/dianping.js, requires-body=true
-
-[广告拦截合集]大众点评 = type=http-response, pattern=^https?:\/\/ddplus\.meituan\.net\/v\d\/mss_\w+\/picassovc, script-path=https://raw.githubusercontent.com/zirawell/R-Store/main/Res/Scripts/AntiAd/dianping.js, requires-body=true
+# 大众点评 - img.meituan.net
+[广告拦截合集]大众点评 = type=http-response, pattern=^https?:\/\/img\.meituan\.net\/(?>dpmobile|goodsawardpic)\/, script-path=https://raw.githubusercontent.com/zirawell/R-Store/main/Res/Scripts/AntiAd/dianping.js, requires-body=true, timeout=60
 
 # Flightradar24 - mobile.flightradar24.com
 # [广告拦截合集]Flightradar24 = type=http-response, pattern=^https?:\/\/mobile\.flightradar24\.com\/mobile\/(user-session|subscribe), script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/QuantumultX/scripts/Flightradar24.js, requires-body=true
