@@ -3,7 +3,7 @@
 #!author=kelv1n1n[https://github.com/kelv1n1n], ZenmoFeiShi[https://github.com/ZenmoFeiShi], 可莉🅥[https://github.com/luestr/ProxyResource/blob/main/README.md]
 #!icon=https://raw.githubusercontent.com/sooyaaabo/IconLibrary/main/App/DiDi.png
 #!openUrl=https://apps.apple.com/app/id554499054
-#!date=2026-05-11 09:00
+#!date=2026-05-14 16:00
 
 [Rule]
 # 拦截广告下发
@@ -62,7 +62,6 @@ http-response-jq ^https:\/\/htwkop\.xiaojukeji\.com:443\/gateway\? 'delpaths([["
 http-response-jq ^https:\/\/htwkop\.xiaojukeji\.com:443\/gateway\? 'delpaths([["data","variantInfo"]])'
 http-response-jq ^https:\/\/common\.diditaxi\.com\.cn\/common\/v\d\/usercenter\/me '.data.cards |= (map(select(.title != "天天领福利" and .title != "金融服务" and .title != "更多服务" and .title != "企业服务" and .title != "安全中心")) | map(if .tag == "wallet" then (.items |= map(select(.title == "优惠券"))) | (if .card_type == 4 then .bottom_items |= map(select(.title == "省钱套餐" or .title == "出行里程")) else . end) else . end))'
 http-response-jq ^https:\/\/api\.udache\.com\/gulfstream\/pre-sale\/v1\/other\/pGetSceneList '.data.scene_list |= map(select(.text != "优惠商城")) | .data.show_data |= map(.scene_ids |= map(select(. != "scene_coupon_mall")))'
-http-response-jq ^https:\/\/conf\.diditaxi\.com\.cn\/ota\/na\/yuantu\/infoList 'if .data.disorder_cards.top_banner_card.data[0].T == "yuentu_top_banner" then .data.disorder_cards.top_banner_card.data |= .[1:] else . end'
 http-response-jq ^https:\/\/conf\.diditaxi\.com\.cn\/homepage\/v1\/oversea\/layout 'del(.data.instances.oversea_main_banner)'
 http-response-jq ^https:\/\/mapi\.xiaojukeji\.com\/passenger-wallet\/api\/v[\d.]+\/wallet\/homepage '.data.cardList |= (map(if .mcode == "index_assets_v6" then .detailData |= (del(.myCreditLimit) | .discountList |= .[:3] | del(.noticeList)) else . end) | map(select(.mcode == "index_assets_v6")))'
 http-response-jq ^https:\/\/manhattan\.webapp\.xiaojukeji\.com\/zootopia\/api\/my-assets\/get-assets-data 'del(.data.myQuotaModularRes, .data.assetsData.myQuotaModularRes, .data.banner, .data.assetsData.banner, .data.myGuaranteeModularRes, .data.assetsData.myGuaranteeModularRes)'
@@ -92,6 +91,9 @@ http-response-jq ^https:\/\/ddpay\.xiaojukeji\.com\/ddpay\/api\/manhattan-small-
 
 # 订单详情页 - 底部推广调研反馈
 ^https:\/\/res\.xiaojukeji\.com\/resapi\/activity\/getInsActivityV2 data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+# 顶部横幅 - 移除元图广告
+^https:\/\/conf\.diditaxi\.com\.cn\/ota\/na\/yuantu\/infoList data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
 # 订单页面 - 右上角地址分享图标
 ^https:\/\/api\.udache\.com\/gulfstream\/pandora\/v1\/invitation\/shareAddress\/pGetShareAddressPage data-type=text data="{}" status-code=200 header="Content-Type:application/json"
